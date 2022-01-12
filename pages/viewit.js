@@ -1,4 +1,4 @@
-import {excuteQuery} from "../lib/db";
+import excuteQuery from "../lib/db";
 
 export default function Product(props) {
   const {product} =props;

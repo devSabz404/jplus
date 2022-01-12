@@ -16,9 +16,9 @@ const Layout = (props) => (
   
     
    
-    {/* <div className="">
+    {/* <div classNameName="">
 
-    <div className="container justify-content-center">
+    <div classNameName="container justify-content-center">
       {props.children}
     </div>
 
