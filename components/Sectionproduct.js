@@ -1,7 +1,7 @@
 import {excuteQuery} from "../lib/db";
 
-export default function Product(props) {
-  const {product} =props;
+export default function Product({product}) {
+
   console.log(product);
   if (!product) return <p>Something went wrong....</p>
   return <div> 

@@ -1,5 +1,6 @@
 import excuteQuery from "../lib/db";
 import Layout from '../components/Layout';
+
 export default function Blog(props) {
   const { product } = props;
   console.log(product);
@@ -71,18 +72,3 @@ export async function getStaticProps(context) {
   }
 }
 
-//     try {
-//         const result = await sql_query(`
-//           SELECT * FROM posts
-//           ORDER BY title DESC
-//           LIMIT 10
-//       `);
-
-//
-//         return {
-//             props: {posts} // will be passed to our blog page component as props
-//             };
-//       } catch (e) {
-//         return {props: {posts:false}}
-//       }
-//   }
