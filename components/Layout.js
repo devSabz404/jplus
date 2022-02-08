@@ -1,31 +1,29 @@
-import Head from 'next/head';
-import Navbar from './Navbar';
-//import Product from './Sectionproduct';
-import SideBar from './SideBar';
+import * as React from 'react';
+import { styled } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
 
+const Item = styled(Paper)(({ theme }) => ({
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: theme.palette.text.secondary,
+  height:'100%',
+}));
 
-const Layout = (props) => (
-  <div>
-    <Head>
-      <title>Dasboard</title>
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossOrigin="anonymous"/>
-    </Head>
-    <Navbar/>
-    <SideBar/>
-    
-  
-    
-   
-    {/* <div classNameName="">
-
-    <div classNameName="container justify-content-center">
-      {props.children}
-    </div>
-
-
-    </div> */}
-    
-  </div>
-);
-
-export default Layout;
+export default function Layout() {
+  return (
+    <Box sx={{ flexGrow: 1 }}>
+      <Grid container spacing={2}>
+        
+        <Grid item xs={3} >
+          <Item style={{height:'100%'}}>xs=4</Item>
+        </Grid>
+        <Grid item xs={8}>
+          <Item>xs=8</Item>
+        </Grid>
+      </Grid>
+    </Box>
+  );
+}

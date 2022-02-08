@@ -1,8 +1,4 @@
-import { NextApiHandler } from 'next'
-import Filter from 'bad-words'
 import excuteQuery from '../../lib/db'
-
-// const filter = new Filter()
 
 const handler = async (req, res) => {
   const { product,productCode,category,vehicleClass,underwriter,coverage,description,clauses,waranty,benefits,

@@ -1,38 +1,130 @@
-export default function Navbar(){
+import { makeStyles} from "@mui/styles";
+import {AppBar,Toolbar,Typography,alpha} from "@mui/material";
+import Badge from '@mui/material/Badge';
+import MailIcon from '@mui/icons-material/Mail';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import Link from 'next/link';
+import lightTheme from "../styles/theme/lightTheme";
+import { useState } from "react";
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import Router from "next/router";
 
-    return(
 
+const useStyles = makeStyles((props)=>({
+  toolbar:{
+    backgroundColor: "#012f62",
+    display:"flex",
+    justifyContent:"space-between"
+  },
+  search:{
+    display:"flex",
+    alignItems:"center",
+    backgroundColor: alpha(lightTheme.palette.common.white, 0.15),
+    "&:hover": {
+      backgroundColor: alpha(lightTheme.palette.common.white, 0.25),},
+    borderRadius:lightTheme.shape.borderRadius,
+    width:"50%",
+    [lightTheme.breakpoints.down('sm')]:{
+      display:(props)=>(props.open ? "flex":"none"),
+      width: "70%"
+    }
 
-  <nav className="navbar navbar-expand-lg navbar-dark bg-dark" aria-label="Tenth navbar example">
-  <div className="container-fluid">
-    <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample08" aria-controls="navbarsExample08" aria-expanded="false" aria-label="Toggle navigation">
-      <span className="navbar-toggler-icon"></span>
-    </button>
+  },
+  logoLg:{
+    display:"none",
+    [lightTheme.breakpoints.up('sm')]:{
+      display:"block",
+    }
+  },
+  logoSm:{
+    display:"block",
+    [lightTheme.breakpoints.up('sm')]:{
+      display:"none",
+    }
+  },
 
-    <div className="collapse navbar-collapse justify-content-md-center" id="navbarsExample08">
-      <ul className="navbar-nav">
-        <li className="nav-item">
-          <a className="nav-link active" aria-current="page" href="#">Centered nav only</a>
-        </li>
-        <li className="nav-item">
-          <a className="nav-link" href="#">Link</a>
-        </li>
-        <li className="nav-item">
-          <a className="nav-link disabled" href="#" tabIndex="-1" aria-disabled="true">Disabled</a>
-        </li>
-        <li className="nav-item dropdown">
-          <a className="nav-link dropdown-toggle" href="#" id="dropdown08" data-bs-toggle="dropdown" aria-expanded="false">Dropdown</a>
-          <ul className="dropdown-menu" aria-labelledby="dropdown08">
-            <li><a className="dropdown-item" href="#">Action</a></li>
-            <li><a className="dropdown-item" href="#">Another action</a></li>
-            <li><a className="dropdown-item" href="#">Something else here</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
+  input:{
+    color:"white",
+    marginLeft:lightTheme.spacing(2),
+    
+  },
+  icons:{
+    alignItems: "center",
+    display: (props) => (props.open ? "none" : "flex"),
+  },
+  badge:{
+    marginRight:lightTheme.spacing(2)
+  },
+  
+  searchButton: {
+    marginRight: lightTheme.spacing(2),
+    [lightTheme.breakpoints.up("sm")]: {
+      display: "none",
+    },
+  },
 
+  cancel:{
+    [lightTheme.breakpoints.up('sm')]:{
+      display:"none",
+  },
+    [lightTheme.breakpoints.down('sm')]:{
+      display:(props)=>(props.open ? "flex":"none"),
+  }
+}
+  
+}));
+
+export default function Navbar() {
+
+  const handleLogOut = async () => {
+    
+    const res = await axios.get("../pages/api/auth/logout");
+
+    if (res.ok){
+      console.log('Wrong')
+      }
+    
+      Router.push('../pages/login')
  
-    )
+  };
+
+  const [open,setOpen]=useState(false)
+  const classes = useStyles({open})
+  return (
+    <>
+   <div>
+ 
+       <AppBar position="fixed">
+           <Toolbar className={classes.toolbar}>
+             <Typography className={classes.logoLg} variant="h6">Bima Plus</Typography>
+             <Typography className={classes.logoSm} variant="h6">Bima</Typography>
+
+             
+
+           
+
+             <div className={classes.icons}>
+              <Badge badgeContent={4} color="secondary" className={classes.badge} >
+              <MailIcon color="action" />
+              </Badge>
+              <Badge badgeContent={2} color="secondary"  className={classes.badge}>
+                <NotificationsIcon color="action" />
+              </Badge>
+              <Link href='#' onClick={() => handleLogOut()}>
+              <ExitToAppIcon />
+              </Link>
+             
+
+            </div>
+            
+           </Toolbar>
+       </AppBar>
+  
+
+   </div>
+     
+     
+    </>
+   
+  )
 }
