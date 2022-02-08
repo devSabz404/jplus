@@ -43,7 +43,7 @@ export default function SignUp() {
     
         e.preventDefault()
         try {
-          const res = await fetch('/api/createuser', {
+          const res = await fetch('/api/auth/register_service', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -57,7 +57,7 @@ export default function SignUp() {
        
           const json = await res.json()
           if (!res.ok) throw Error(json.message)
-          Router.push('/account/login')
+          Router.push('/login')
         } catch (e) {
           throw Error(e.message)
         }

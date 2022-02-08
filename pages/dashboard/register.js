@@ -8,7 +8,7 @@ import SideBar from '../../components/SideBar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
-import { useSession } from 'next-auth/react';
+
 import Router from "next/router";
 
 
@@ -28,13 +28,9 @@ right:{
 }));
 
 export default function App() {
-    // {session.user.email}
-  const { data: session } = useSession()
-console.log(session)
-const  email =session.user.email;
+    
 
-  const [firstnames,useFirstName] = useState();
-  const [lastnames,useLastName] = useState();
+
   const [companyName,useCompanyName] = useState();
   const [physicaladdress,usePhysicalAddress] = useState();
   const[phonenumber,usePhoneNumber] = useState();
@@ -42,8 +38,7 @@ const  email =session.user.email;
   const [idNumber,useIdNumber] = useState();
   const [iraLicense,useIraLicense] =useState();
   const [referall,useReferall] = useState();
-  const [passwords,usePassword] = useState();
-  const [passwordConfirm,useConfirm] =useState();
+
   
   const classes = useStyles();
 
@@ -59,7 +54,7 @@ const  email =session.user.email;
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-        firstnames,lastnames,email,companyName,physicaladdress,phonenumber,krapin,idNumber,iraLicense,referall,passwords,passwordConfirm
+       companyName,physicaladdress,phonenumber,krapin,idNumber,iraLicense,referall
         }),
       })
       //console.log(res.body)
@@ -87,28 +82,7 @@ const  email =session.user.email;
 
         <Box className ={classes.box} style={{marginLeft:30}} component="form"  onSubmit={submitHandler}  noValidate  sx={{ mt: 3 }}>
             <Grid container spacing={1}>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  
-                  name="firstName"
-                  required
-                  fullWidth
-                  id="firstName"
-                  label="First Name"
-                  autoFocus
-                  onChange={(e)=>useFirstName(e.target.value)}
-                />
-              </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  onChange={(e)=>useLastName(e.target.value)}
-                />
-              </Grid>
+            
 
               <Grid item xs={12} sm={6}>
                 <TextField
@@ -195,30 +169,8 @@ const  email =session.user.email;
                 />
               </Grid>
             
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  onChange={(e)=>usePassword(e.target.value)}
-                
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="passwordconf"
-                  label="Confirm Password"
-                  type="password"
-                  id="password"
-                  onChange={(e)=>useConfirm(e.target.value)}
-                
-                />
-              </Grid>
+           
+          
              
             </Grid>
             <Button
