@@ -14,6 +14,9 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import excuteQuery from '../../lib/db';
 import FormControl from '@mui/material/FormControl';
+import Menu from '@mui/material/Menu';
+
+import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 
 
 const useStyles = makeStyles((theme)=>({
@@ -46,6 +49,7 @@ const motocy = props.motocycle.map((item)=>item);
 const mototri = props.tricycle.map((item)=>item);
 const under = props.underwrit.map((item)=>item);
 const cov = props.covera.map((item)=>item);
+const exclusion = props.exclud.map((item)=>item)
 
 
 
@@ -79,6 +83,7 @@ const [optionalRate,setOptionalRate] = useState('')
 const [unique,setUnique] = useState('')
 const [owner,setOwner] = useState('')
 const [showInput, setShowInput] = useState(false);
+const [showthird, setThird] = useState(false);
 
 
  
@@ -148,6 +153,7 @@ async function submitHandler(e) {
         noValidate
         autoComplete="off"
         >
+          
         <TextField id="outlined-basic" label="Product Code" value={productCode} onChange={(e) => setProductCode(e.target.value)} variant="outlined" />
         <TextField id="outlined-basic" label="Product" value={product} onChange={(e) => setProduct(e.target.value)} variant="outlined" />
         <FormControl>
@@ -157,18 +163,22 @@ async function submitHandler(e) {
           id="demo-simple-select-helper"
          
           label="Vehicle class"
-          value={vehicleClass} onChange={(e) => setVehicleClass(e.target.value)}
+          value={vehicleClass} 
+
+          onChange={(e)=> setVehicleClass(e.target.value)}
+            
+         
          
         >
           
           
-        <MenuItem disabled className={classes.group}>Motorvehicle</MenuItem>
+        <MenuItem disabled className={classes.group}>1.Motorvehicle</MenuItem>
         {motoveh.map((item)=><MenuItem key={item.ID} value={item.class}>{item.class}</MenuItem>)}
 
-        <MenuItem disabled className={classes.group}>Motorcycle</MenuItem>
+        <MenuItem disabled className={classes.group}>2.Motorcycle</MenuItem>
         {motocy.map((item)=><MenuItem key={item.ID} value={item.class}>{item.class}</MenuItem>)}
         
-        <MenuItem disabled className={classes.group}>Tricycle</MenuItem>
+        <MenuItem disabled className={classes.group}>3.Tricycle</MenuItem>
         {mototri.map((item)=><MenuItem key={item.ID} value={item.class}>{item.class}</MenuItem>)}
         
           
@@ -257,12 +267,28 @@ async function submitHandler(e) {
         >
         <TextField id="outlined-basic" label="Maximum tonnage"  value={maxTonnage} onChange={(e) => setMaxTonnage(e.target.value)} disabled={showInput} variant="outlined" />
         <TextField id="outlined-basic" label="Minimum Tonnage " value={minTonnage} onChange={(e) => setMinTonnage(e.target.value)} disabled={showInput}  variant="outlined" />
-        <TextField id="outlined-basic" label="Weekly Rates" value={weeklyRates} onChange={(e) => setWeeklyRates(e.target.value)} disabled={showInput} variant="outlined" />
-        <TextField id="outlined-basic" label="Fortnite Rates"  value={fortniteRate} onChange={(e) => setFortnite(e.target.value)} disabled={showInput} variant="outlined" />
+        
        
-        <TextField id="outlined-basic" label="Monthly Rates"  value={monthlyRates} onChange={(e) => setMonthlyRates(e.target.value)}disabled={showInput}  variant="outlined" />
-        <TextField id="outlined-basic" label="Annual Rates"   value={annualRates} onChange={(e) => setAnnualRates(e.target.value)} variant="outlined" />
+
         <TextField id="outlined-basic" label="Number of Passengers" value={passengers} onChange={(e) => setPassengers(e.target.value)} variant="outlined" />
+
+
+
+      <PopupState variant="popover" popupId="demo-popup-menu">
+      {(popupState) => (
+        <>
+          <Button variant="contained" {...bindTrigger(popupState)}>
+            Duration Rates
+          </Button>
+          <Menu {...bindMenu(popupState)}>
+            <TextField id="outlined-basic" label="Annual Rates"   value={annualRates} onChange={(e) => setAnnualRates(e.target.value)} variant="outlined" />
+            <TextField id="outlined-basic" label="Weekly Rates" value={weeklyRates} onChange={(e) => setWeeklyRates(e.target.value)} disabled={showInput} variant="outlined" /><br/>
+            <TextField id="outlined-basic" label="Fortnite Rates"  value={fortniteRate} onChange={(e) => setFortnite(e.target.value)} disabled={showInput} variant="outlined" />
+            <TextField id="outlined-basic" label="Monthly Rates"  value={monthlyRates} onChange={(e) => setMonthlyRates(e.target.value)}disabled={showInput}  variant="outlined" />
+          </Menu>
+        </>
+      )}
+    </PopupState>
     
     
 
@@ -278,13 +304,31 @@ async function submitHandler(e) {
         noValidate
         autoComplete="off"
         >
-        <TextField id="outlined-basic" label="Excluded Vehicles" value={maxExcluded} onChange={(e) => setMaxExcluded(e.target.value)} variant="outlined" />
-        <TextField id="outlined-basic" label="Maximum Premium" value={minExcluded} onChange={(e) => setMinExcluded(e.target.value)} variant="outlined" />
+        
+        <FormControl >
+        <InputLabel id="demo-simple-select-helper-label">Excluded Vehicles</InputLabel>
+        <Select
+          labelId="demo-simple-select-helper-label"
+          id="demo-simple-select-helper"
+         
+          label="Excluded Vehicles"
+           onChange={(e) => setExcludedVehicles(e.target.value)}
+           disabled={!showInput} 
+         
+        >
+          
+          
+        <MenuItem disabled className={classes.group}>Vehicles</MenuItem>
+        {exclusion.map((item)=><MenuItem key={item.vehicle_id} value={item.class}>{item.vehicle_model}</MenuItem>)}
+       </Select>
+       </FormControl>
+        
         <TextField id="outlined-basic" label="Minimum Premium" value={minPremium} onChange={(e) => setMinPremium(e.target.value)} variant="outlined" />
         <TextField id="outlined-basic" label="Maximum Age"  value={maxAge} onChange={(e) => setMaxAge(e.target.value)}  variant="outlined" />
         <TextField id="outlined-basic" label="Minimum Age" value={minAge} onChange={(e) => setMinAge(e.target.value)} variant="outlined" />
-        <TextField id="outlined-basic" label="Maximum insured" value={maxInsured} onChange={(e) => setMaxInsured(e.target.value)} variant="outlined" />
-        <TextField id="outlined-basic" label="Minimum Insured"  value={minInsured} onChange={(e) => setMinInsured(e.target.value)}  variant="outlined" />
+        <TextField id="outlined-basic" label="Maximum insured" value={maxInsured} onChange={(e) => setMaxInsured(e.target.value)}
+         disabled={ coverage==='Third Party' && vehicleClass !='Commercial Own Goods'?true:false }variant="outlined" />
+        <TextField id="outlined-basic" label="Minimum Insured"  value={minInsured} onChange={(e) => setMinInsured(e.target.value)} disabled={showthird} variant="outlined" />
     
     
 
@@ -337,9 +381,15 @@ export async function getStaticProps(context) {
    
        let covera = JSON.parse(JSON.stringify(cover));
 
+       
+       const excl = await excuteQuery({
+         query:"SELECT * FROM `tbl_excluded_vehicles`"
+       });
+       let exclud = JSON.parse(JSON.stringify(excl))
+
      
       return {
-        props: {motovehicle,motocycle,tricycle,underwrit,covera}, // will be passed to our  page component as props
+        props: {motovehicle,motocycle,tricycle,underwrit,covera,exclud}, // will be passed to our  page component as props
       };
     } catch (e) {
       
