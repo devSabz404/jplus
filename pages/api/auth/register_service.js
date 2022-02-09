@@ -2,17 +2,17 @@ import excuteQuery from '../../../lib/db';
 import bcrypt from "bcrypt";
 
 const handler = async (req, res) => {
- const {firstnames,lastnames,email,passwords,passwordConfirm} = req.body
-if(passwords !== passwordConfirm) return res.status(400).json({msg: "Password and Confirm Password do not match"});
+ const {firstname,lastname,email,password,confirm} = req.body
+if(password !== confirm) return res.status(400).json({msg: "Password and Confirm Password do not match"});
     const salt = await bcrypt.genSalt();
-    const hashPassword = await bcrypt.hash(passwords, salt);
+    const hashPassword = await bcrypt.hash(password, salt);
   try {
     
 
     const results = await excuteQuery({
       
-      query: 'INSERT INTO `tbl_user` (firstname,lastname,email_fk,password) VALUES (?,?,?,?,)' ,
-      values:  [firstnames,lastnames,email,hashPassword]
+      query: 'INSERT INTO `tbl_user` (firstname,lastname,emailaddress,password) VALUES (?,?,?,?)' ,
+      values:  [firstname,lastname,email,hashPassword]
      
     })
     console.log(results)

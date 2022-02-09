@@ -13,19 +13,21 @@ export default async function (req, res) {
   // if a user with this username
   // and password exists
   const user = await excuteQuery({
-    query:'SELECT * FROM tbl_user WHERE `email_fk` =?',
+    query:'SELECT * FROM tbl_user WHERE `emailaddress` =?',
     values :[email]
 })
 const match = bcrypt.compare(password, user[0].password);
+
 if(!match) {return res.status(400).json({msg: "Wrong Password"})}
 
   else if (match) {
     const token = sign(
       {
         exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 30, // 30 days
+        username: user[0].user_id,
         username: user[0].firstname,
         company:user[0].company,
-        email:user[0].email_fk
+        email:user[0].emailaddress
       },
       secret
     );

@@ -1,10 +1,11 @@
-import * as React from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@mui/styles';
 import Navbar from '../../components/Navbar';
 import lightTheme from '../../styles/theme/lightTheme';
 import { Grid } from '@mui/material';
 import SideBar from '../../components/SideBar';
 import Feed from '../../components/Feed';
+import axios from 'axios';
 
 
 
@@ -20,10 +21,22 @@ right:{
 }));
 
 export default function App() {
- 
+  const classes =useStyles()
+  const [data, setData] = useState()
   
-  const classes = useStyles();
 
+  useEffect(() => {
+    async function fetchData() {
+      // You can await here
+      const response = await axios('../api/auth/userObject')
+      // ...
+      setData(response.data)
+    }
+    fetchData();
+    
+  },[] ); // Or [] if effect doesn't need props or state
+
+  console.log(data.tkn.username)
 
   return(
     <>
