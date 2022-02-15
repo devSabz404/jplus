@@ -6,6 +6,7 @@ import { Grid } from '@mui/material';
 import SideBar from '../../components/SideBar';
 import Feed from '../../components/Feed';
 import axios from 'axios';
+import * as cookie from 'cookie'
 
 
 
@@ -20,7 +21,7 @@ right:{
 
 }));
 
-export default function App() {
+export default function App({newcookie}) {
   const classes =useStyles()
   const [data, setData] = useState()
   
@@ -36,7 +37,17 @@ export default function App() {
     
   },[] ); // Or [] if effect doesn't need props or state
 
-  console.log(data.tkn.username)
+
+
+ const parseJwt = (token) => {
+  try {
+    return JSON.parse(atob(token.split('.')[1]));
+  } catch (e) {
+    return null;
+  }
+};
+const tkn =parseJwt(newcookie[0])
+const owner = tkn.username
 
   return(
     <>
@@ -48,6 +59,7 @@ export default function App() {
       </Grid>
       <Grid item sm={7} xs={10}>
       <Feed/>
+      {owner}
       </Grid>
       <Grid item sm={3}  className={classes.right}>
        
@@ -59,6 +71,19 @@ export default function App() {
   )
 
 
+}
+
+function parseCookies(req){
+  return cookie.parse(req ? req.headers.cookie || "" : document.cookie);
+}
+
+export async function getServerSideProps({ req} ) {
+  const cookies = parseCookies(req);
+   const newcookie = Object.values(cookies)
+  
+  
+  return { props:{newcookie}
+}
 }
 
 
@@ -75,43 +100,3 @@ export default function App() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-// import { Button } from "@mui/material";
-// import { makeStyles} from "@mui/styles";
-// import Navbar from "../components/Navbar";
-// import theme from "../components/theme"
-// import { ThemeProvider } from '@mui/material/styles';
-
-
-// const useStyles = makeStyles((theme)=>({
-//   button:{
-//   backgroundColor:theme.Mybutton,
-//   }
-  
-// }));
-
-// export default function Home() {
-//   const classes = useStyles()
-//   return (
-//     <>
-//     <ThemeProvider theme={theme}>
-
-  
-
-//     <Button className={classes.button}>Delete</Button>
-
-//     </ThemeProvider>
-    
-//    </>
-   
-//   )
-// }

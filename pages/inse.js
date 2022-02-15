@@ -1,4 +1,33 @@
-import  {React,useState} from 'react';
+const submitHandler = async (e) => {
+    e.preventDefault();
+  
+    const credentials = {productCode,
+      vehicleClass,underwriter,coverage,
+      description,clauses,waranty,
+      excludedVehicles,maxTonnage,
+      minTonnage,weeklyRates,monthlyRates,
+      fortniteRate,passengers,annualRates,
+      maxAge,minAge,maxInsured,
+      minInsured,minPremium,optionalPremium,
+      optionalRate,optionalName,
+      owner,months2,
+      months3,months4,
+      months5,months6,months7,
+      months8,months9,months10,months11}
+  
+    const res = await axios.post("/api/product/createproduct", credentials);
+    if (res.status !== 200){
+    console.log(res)
+    }
+  
+    alert('In for now')
+  };
+  
+
+
+
+
+  import  {React,useState} from 'react';
 import { makeStyles } from '@mui/styles';
 import Navbar from '../../components/Navbar';
 import lightTheme from '../../styles/theme/lightTheme';

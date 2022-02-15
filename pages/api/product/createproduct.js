@@ -1,10 +1,9 @@
 import excuteQuery from '../../../lib/db'
 
 const handler = async (req, res) => {
- const  {product,productCode,category,
+ const  {productCode,
   vehicleClass,underwriter,coverage,
   description,clauses,waranty,
-  benefits,
   excludedVehicles,maxTonnage,
   minTonnage,weeklyRates,monthlyRates,
   fortniteRate,passengers,annualRates,
@@ -18,11 +17,22 @@ const handler = async (req, res) => {
   try {
    
 
-    const results = await excuteQuery({
+    const results = await excuteQuery({   
+
+    query:'INSERT INTO itbl_product (product_code,vehicleclass,underwriter,coverage,description,clauses,conditionsandwaranties,optionalname,optionalpremium,optionalrate,mintonnage,maxtonnage,weeklyrates,fortnightrates,monthlyrates,months2,months3,months4,months5,months6,months7,months8,months9,months10,months11,annualrates,excludedvehicles,minimumpremium,passengers,maxage,minage,maxsum,minsum,owner) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)' ,
       
+      
+
+      values:[productCode,vehicleClass,underwriter
+             ,coverage,description,clauses,waranty,optionalName
+             ,optionalPremium,optionalRate,minTonnage,maxTonnage,
+              weeklyRates,fortniteRate,monthlyRates,months2,months3,
+              months4,months5,months6,months7,months8,months9,months10,
+              months11,annualRates,excludedVehicles,minPremium,
+              passengers,maxAge,minAge,maxInsured,minInsured,owner]
      
     })
-    console.log(results)
+    console.log('hey how',results)
     return res.json(results)
   } catch (e) {
     console.log(e)

@@ -28,6 +28,19 @@ right:{
 }));
 
 export default function App() {
+const [data, setData] = useState()
+
+  useEffect(() => {
+    async function fetchData() {
+      // You can await here
+      const response = await axios('../api/auth/userObject')
+      // ...
+      setData(response.data)
+    }
+
+    fetchData();
+    
+  },[] );
     
 
 

@@ -13,6 +13,21 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { Fab } from '@mui/material';
 import excuteQuery from '../../lib/db';
 import Link from 'next/link'
+import EditIcon from '@mui/icons-material/Edit';
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+import * as cookie from 'cookie'
+import { useRouter } from 'next/router'
+
+
+ function CircularIndeterminate() {
+  return (
+    <Box sx={{ display: 'flex' }}>
+      <CircularProgress />
+    </Box>
+  );
+}
+
 
 const useStyles = makeStyles((theme)=>({
 right:{
@@ -30,7 +45,8 @@ right:{
 
 
 export default function App({products}) {
-    console.log("hey.....",products)
+  const router = useRouter()
+   
 
 
 
@@ -54,13 +70,50 @@ export default function App({products}) {
         },
         { field: 'owner', headerName: 'Owned By', width: 130 },
         { field: 'date', headerName: 'Date modified', width: 130 },
-        { field: 'action', headerName: 'Action', width: 130 },
+        { field: 'edit', headerName: 'Edit', width: 70,
+        
+        renderCell: (params) => {
+          const onClick = (e) => {
+            e.stopPropagation(); // don't select this row after clicking
+            
+              router.push({
+                pathname: '/post/[pid]',
+                query: { pid: post.id },
+              })
+       
+            
+           
+    
+            return (<CircularIndeterminate/>);
+          };
+    
+          return <Button onClick={onClick}> <EditIcon/></Button> ;
+        },
+       }, 
+
+        { field: 'delete', headerName: 'Delete', width: 70,
+
+        renderCell: (params) => {
+          const onClick = (e) => {
+            e.stopPropagation(); // don't select this row after clicking
+            
+           
+    
+            return alert('delete');
+          };
+    
+          return <Button onClick={onClick}><DeleteIcon/></Button>;
+        },
+        
+      
+      },
+        
       ];
       
      
       const rows = products.map((item)=>(
           
-        { id: item.product_id, underwriter: item.underwriter, coverage: item.coverage, riskcoverd:'Full', productname:item.category,owner:item.owner,date:item.time,action:'delete' }))
+        { id: item.product_id, underwriter: item.underwriter, coverage: item.coverage, riskcoverd:'Full', productname:item.category,owner:item.owner,date:item.time, }))
    
 
 
@@ -109,13 +162,28 @@ export default function App({products}) {
   )
 }
 
+function parseCookies(req){
+  return cookie.parse(req ? req.headers.cookie || "" : document.cookie);
+}
 
 
-export async function getStaticProps(context){
+export async function getServerSideProps({req}){
+  const cookies = parseCookies(req);
+   const newcookie = Object.values(cookies)
+   const parseJwt = (token) => {
+    try {
+      return JSON.parse(atob(token.split('.')[1]));
+    } catch (e) {
+      return null;
+    }
+  };
+   const tkn =parseJwt(newcookie[0])
+   const owner = tkn.username
 
     try {
         const results = await excuteQuery({
-            query:"SELECT * from itbl_product"
+            query:"SELECT * from itbl_product WHERE owner = ?",
+            values:[owner]
             
 
         });
@@ -131,7 +199,7 @@ export async function getStaticProps(context){
          
       
 
-        return {props:{products,vclass}};
+        return {props:{products,vclass,newcookie}};
 
         
     } catch (e) {
