@@ -55,20 +55,75 @@ export default function App({products}) {
         { field: 'underwriter', headerName: 'underwriter', width: 230 },
         { field: 'coverage', headerName: 'Coverage', width: 130 },
         {
-          field: 'riskcovered',
-          headerName: 'Risk Covered',
+          field: 'firstname',
+          headerName: 'First Name',
           type: 'number',
           width: 90,
         },
         {
-          field: 'productname',
-          headerName: 'Product Name',
-          description: 'This column has a value getter and is not sortable.',
+          field: 'lastname',
+          headerName: 'Last Name',
+          description: 'This is a desc.',
           sortable: false,
           width: 160,
           
         },
-        { field: 'owner', headerName: 'Owned By', width: 130 },
+        {
+            field: 'intermediary',
+            headerName: 'Intermediray',
+            description: 'This is a desc.',
+            sortable: false,
+            width: 160,
+            
+          },
+
+          
+        {
+            field: 'policy',
+            headerName: 'Policy Number',
+            description: 'This is a desc.',
+            sortable: false,
+            width: 160,
+            
+          },
+
+          
+        {
+            field: 'vehicleDetails',
+            headerName: 'Vehicle Details',
+            description: 'This is a desc.',
+            sortable: false,
+            width: 160,
+            
+          },
+
+          
+        {
+            field: 'coverage',
+            headerName: 'Coverage',
+            description: 'This is a desc.',
+            sortable: false,
+            width: 160,
+            
+          },
+
+          
+        {
+            field: 'status',
+            headerName: 'Status',
+            description: 'This is a desc.',
+            sortable: false,
+            width: 160,
+            
+          },
+          
+          
+          
+          
+          
+
+
+        { field: 'edit', headerName: 'Edit', width: 130 },
         { field: 'date', headerName: 'Date modified', width: 130 },
         { field: 'edit', headerName: 'Edit', width: 70,
         

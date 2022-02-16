@@ -1,14 +1,16 @@
 import { Container, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import HomeIcon from '@mui/icons-material/Home';
-import QueueMusicIcon from '@mui/icons-material/QueueMusic';
+
 import BookmarksIcon from '@mui/icons-material/Bookmarks';
-import WhatshotIcon from '@mui/icons-material/Whatshot';
+
 import NewspaperIcon from '@mui/icons-material/Newspaper';
 import lightTheme from "../styles/theme/lightTheme";
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import Link from 'next/link';
-
+import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
+import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
+import EmojiPeople from "@mui/icons-material/EmojiPeople";
 
 
 const useStyles = makeStyles((theme)=>({
@@ -64,7 +66,7 @@ export default function leftbar() {
         </div>
 
         <div className={classes.item}>
-          <QueueMusicIcon className={classes.icon}/>
+          <BusinessCenterIcon className={classes.icon}/>
           <Link href="/dashboard/products">
           <Typography className={classes.text}>Products</Typography>
           </Link>
@@ -78,7 +80,7 @@ export default function leftbar() {
         </div>
 
         <div className={classes.item}>
-          <WhatshotIcon className={classes.icon}/>
+          <EmojiPeopleIcon className={classes.icon}/>
           <Typography className={classes.text}>Claims</Typography>
 
         </div>

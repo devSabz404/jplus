@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@mui/styles';
-import Navbar from '../../components/Navbar';
-import lightTheme from '../../styles/theme/lightTheme';
+import Navbar from '../../../components/Navbar';
+import lightTheme from '../../../styles/theme/lightTheme';
 import { Grid } from '@mui/material';
-import SideBar from '../../components/SideBar';
-import Feed from '../../components/Feed';
-import axios from 'axios';
-import * as cookie from 'cookie'
+import SideBar from '../../../components/SideBar';
+
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
+import excuteQuery from '../../../lib/db';
+
 
 
 
@@ -24,6 +24,7 @@ right:{
 }));
 
 export default function App({product}) {
+  console.log(product[0].product_id)
   
   const classes =useStyles()
 
@@ -54,19 +55,19 @@ export default function App({product}) {
         <TextField
           label="Product Description"
           id="standard-size-normal"
-          defaultValue="Normal"
+          defaultValue={product[0].description}
           variant="standard"
         />
         <TextField
           label="Clauses"
           id="standard-size-normal"
-          defaultValue="Normal"
+          defaultValue={product[0].clauses}
           variant="standard"
         />
         <TextField
           label="Conditions and Warranties"
           id="standard-size-normal"
-          defaultValue="Normal"
+          defaultValue={product[0].conditionsandwaranties}
           variant="standard"
         />
        
@@ -77,37 +78,37 @@ export default function App({product}) {
       <TextField
           label="policy limits and benefits"
           id="standard-size-normal"
-          defaultValue="Normal"
+          defaultValue={product[0].policylimits}
           variant="standard"
         />
        
         <TextField
           label="Maximum Tonnage"
           id="standard-size-normal"
-          defaultValue="Normal"
+          defaultValue={product[0].maxtonnage}
           variant="standard"
         />
         <TextField
           label="Minimum Tonnage"
           id="standard-size-normal"
-          defaultValue="Normal"
+          defaultValue={product[0].mintonnage}
           variant="standard"
         />
        
       </div>
 
-       
+
       <div>
       <TextField
           label="Number of passengers"
           id="standard-size-normal"
-          defaultValue="Normal"
+          defaultValue={product[0].passengers}
           variant="standard"
         />
         <TextField
           label="Optional Benefits"
           id="standard-size-normal"
-          defaultValue="Normal"
+          defaultValue={product[0].optionalname}
           variant="standard"
         />
        
@@ -123,19 +124,19 @@ export default function App({product}) {
         <TextField
           label="Excluded vehicles"
           id="standard-size-normal"
-          defaultValue="Normal"
+          defaultValue={product[0].excludedvehicles}
           variant="standard"
         />
         <TextField
           label="Minimum Premium"
           id="standard-size-normal"
-          defaultValue="Normal"
+          defaultValue={product[0].minimumpremium}
           variant="standard"
         />
         <TextField
           label="Maximum Age"
           id="standard-size-normal"
-          defaultValue="Normal"
+          defaultValue={product[0].maxage}
           variant="standard"
         />
       </div>
@@ -144,19 +145,19 @@ export default function App({product}) {
         <TextField
           label="Minimum Age"
           id="standard-size-normal"
-          defaultValue="Normal"
+          defaultValue={product[0].minage}
           variant="standard"
         />
          <TextField
           label="Maximum Insured"
           id="standard-size-normal"
-          defaultValue="Normal"
+          defaultValue={product[0].maxsum}
           variant="standard"
         />
         <TextField
           label="Minimum Insured"
           id="standard-size-normal"
-          defaultValue="Normal"
+          defaultValue={product[0].minisum}
           variant="standard"
         />
       </div>
@@ -186,7 +187,7 @@ export async function getStaticProps(context) {
         values:[id]
     })
 
-    const product = JSON.stringify(products)
+     const product = JSON.parse(JSON.stringify(products))
 
     return { props: { product }}
 }

@@ -73,7 +73,7 @@ const exclusion = props.exclud.map((item)=>item)
 
 
 const [product,setProduct] = useState('BimaPlus')
-const [productCode,setProductCode] = useState('11');
+const [productCode,setProductCode] = useState();
 const [vehicleClass,setVehicleClass] = useState('')
 const [underwriter,setUnderwriter] = useState('')
 const [coverage,setCoverage] = useState('')

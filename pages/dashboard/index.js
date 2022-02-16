@@ -7,6 +7,7 @@ import SideBar from '../../components/SideBar';
 import Feed from '../../components/Feed';
 import axios from 'axios';
 import * as cookie from 'cookie'
+import Layout from '../../components/Layout'
 
 
 
