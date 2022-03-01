@@ -44,20 +44,20 @@ right:{
 }));
 
 
-export default function App({products}) {
+export default function App({policy}) {
   const router = useRouter()
  
 
 
 
     const columns = [
-        { field: 'id', headerName: '#', width: 70 },
-        { field: 'underwriter', headerName: 'underwriter', width: 230 },
-        { field: 'coverage', headerName: 'Coverage', width: 130 },
+        { field: 'id', headerName: '#', width: 5 },
+        { field: 'user_identifier', headerName: 'User id', width:100 },
+        { field: 'agent', headerName: 'Agent', width: 130 },
       
        
-        { field: 'owner', headerName: 'Owned By', width: 130 },
-        { field: 'date', headerName: 'Date modified', width: 130 },
+        { field: 'data', headerName: 'Data', width: 330 },
+        { field: 'date', headerName: 'Date modified', width: 85 },
         { field: 'edit', headerName: 'Edit', width: 70,
         
         renderCell: (params) => {
@@ -87,9 +87,9 @@ export default function App({products}) {
       ];
       
      
-      const rows = products.map((item)=>(
+      const rows = policy.map((item)=>(
           
-        { id: item.product_id, underwriter: item.underwriter, coverage: item.coverage,owner:item.owner,date:item.time, }))
+        { id: item.id, user_identifier: item.user_identifier, agent: item.agent,data:item.data,date:item.time, }))
    
 
 
@@ -158,13 +158,13 @@ export async function getServerSideProps({req}){
 
     try {
         const results = await excuteQuery({
-            query:"SELECT * from itbl_product WHERE owner = ?",
+            query:"SELECT * from tbl_policy ",
             values:[owner]
             
 
         });
 
-        let products = JSON.parse(JSON.stringify(results));
+        let policy = JSON.parse(JSON.stringify(results));
     
         const vehicles = await excuteQuery({
             query:"SELECT * FROM `itbl_coverage`"
@@ -175,7 +175,7 @@ export async function getServerSideProps({req}){
          
       
 
-        return {props:{products,vclass,newcookie}};
+        return {props:{policy,vclass,newcookie}};
 
         
     } catch (e) {

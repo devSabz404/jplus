@@ -75,7 +75,9 @@ export default function leftbar() {
 
         <div className={classes.item}>
           <BookmarksIcon className={classes.icon}/>
+          <Link href="/dashboard/policies">
           <Typography className={classes.text}>Policies</Typography>
+          </Link>
 
         </div>
 

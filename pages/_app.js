@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { CacheProvider } from '@emotion/react';
 import { ThemeProvider, CssBaseline } from '@mui/material';
+import Head from 'next/head';
 
 import createEmotionCache from '../utility/createEmotionCache';
 import lightTheme from '../styles/theme/lightTheme';
@@ -17,6 +18,7 @@ const MyApp = (props) => {
       <ThemeProvider theme={lightTheme}>
     
         <CssBaseline />
+        
         <Component {...pageProps} />
     
       </ThemeProvider>

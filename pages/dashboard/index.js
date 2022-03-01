@@ -8,6 +8,8 @@ import Feed from '../../components/Feed';
 import axios from 'axios';
 import * as cookie from 'cookie'
 import Layout from '../../components/Layout'
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import Link from 'next/link';
 
 
 
@@ -48,11 +50,13 @@ export default function App({newcookie}) {
   }
 };
 const tkn =parseJwt(newcookie[0])
-const owner = tkn.username
+
 
   return(
     <>
     <Navbar/>
+     
+    
     <Grid container>
 
       <Grid item sm={2} xs={2}>
@@ -60,7 +64,7 @@ const owner = tkn.username
       </Grid>
       <Grid item sm={7} xs={10}>
       <Feed/>
-      {owner}
+     
       </Grid>
       <Grid item sm={3}  className={classes.right}>
        

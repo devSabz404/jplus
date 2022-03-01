@@ -1,29 +1,54 @@
-import * as React from 'react';
-import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
+import React, { useState, useEffect } from 'react';
+import { makeStyles } from '@mui/styles';
+import Navbar from './Navbar';
+import lightTheme from '../styles/theme/lightTheme';
+import { Grid } from '@mui/material';
+import SideBar from './SideBar';
 
-const Item = styled(Paper)(({ theme }) => ({
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-  height:'100%',
+
+
+
+
+
+
+const useStyles = makeStyles((theme)=>({
+right:{
+[lightTheme.breakpoints.down('sm')]:{
+    display:'none',
+  }
+  },
+
 }));
 
-export default function Layout() {
-  return (
-    <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={2}>
-        
-        <Grid item xs={3} >
-          <Item style={{height:'100%'}}>xs=4</Item>
-        </Grid>
-        <Grid item xs={8}>
-          <Item>xs=8</Item>
-        </Grid>
+export default function Layout(props) {
+  const classes =useStyles()
+  
+  
+
+
+
+  return(
+    <>
+    <Navbar/>
+     
+    
+    <Grid container>
+
+      <Grid item sm={2} xs={2}>
+        <SideBar/>
       </Grid>
-    </Box>
-  );
+      <Grid item sm={7} xs={10}>
+      
+      {props.children}
+      </Grid>
+      <Grid item sm={3}  className={classes.right}>
+       
+      </Grid>
+
+    </Grid>
+
+    </>
+  )
+
+
 }

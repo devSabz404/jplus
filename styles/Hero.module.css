@@ -1,0 +1,35 @@
+.container {
+    margin-top: -29.5%;
+    height: 1000px;
+    display: flex;
+    flex-direction:column;
+    z-index: 1;
+    
+
+  }
+  .text{
+      z-index: 10;
+      margin-top: 50%;
+  }
+
+  .hero {
+    background-image: url('../public/slides/Slider1.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+    color: azure;
+    z-index: 2;
+  }
+
+  .button {
+    background-color:#ed1818; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+  }

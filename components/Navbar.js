@@ -1,5 +1,5 @@
 import { makeStyles} from "@mui/styles";
-import {AppBar,Toolbar,Typography,alpha} from "@mui/material";
+import {AppBar,Toolbar,Typography,alpha, Button} from "@mui/material";
 import Badge from '@mui/material/Badge';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
@@ -8,6 +8,9 @@ import lightTheme from "../styles/theme/lightTheme";
 import { useState } from "react";
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import Router from "next/router";
+
+import axios from 'axios';
+
 
 
 const useStyles = makeStyles((props)=>({
@@ -78,13 +81,10 @@ export default function Navbar() {
 
   const handleLogOut = async () => {
     
-    const res = await axios.get("../pages/api/auth/logout");
+    const user = await axios.get("/api/auth/logout");
 
-    if (res.ok){
-      console.log('Wrong')
-      }
-    
-      Router.push('../pages/login')
+    if(user.status===200) Router.push('/login')
+
  
   };
 
@@ -110,9 +110,9 @@ export default function Navbar() {
               <Badge badgeContent={2} color="secondary"  className={classes.badge}>
                 <NotificationsIcon color="action" />
               </Badge>
-              <Link href='#' onClick={() => handleLogOut()}>
-              <ExitToAppIcon />
-              </Link>
+              <Button  onClick={() => handleLogOut()}>
+              Logout
+              </Button>
              
 
             </div>

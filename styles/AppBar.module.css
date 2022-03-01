@@ -1,0 +1,29 @@
+.box_container {
+    height: 500px;
+    display: flex;
+    flex-direction:column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 5;
+    
+
+  }
+
+  .box_1 {
+    background-color:#2780c2;
+    
+    width: 100%;
+    height: 10%;
+   
+    
+  }
+
+  .box_2 {
+    background-color:#f8f5f5;
+    
+    width: 100%;
+    height: 10%;
+   
+  }

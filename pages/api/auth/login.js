@@ -24,7 +24,7 @@ if(!match) {return res.status(400).json({msg: "Wrong Password"})}
     const token = sign(
       {
         exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 30, // 30 days
-        username: user[0].user_id,
+        id: user[0].user_id,
         username: user[0].firstname,
         company:user[0].company,
         email:user[0].emailaddress
