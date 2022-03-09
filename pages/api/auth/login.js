@@ -27,7 +27,9 @@ if(!match) {return res.status(400).json({msg: "Wrong Password"})}
         id: user[0].user_id,
         username: user[0].firstname,
         company:user[0].company,
-        email:user[0].emailaddress
+        email:user[0].emailaddress,
+        owner:user[0].agent_admin,
+     
       },
       secret
     );

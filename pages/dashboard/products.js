@@ -16,7 +16,7 @@ import Link from 'next/link'
 import EditIcon from '@mui/icons-material/Edit';
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
-import * as cookie from 'cookie'
+import jwtDecode from 'jwt-decode';
 import { useRouter } from 'next/router'
 
 
@@ -44,10 +44,11 @@ right:{
 }));
 
 
-export default function App({products}) {
+export default function App({products,cookies}) {
   const router = useRouter()
- 
-
+  const userData = jwtDecode(cookies.OursiteJWT)
+  const id = userData.owner
+  console.log(id)
 
 
     const columns = [
@@ -138,28 +139,26 @@ export default function App({products}) {
   )
 }
 
-function parseCookies(req){
-  return cookie.parse(req ? req.headers.cookie || "" : document.cookie);
-}
 
 
-export async function getServerSideProps({req}){
-  const cookies = parseCookies(req);
-   const newcookie = Object.values(cookies)
-   const parseJwt = (token) => {
-    try {
-      return JSON.parse(atob(token.split('.')[1]));
-    } catch (e) {
-      return null;
-    }
-  };
-   const tkn =parseJwt(newcookie[0])
-   const owner = tkn.username
+
+  export async function getServerSideProps(ctx){
+
+    const {req,res} = ctx
+    const {cookies} = req
+  
+    const userData = jwtDecode(cookies.OursiteJWT)
+    const id = userData.owner
+
+  
+  
+   
 
     try {
         const results = await excuteQuery({
-            query:"SELECT * from itbl_product WHERE owner = ?",
-            values:[owner]
+            query:"SELECT * from itbl_product WHERE owner =? ",
+            values:[id]
+            
             
 
         });
@@ -175,7 +174,7 @@ export async function getServerSideProps({req}){
          
       
 
-        return {props:{products,vclass,newcookie}};
+        return {props:{products,vclass,cookies}};
 
         
     } catch (e) {

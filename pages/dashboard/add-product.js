@@ -77,7 +77,7 @@ const [productCode,setProductCode] = useState();
 const [vehicleClass,setVehicleClass] = useState('')
 const [underwriter,setUnderwriter] = useState('')
 const [coverage,setCoverage] = useState('')
-const [description,setDescription] = useState('')
+
 const [clauses,setClauses] = useState('')
 const [waranty,setWaranty] = useState('')
 const [benefits,setBenefits] = useState('')
@@ -117,14 +117,15 @@ const parseJwt = (token) => {
   }
 };
 const tkn =parseJwt(props.newcookie[0])
-const owner = tkn.username
+const owner = tkn.owner
+console.log(owner)
 
 const submitHandler = async (e) => {
   e.preventDefault();
 
   const credentials = {productCode,
     vehicleClass,underwriter,coverage,
-    description,clauses,waranty,
+    clauses,waranty,
     excludedVehicles,maxTonnage,
     minTonnage,weeklyRates,monthlyRates,
     fortniteRate,passengers,annualRates,
@@ -193,13 +194,13 @@ const submitHandler = async (e) => {
           
           
         <MenuItem disabled className={classes.group}>1.Motorvehicle</MenuItem>
-        {motoveh.map((item)=><MenuItem key={item.ID} value={item.class}>{item.class}</MenuItem>)}
+        {motoveh.map((item)=><MenuItem key={item.ID} value={item.ID}>{item.class}</MenuItem>)}
 
         <MenuItem disabled className={classes.group}>2.Motorcycle</MenuItem>
-        {motocy.map((item)=><MenuItem key={item.ID} value={item.class}>{item.class}</MenuItem>)}
+        {motocy.map((item)=><MenuItem key={item.ID} value={item.ID}>{item.class}</MenuItem>)}
         
         <MenuItem disabled className={classes.group}>3.Tricycle</MenuItem>
-        {mototri.map((item)=><MenuItem key={item.ID} value={item.class}>{item.class}</MenuItem>)}
+        {mototri.map((item)=><MenuItem key={item.ID} value={item.ID}>{item.class}</MenuItem>)}
         
           
          
@@ -267,10 +268,11 @@ const submitHandler = async (e) => {
         noValidate
         autoComplete="off"
         >
-        <TextField  id="outlined-basic" label="Product Description" value={description} onChange={(e) => setDescription(e.target.value)} variant="outlined" />
+      
+      <TextField id="outlined-basic" label="Policy limits & Benefits"  value={benefits} onChange={(e) => setBenefits(e.target.value)} variant="outlined" />
+
         <TextField id="outlined-basic" label="Clauses"  value={clauses} onChange={(e) => setClauses(e.target.value)} variant="outlined" />
         <TextField id="outlined-basic" label="Conditions and Warranties" value={waranty} onChange={(e) => setWaranty(e.target.value)}  variant="outlined" />
-        <TextField id="outlined-basic" label="Policy limits & Benefits"  value={benefits} onChange={(e) => setBenefits(e.target.value)} variant="outlined" />
        
 
      
@@ -290,7 +292,7 @@ const submitHandler = async (e) => {
         
        
 
-        <TextField id="outlined-basic" label="Number of Passengers" value={passengers} onChange={(e) => setPassengers(e.target.value)} variant="outlined" />
+        <TextField id="outlined-basic" label="Number of Passengers" value={passengers} onChange={(e) => setPassengers(e.target.value)} variant="outlined" disabled={vehicleClass == '17' || vehicleClass == '15' ? false : true }  />
 
         <Button variant="contained" onClick={handleOpen}>Optional Benefits</Button>
       <Modal
@@ -336,14 +338,15 @@ const submitHandler = async (e) => {
         </Box>
         <br/>
 
-
+          {optionalName == 'RADIO_CASSETE' || optionalName == 'WINDSCREEN' ? 
           <TextField id="outlined-basic" label="Free Limit"  
            sx={{
             width: 300,
             maxWidth: '100%',}}
             onChange={(e)=>setOptionalPremium(e.target.value)}
           
-            variant="outlined" />
+            variant="outlined" />:null
+           }
             <br/>
           <TextField id="outlined-basic" label="Enter rate or value" 
            sx={{

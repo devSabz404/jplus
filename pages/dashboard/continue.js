@@ -88,7 +88,7 @@ export default function Continue({cookies}) {
       Kra:'',
       idnumber:"",
     },
-    validate,
+   
     onSubmit: values => {
       alert(JSON.stringify(values, null, 2));
     },
@@ -98,6 +98,7 @@ export default function Continue({cookies}) {
   
   const userData = jwtDecode(cookies.OursiteJWT)
   const id = userData.id
+  console.log(id)
   const classes =useStyles()
 
 

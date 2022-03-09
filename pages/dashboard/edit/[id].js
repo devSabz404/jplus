@@ -28,7 +28,7 @@ export default function App({product}) {
   const id = product[0].product_id
   
   const classes =useStyles()
-  const [description,setDescription] = useState()
+ 
   const [clauses,setClauses] = useState()
   const [conditions,setConditions] = useState()
   const [benefits,setBenefits] = useState()
@@ -46,7 +46,7 @@ export default function App({product}) {
   const handleSubmit =async (e) =>{
     e.preventDefault()
 
-    const credentials = {id,description,clauses,conditions,benefits,maxtonn,mintonn,pass,rates,excluded,minPremium,maxage,minage,maxinsured,minInsured}
+    const credentials = {id,clauses,conditions,benefits,maxtonn,mintonn,pass,rates,excluded,minPremium,maxage,minage,maxinsured,minInsured}
     const res = await axios.post("/api/product/updateproduct", credentials);
     if(res.status===200) alert('Done')
     alert('Failed')
@@ -78,14 +78,7 @@ export default function App({product}) {
       
       <div>
        
-        <TextField
-          label="Product Description"
-          id="standard-size-normal"
-          defaultValue={product[0].description}
        
-          variant="standard"
-          onChange={(e)=>setDescription(e.target.value)}
-        />
         <TextField
           label="Clauses"
           id="standard-size-normal"

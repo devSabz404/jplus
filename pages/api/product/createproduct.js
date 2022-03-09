@@ -19,12 +19,12 @@ const handler = async (req, res) => {
 
     const results = await excuteQuery({   
 
-    query:'INSERT INTO itbl_product (product_code,vehicleclass,underwriter,coverage,description,clauses,conditionsandwaranties,optionalname,optionalpremium,optionalrate,mintonnage,maxtonnage,weeklyrates,fortnightrates,monthlyrates,months2,months3,months4,months5,months6,months7,months8,months9,months10,months11,annualrates,excludedvehicles,minimumpremium,passengers,maxage,minage,maxsum,minsum,owner) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)' ,
+    query:'INSERT INTO itbl_product (product_code,vehicleclass,underwriter,coverage,clauses,conditionsandwaranties,optionalname,optionalpremium,optionalrate,mintonnage,maxtonnage,weeklyrates,fortnightrates,monthlyrates,months2,months3,months4,months5,months6,months7,months8,months9,months10,months11,annualrates,excludedvehicles,minimumpremium,passengers,maxage,minage,maxsum,minsum,owner) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)' ,
       
       
 
       values:[productCode,vehicleClass,underwriter
-             ,coverage,description,clauses,waranty,optionalName
+             ,coverage,clauses,waranty,optionalName
              ,optionalPremium,optionalRate,minTonnage,maxTonnage,
               weeklyRates,fortniteRate,monthlyRates,months2,months3,
               months4,months5,months6,months7,months8,months9,months10,
