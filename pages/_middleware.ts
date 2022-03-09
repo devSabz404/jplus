@@ -1,12 +1,13 @@
 import { NextResponse } from "next/dist/server/web/spec-extension/response";
 import { verify } from "jsonwebtoken";
+import  { NextRequest } from 'next/server'
 
 const secret = `${process.env.SECRET}`
 
-export default function middleware(req){
-    const {cookies} = req;
+export default function middleware(request:NextRequest){
+    const {cookies} = request;
     const jwt = cookies.OursiteJWT;
-    const url =  req.url;
+    const url =  request.url;
 
     if(url.includes("/dashboard")){
         if(jwt === undefined ){
@@ -20,5 +21,5 @@ export default function middleware(req){
             return NextResponse.redirect("/login");
         }
     }
-    return NextResponse.next()
+    return  NextResponse.next()
 }
