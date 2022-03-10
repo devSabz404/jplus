@@ -10,9 +10,12 @@ import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import Link from 'next/link';
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
-import EmojiPeople from "@mui/icons-material/EmojiPeople";
 
 
+
+
+export default function Leftbar() {
+  
 const useStyles = makeStyles((theme)=>({
 
   container:{
@@ -49,8 +52,6 @@ const useStyles = makeStyles((theme)=>({
   }
   
 }));
-
-export default function leftbar() {
   const classes = useStyles()
   return (
     <>
@@ -59,7 +60,7 @@ export default function leftbar() {
         <div className={classes.item}>
          
           <HomeIcon className={classes.icon}/>
-          <Link href="/dashboard">
+          <Link href="/dashboard" passHref>
           <Typography className={classes.text}>Home</Typography>
           </Link>
 
@@ -67,7 +68,7 @@ export default function leftbar() {
 
         <div className={classes.item}>
           <BusinessCenterIcon className={classes.icon}/>
-          <Link href="/dashboard/products">
+          <Link href="/dashboard/products" passHref>
           <Typography className={classes.text}>Products</Typography>
           </Link>
 
@@ -75,7 +76,7 @@ export default function leftbar() {
 
         <div className={classes.item}>
           <BookmarksIcon className={classes.icon}/>
-          <Link href="/dashboard/policies">
+          <Link href="/dashboard/policies" passHref>
           <Typography className={classes.text}>Policies</Typography>
           </Link>
 

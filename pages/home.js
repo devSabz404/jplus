@@ -1,6 +1,6 @@
-
-import Header from "../frontie/Hero";
-import Layout from "../frontie/Layout"
+import Nav from "../components/Navbar";
+import Header from "../components/Hero";
+import Layout from "../components/Layout"
 
 const home = () => {
 
