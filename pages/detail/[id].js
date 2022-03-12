@@ -1,8 +1,8 @@
-import Layout from "../../components/Layout";
+import Layout from "../../frontie/Layout";
 import excuteQuery from "../../lib/db";
 import { useSelector} from 'react-redux';
 import { selectCoverage,selectPeriod,selectEmail,selectName,selectRegistration,selectVehicle } from "../../features/counterSlice";
-import { useState } from "react";
+import React, {  useMemo, useState } from "react";
 
 
 
@@ -12,12 +12,20 @@ export const Content = ({product,benefits}) => {
     console.log(benefits)
 
 
-    const [isChecked, setIsChecked] = useState(false);
-
-    const handleOnChange = () => {
-      setIsChecked(!isChecked);
-    };
-
+    const [checked, setChecked] = useState({});
+    
+    const totalSum = useMemo(
+      () =>
+        Object.entries(checked).reduce(
+          (accumulator, [benefit_name, value]) =>
+            value
+              ? accumulator +
+                benefits.find((subscriber) => subscriber.benefit_name + "" === benefit_name).benefit_freevalue
+              : accumulator,
+          0
+        ),
+      [checked]
+    );
   
 
 
@@ -57,7 +65,7 @@ export const Content = ({product,benefits}) => {
     const policyHolderCompensationFund = (0.25/100)*basicPremium;
     const trainingLevy =(0.2/100)*basicPremium;
     let grossPremium = basicPremium+stampDuty+trainingLevy+policyHolderCompensationFund;
-    let grossPremiums =Math.round(parseInt(grossPremium))
+    let grossPremiums =Math.round(parseInt(grossPremium))+totalSum
     console.log(grossPremiums)
    
     
@@ -131,19 +139,37 @@ export const Content = ({product,benefits}) => {
                   optional benefits
                 </h6>
                 <div className="flex justify-center">
-  <div>
-      {benefits.map((item)=>
-    <div key={item.benefit_id}className="form-check">
+
+             
+     
       
-      <input onChange={handleOnChange} className="form-check-input appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-       type="checkbox" value={item.benefit_freevalue} id="flexCheckDefault"/>
-      <label className="form-check-label inline-block text-gray-800" htmFor="flexCheckDefault">
-        {item.benefit_name}
-      </label>
-    </div>
-      )}
+      <div>
+        {benefits.map(({ benefit_name,benefit_id }) => {
+          return (
+            <div key={benefit_id}>
+              <label>
+                <input
+                  type="checkbox"
+                  defaultChecked={!!checked[benefit_name]}
+                  onChange={() => {
+                    setChecked({
+                      ...checked,
+                      [benefit_name]: !checked[benefit_name]
+                    });
+                  }}
+                />
+                {benefit_name}
+              </label>
+            </div>
+          );
+        })}
+         <h2>Sum of optional benefits: {totalSum}</h2>
+      </div>
    
-  </div>
+
+     
+      
+ 
 </div>
                
                 <hr className="w-full my-6 border-gray-300" />
@@ -216,7 +242,7 @@ export const Content = ({product,benefits}) => {
             
              <div className="box-border h-86 w-full p-4 border-4 rounded shadow-lg">
              <h1>Summary</h1>
-             Benefits value: {benefitValue}
+            { <h2>{grossPremiums}</h2>}
             </div>
 
             <button className="bg-red-500 hover:bg-regal-blue text-white font-bold py-2 px-4 rounded h-10">
