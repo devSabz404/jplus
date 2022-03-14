@@ -1,16 +1,14 @@
 {
   "name": "admin-bima",
-  "private": true,
+ 
+ 
   "scripts": {
-    "dev": "next",
+    "dev": "node server.js",
     "build": "next build",
-  
+    "start": "NODE_ENV=production node server.js",
     "lint": "next lint"
   },
-  "keywords": [
-    "example",
-    "heroku"
-  ],
+
   "dependencies": {
     "@emotion/react": "^11.7.1",
     "@emotion/server": "^11.4.0",
