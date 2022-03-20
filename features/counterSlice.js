@@ -14,7 +14,8 @@ export const counterSlice = createSlice({
     period:'',
     sumInsured:'',
     productDetail:{},
-    choice:[]
+    choice:[],
+    unique:''
   },
   reducers: {
    
@@ -42,6 +43,9 @@ export const counterSlice = createSlice({
     setCoverage:(state,action)=>{
         state.coverage=action.payload ;
     },
+    setUnique:(state,action)=>{
+        state.unique=action.payload ;
+    },
    
     setSum:(state,action)=>{
         state.coverPeriod=action.payload ;
@@ -51,7 +55,7 @@ export const counterSlice = createSlice({
   setChoice:(state,action)=>{state.choice.push(action.payload)}
 });
 
-export const {setChoice,setName,setNumber,setReferall,setRegistration,setEmail,setVehicleclass,setCoverage,setPeriod,setProductDetail,setSum } = counterSlice.actions;
+export const {setChoice,setName,setNumber,setReferall,setRegistration,setEmail,setVehicleclass,setCoverage,setPeriod,setProductDetail,setSum,setUnique } = counterSlice.actions;
 
 export const selectName = state => state.counter.fullName;
 export const selectProduct =state=>state.counter.productDetail;
@@ -65,6 +69,7 @@ export const selectCoverage = state => state.counter.coverage;
 export const selectPeriod = state => state.counter.period;
 export const selectSum = state => state.counter.sumInsured;
 export const selectChoice = state => state.counter.choice;
+export const selectUnique = state => state.counter.unique;
 
 
 

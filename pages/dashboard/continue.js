@@ -21,46 +21,6 @@ import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import jwtDecode from 'jwt-decode';
-import { useFormik } from 'formik';
-
-
-// const validate = values => {
-//   const errors = {};
-//   if (!values.address) {
-//     errors.address = 'Required';
-//   } 
-
-//   if (!values.referall) {
-//     errors.referall = 'Required';
-//   } 
-//   if (!values.idnumber) {
-//     errors.idnumber = 'Required';
-//   } 
-
-//   if (!values.phone) {
-//     errors.phone = 'Required';
-//   } 
-//   if (!values.Kra) {
-//     errors.kra = 'Required';
-//   }
-//   if (!values.companyName) {
-//     errors.companyName = 'Required';
-//   } 
- 
-
-
-
-  
-
-//   if (!values.Ira) {
-//     errors.Ira = 'Required';
-//   } else if (/[A-Z]{3}[/][0-9]{2}[/][0-9]{5}[/][0-9]{4}/.test(values.email)) {
-//     errors.email = 'Invalid licesnse';
-//   }
-
-//   return errors;
-// };
-
 
 
 
@@ -78,22 +38,17 @@ right:{
 
 export default function Continue({cookies}) {
 
-  const formik = useFormik({
-    initialValues: {
-      companyName: '',
-      address: '',
-      phone: '',
-      referall:'',
-      Ira:'',
-      Kra:'',
-      idnumber:"",
-    },
+ 
+      const [companyName,setComp  ] =useState()
+      const [address,setAdd ] =useState()
+      const [phone,setphone  ] =useState()
+      const [referall,setRef ] =useState()
+      const [Ira,setIra ] =useState()
+      const [Kra,setKra  ] =useState()
+      const [idnumber,setId ] =useState()
+    
    
-    onSubmit: values => {
-      alert(JSON.stringify(values, null, 2));
-    },
-  });
-
+  
 
   
   const userData = jwtDecode(cookies.OursiteJWT)
@@ -101,6 +56,19 @@ export default function Continue({cookies}) {
   console.log(id)
   const classes =useStyles()
 
+
+const submitHandler = async (e) => {
+  e.preventDefault();
+
+  const credentials = {companyName,address,phone,referall,Ira,Kra,idnumber,id}
+
+  const res = await axios.post("/api/auth/continue", credentials);
+  if (res.status !== 200){
+  console.log(res)
+  }
+
+  alert('In for now')
+};
 
 
 
@@ -111,14 +79,14 @@ export default function Continue({cookies}) {
     <Navbar/>
      
     
-    <Grid container>
+    <Grid container >
 
       <Grid item sm={2} xs={2}>
         <SideBar/>
       </Grid>
       <Grid item sm={7} xs={10}>
 
-      <form onSubmit={formik.handleSubmit} style={{marginTop:50}}sx={{ display: 'flex', flexWrap: 'wrap'  }}>
+      <form onSubmit={submitHandler} style={{marginTop:100}}sx={{ display: 'flex', flexWrap: 'wrap'  }}>
           <h1>Continue Registration</h1>
       <div>
       
@@ -129,8 +97,8 @@ export default function Continue({cookies}) {
           id="companyName"
           name="companyName"
           type="text"
-          onChange={formik.handleChange}
-          value={formik.values.companyName}
+          onChange={(e)=>setComp(e.target.value)}
+          value={companyName}
          
           
         />
@@ -141,8 +109,9 @@ export default function Continue({cookies}) {
           id="phone"
           name="phone"
           type="number"
-          onChange={formik.handleChange}
-          value={formik.values.phone}
+          onChange={(e)=>setphone(e.target.value)}
+          value={phone}
+          
          
           
         />
@@ -154,8 +123,8 @@ export default function Continue({cookies}) {
           id="referall"
           name="referall"
           type="text"
-          onChange={formik.handleChange}
-          value={formik.values.referall}
+          onChange={(e)=>setRef(e.target.value)}
+          value={referall}
         
           
         />
@@ -168,8 +137,8 @@ export default function Continue({cookies}) {
             id="address"
             name="address"
             type="text"
-            onChange={formik.handleChange}
-            value={formik.values.address}
+            onChange={(e)=>setAdd(e.target.value)}
+            value={address}
            
          
            
@@ -188,8 +157,10 @@ export default function Continue({cookies}) {
           id="Kra"
           name="Kra"
           type="text"
-          onChange={formik.handleChange}
-          value={formik.values.Kra}
+          onChange={(e)=>setKra(e.target.value)}
+          value={Kra}
+          pattern="[a-z]{0,9}"
+          title="Password should be digits (0 to 9) or alphabets (a to z)."
           
         />
           <TextField
@@ -199,8 +170,8 @@ export default function Continue({cookies}) {
           id="idnumber"
           name="idnumber"
           type="text"
-          onChange={formik.handleChange}
-          value={formik.values.idnumber}
+          onChange={(e)=>setId(e.target.value)}
+          value={idnumber}
    
           
         />
@@ -212,12 +183,14 @@ export default function Continue({cookies}) {
           id="Ira"
           name="Ira"
           type="text"
-          onChange={formik.handleChange}
-          value={formik.values.Ira}
+          onChange={(e)=>setIra(e.target.value)}
+         
+          pattern="[A-Z]{3}[/][0-9]{2}[/][0-9]{5}[/][0-9]{4}$"
+          title='Invlid License'
         
           
         />
-        {formik.errors.Ira ? <div>{formik.errors.Ira}</div> : null}
+       
         
        
   

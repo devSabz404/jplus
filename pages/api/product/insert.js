@@ -1,6 +1,6 @@
 import excuteQuery from "../../../lib/db";
 
-export default async function(req,res){
+const handler = async (req, res) => {
 
     const {myname,myage,myhome} =req.body;
 
@@ -13,3 +13,4 @@ export default async function(req,res){
     res.status(200).json({ message: "Success!" });
 }
 
+export default handler

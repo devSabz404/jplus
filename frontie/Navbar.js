@@ -46,7 +46,7 @@ export const Nav = () => {
                   title="Our product"
                   className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
                 >
-                  Product
+                  Home
                 </a>
                 </Link>
               </li>
@@ -57,7 +57,7 @@ export const Nav = () => {
                   title="Our product"
                   className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
                 >
-                  Features
+                  About us
                 </a>
                 </Link>
                 
@@ -70,7 +70,7 @@ export const Nav = () => {
                   title="Product pricing"
                   className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
                 >
-                  Pricing
+                  Services
                 </a>
                 </Link>
                 
@@ -83,7 +83,7 @@ export const Nav = () => {
                   title="About us"
                   className="font-medium tracking-wide text-gray-100 transition-colors duration-200 hover:text-teal-accent-400"
                 >
-                  About us
+                  Contact us
                 </a>
                 </Link>
               </li>

@@ -12,6 +12,10 @@ module.exports = {
       colors: {
         'regal-blue': '#2780c2',
       },
+      backgroundImage: {
+        'logbook': "url('/public/backg/logbook.png')",
+        
+      }
 
     },
   },

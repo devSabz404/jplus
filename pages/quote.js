@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { useEffect, useState } from "react";
 import excuteQuery from "../lib/db";
 import axios from "axios";
-import { useSelector, useDispatch } from 'react-redux';
+import {useDispatch } from 'react-redux';
 import{
   setName,setNumber,setReferall,setRegistration,setEmail,setVehicleclass,setCoverage,setPeriod,setProductDetail,setSum
 } from '../features/counterSlice'
@@ -12,8 +12,24 @@ import{
 function Month(){
   const periods=[
     {id:1,duration:'1 Week'},
-    {id:1,duration:'2 Weeks'},
+    {id:2,duration:'2 Weeks'},
+    {id:3,duration:'1 Month'},
+    {id:4,duration:'1 Year'}
+   
+   ]
+
+   return(
+     periods.map((item,index)=>
+     <option key={index} value={item.duration}>{item.duration}</option>
+     )
+   )
+}
+
+function MonthYear(){
+  const periods=[
+    
     {id:1,duration:'1 Month'},
+    {id:2,duration:'1 Year'}
    
    ]
 
@@ -211,7 +227,7 @@ async function handleSubmit(e){
       
       <select onChange={(e)=>setCoverPeriod(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-zip" >
           <option disabled selected>Select Cover Period</option>
-          {cover === 'Comprehensive'? <Year/> : <Month/>}
+          {cover === 'Comprehensive'? <Year/>:vclass==='15'||vclass==='17'?<Month/>:<MonthYear/>}
       </select>
       
     </div>

@@ -20,6 +20,11 @@ import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 import Modal from '@mui/material/Modal';
 import * as cookie from 'cookie'
 import axios from 'axios';
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import { useRouter } from 'next/router'
+
 
 const style = {
   position: 'absolute',
@@ -32,6 +37,8 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
+
+
 
 
 const useStyles = makeStyles((theme)=>({
@@ -56,6 +63,68 @@ group: {
 }));
 
 export default function App(props) {
+  const router = useRouter()
+
+  const [openq, setOpenq] = useState(false);
+
+const handleClick = () => {
+  setOpenq(true);
+};
+
+const handleCloset = (event, reason) => {
+  if (reason === 'clickaway') {
+    return;
+  }
+
+  setOpenq(false);
+};
+
+const action = (
+  <>
+   
+    <IconButton
+      size="small"
+      aria-label="close"
+      color="warning"
+      onClick={handleCloset}
+    >
+      <CloseIcon fontSize="small" />
+    </IconButton>
+  </>
+);
+
+
+const [openqz, setOpenqz] = useState(false);
+
+const handleClickz = () => {
+  setOpenqz(true);
+};
+
+const handleClosetz = (event, reason) => {
+  if (reason === 'clickaway') {
+    return;
+  }
+
+  setOpenqz(false);
+};
+
+const actionz = (
+  <>
+   
+    <IconButton
+      size="small"
+      aria-label="close"
+      color="success"
+      onClick={handleClosetz}
+    >
+      <CloseIcon fontSize="small" />
+    </IconButton>
+  </>
+);
+  
+
+
+
 const classes = useStyles();
 const [open, setOpen] = useState(false);
 const handleOpen = () => setOpen(true);
@@ -73,7 +142,7 @@ const exclusion = props.exclud.map((item)=>item)
 
 
 const [product,setProduct] = useState('BimaPlus')
-const [productCode,setProductCode] = useState();
+
 const [vehicleClass,setVehicleClass] = useState('')
 const [underwriter,setUnderwriter] = useState('')
 const [coverage,setCoverage] = useState('')
@@ -123,7 +192,7 @@ console.log(owner)
 const submitHandler = async (e) => {
   e.preventDefault();
 
-  const credentials = {productCode,
+  const credentials = {
     vehicleClass,underwriter,coverage,
     clauses,waranty,
     excludedVehicles,maxTonnage,
@@ -138,11 +207,20 @@ const submitHandler = async (e) => {
     months8,months9,months10,months11}
 
   const res = await axios.post("/api/product/createproduct", credentials);
-  if (res.status !== 200){
-  console.log(res)
+  if (res.status === 200){
+  if(res.data.results.error){
+    //console.log('Duplicate')
+    handleClick()
+  }else{
+    
+    handleClickz()
+    setTimeout(()=>{
+      router.push('/dashboard/products')
+    },2000)
+  }
   }
 
-  alert('In for now')
+  
 };
 
 
@@ -175,7 +253,7 @@ const submitHandler = async (e) => {
         autoComplete="off"
         >
           
-        <TextField id="outlined-basic" label="Product Code" value={productCode} onChange={(e) => setProductCode(e.target.value)} variant="outlined" />
+    
         <TextField id="outlined-basic" label="Product" value={product} onChange={(e) => setProduct(e.target.value)} variant="outlined" />
         <FormControl>
         <InputLabel id="demo-simple-select-helper-label">Vehicle class</InputLabel>
@@ -287,9 +365,15 @@ const submitHandler = async (e) => {
         noValidate
         autoComplete="off"
         >
-        <TextField id="outlined-basic" label="Maximum tonnage"  value={maxTonnage} onChange={(e) => setMaxTonnage(e.target.value)} disabled={showInput} variant="outlined" />
-        <TextField id="outlined-basic" label="Minimum Tonnage " value={minTonnage} onChange={(e) => setMinTonnage(e.target.value)} disabled={showInput}  variant="outlined" />
-        
+        {coverage==='Third Party Only' && vehicleClass ===6 || vehicleClass===9 || vehicleClass===15 || vehicleClass===16 ||
+         vehicleClass===17 || vehicleClass===18 || vehicleClass===20 || vehicleClass===2 || vehicleClass===1 || vehicleClass===5 
+         || vehicleClass===4 ||vehicleClass===3? null:
+        <TextField id="outlined-basic" label="Maximum tonnage"  value={maxTonnage} onChange={(e) => setMaxTonnage(e.target.value)} disabled={showInput} variant="outlined" />}
+         {coverage==='Third Party Only' && vehicleClass ===6 || vehicleClass===9 || vehicleClass===15 || vehicleClass===16 || vehicleClass===17 
+         || vehicleClass===18 || vehicleClass===20 || vehicleClass===2 || vehicleClass===1 || vehicleClass===5
+         || vehicleClass===4 ||vehicleClass===3? null:
+        <TextField id="outlined-basic" label="Minimum Tonnage " value={minTonnage} onChange={(e) => setMinTonnage(e.target.value)} disabled={showInput}  variant="outlined" />}
+      
        
 
         <TextField id="outlined-basic" label="Number of Passengers" value={passengers} onChange={(e) => setPassengers(e.target.value)} variant="outlined" disabled={vehicleClass == '17' || vehicleClass == '15' ? false : true }  />
@@ -361,8 +445,26 @@ const submitHandler = async (e) => {
 
 
 
-
+      {coverage==='Third Party Only' && vehicleClass===6 || vehicleClass===4 ||vehicleClass===7||vehicleClass===3||vehicleClass===9 ||
+       vehicleClass===16 || vehicleClass===18 || vehicleClass===20 || vehicleClass===2 || vehicleClass===1 || vehicleClass===5 || vehicleClass===3 ||vehicleClass===21?
       <PopupState variant="popover" popupId="demo-popup-menu">
+      {(popupState) => (
+        <>
+          <Button variant="contained" {...bindTrigger(popupState)}>
+            Duration Rates
+          </Button>
+          <Menu {...bindMenu(popupState)}>
+            <TextField id="outlined-basic" label="Annual Rates"   value={annualRates} onChange={(e) => setAnnualRates(e.target.value)} variant="outlined" />
+           
+            <TextField id="outlined-basic" label="Monthly Rates"  value={monthlyRates} onChange={(e) => setMonthlyRates(e.target.value)}disabled={showInput}  variant="outlined" />
+           
+          
+          </Menu>
+        </>
+      )}
+    </PopupState>
+  :
+    <PopupState variant="popover" popupId="demo-popup-menu">
       {(popupState) => (
         <>
           <Button variant="contained" {...bindTrigger(popupState)}>
@@ -388,7 +490,7 @@ const submitHandler = async (e) => {
           </Menu>
         </>
       )}
-    </PopupState>
+    </PopupState>}
     
     
 
@@ -404,7 +506,7 @@ const submitHandler = async (e) => {
         noValidate
         autoComplete="off"
         >
-        
+        {coverage==='Third Party Only' && vehicleClass ===6 || vehicleClass===9? null:
         <FormControl >
         <InputLabel id="demo-simple-select-helper-label">Excluded Vehicles</InputLabel>
         <Select
@@ -421,11 +523,18 @@ const submitHandler = async (e) => {
         <MenuItem disabled className={classes.group}>Vehicles</MenuItem>
         {exclusion.map((item)=><MenuItem key={item.vehicle_id} value={item.class}>{item.vehicle_model}</MenuItem>)}
        </Select>
-       </FormControl>
-        
-        <TextField id="outlined-basic" label="Minimum Premium" value={minPremium} onChange={(e) => setMinPremium(e.target.value)} variant="outlined" />
-        <TextField id="outlined-basic" label="Maximum Age"  value={maxAge} onChange={(e) => setMaxAge(e.target.value)}  variant="outlined" />
-        <TextField id="outlined-basic" label="Minimum Age" value={minAge} onChange={(e) => setMinAge(e.target.value)} variant="outlined" />
+       </FormControl>}
+       {coverage==='Third Party Only' && vehicleClass ===6 ||coverage==='Third Party Only' && vehicleClass ===7
+       ||coverage==='Third Party Only' && vehicleClass ===4 ||coverage==='Third Party Only' && vehicleClass ===3 || vehicleClass===9|| vehicleClass===15
+       || vehicleClass===16 || vehicleClass===17 || vehicleClass===18 || vehicleClass===20 || vehicleClass===2 || vehicleClass===1 || vehicleClass===5 ||vehicleClass===21?  null:
+
+        <TextField id="outlined-basic" label="Minimum Premium" value={minPremium} onChange={(e) => setMinPremium(e.target.value)} variant="outlined" />}
+        {coverage==='Third Party Only' && vehicleClass ===6 || vehicleClass===9 || vehicleClass===15 || vehicleClass===16 || vehicleClass===17 || vehicleClass===18
+        || vehicleClass===20 || vehicleClass===2 || vehicleClass===1 || vehicleClass===5 || vehicleClass===4 ||vehicleClass===3 ||vehicleClass===21 ? null:
+        <TextField id="outlined-basic" label="Maximum Age"  value={maxAge} onChange={(e) => setMaxAge(e.target.value)}  variant="outlined" />}
+        {coverage==='Third Party Only' && vehicleClass ===6 || vehicleClass===9 || vehicleClass===15 || vehicleClass===16 || vehicleClass===17 
+        || vehicleClass===18 || vehicleClass===20 || vehicleClass===2  || vehicleClass===1 || vehicleClass===5 || vehicleClass===4 ||vehicleClass===3 ||vehicleClass===21 ? null:
+        <TextField id="outlined-basic" label="Minimum Age" value={minAge} onChange={(e) => setMinAge(e.target.value)} variant="outlined" />}
         <TextField id="outlined-basic" label="Maximum insured" value={maxInsured} onChange={(e) => setMaxInsured(e.target.value)}
          disabled={ coverage==='Third Party Only' && vehicleClass !='Commercial Own Goods' && vehicleClass !='General Cartage Lorries,Trucks and Tankers' ?true:false } 
          variant="outlined" />
@@ -444,6 +553,22 @@ const submitHandler = async (e) => {
     </Stack>
       </form>
       </Grid>
+      <Snackbar
+        open={openq}
+        autoHideDuration={6000}
+        onClose={handleCloset}
+        message="Duplicate Product"
+        action={action}
+     
+      />
+        <Snackbar
+        open={openqz}
+        autoHideDuration={6000}
+        onClose={handleClosetz}
+        message="Product created successfully"
+        action={actionz}
+        
+      />
      
     </Grid>
 

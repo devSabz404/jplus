@@ -13,11 +13,13 @@ import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { Fab } from '@mui/material';
 import excuteQuery from '../../lib/db';
 import Link from 'next/link'
-import EditIcon from '@mui/icons-material/Edit';
+
 import CircularProgress from '@mui/material/CircularProgress';
 import Box from '@mui/material/Box';
 import jwtDecode from 'jwt-decode';
 import { useRouter } from 'next/router'
+import axios from 'axios';
+import Stack from '@mui/material/Stack';
 
 
  function CircularIndeterminate() {
@@ -37,8 +39,8 @@ right:{
   },
   fab: {
     position: "fixed",
-    bottom: 20,
-    right: 20,
+    bottom: 50,
+    right: 50,
   },
 
 }));
@@ -71,12 +73,25 @@ export default function App({products,cookies}) {
         { field: 'delete', headerName: 'Delete', width: 70,
 
         renderCell: (params) => {
-          const onClick = (e) => {
+          const onClick = async (e) =>  {
             e.stopPropagation(); // don't select this row after clicking
+            const info = params.row.id;
+            const data = {info}
             
+
+            const res = await axios.post("/api/product/delete", data);
+            if (res.status == 200){
+            console.log(res.data)
+                }else{
+                  alert(Alleady)
+
+                }
+
+ 
            
     
-            return alert('delete');
+         
+           
           };
     
           return <Button onClick={onClick}><DeleteIcon/></Button>;
@@ -99,12 +114,19 @@ export default function App({products,cookies}) {
     <>
     <Navbar/>
     <Grid container>
+      
 
       <Grid item sm={2} xs={2}>
         <SideBar/>
       </Grid>
       <Grid item sm={9} xs={10}>
+      
       <div style={{ height: 700, width: '100%', marginTop:80,}}>
+      <Stack spacing={2} direction="row" style={{padding:5}} >
+      <Link href="add-product"><Button variant="contained">Add product</Button></Link>
+
+   
+   </Stack>
       <DataGrid
         rows={rows}
         columns={columns}
@@ -117,23 +139,11 @@ export default function App({products,cookies}) {
       <Grid item sm={1}  className={classes.right}>
        
       </Grid>
+    
 
     </Grid>
 
-    <div>
-    <Link href="add-product">
-      <Tooltip title="AddProduct">
-      <Fab color="primary" className={classes.fab}>
-        <IconButton>
-          <AddCircleIcon />
-          
-        </IconButton>
-     
-      </Fab>
-      </Tooltip>
-    </Link>
-      
-    </div>
+  
 
     </>
   )
