@@ -208,6 +208,7 @@ const submitHandler = async (e) => {
 
   const res = await axios.post("/api/product/createproduct", credentials);
   if (res.status === 200){
+   
   if(res.data.results.error){
     //console.log('Duplicate')
     handleClick()
@@ -216,7 +217,7 @@ const submitHandler = async (e) => {
     handleClickz()
     setTimeout(()=>{
       router.push('/dashboard/products')
-    },2000)
+    },1000)
   }
   }
 
@@ -365,19 +366,16 @@ const submitHandler = async (e) => {
         noValidate
         autoComplete="off"
         >
-        {coverage==='Third Party Only' && vehicleClass ===6 || vehicleClass===9 || vehicleClass===15 || vehicleClass===16 ||
-         vehicleClass===17 || vehicleClass===18 || vehicleClass===20 || vehicleClass===2 || vehicleClass===1 || vehicleClass===5 
-         || vehicleClass===4 ||vehicleClass===3? null:
-        <TextField id="outlined-basic" label="Maximum tonnage"  value={maxTonnage} onChange={(e) => setMaxTonnage(e.target.value)} disabled={showInput} variant="outlined" />}
-         {coverage==='Third Party Only' && vehicleClass ===6 || vehicleClass===9 || vehicleClass===15 || vehicleClass===16 || vehicleClass===17 
-         || vehicleClass===18 || vehicleClass===20 || vehicleClass===2 || vehicleClass===1 || vehicleClass===5
-         || vehicleClass===4 ||vehicleClass===3? null:
-        <TextField id="outlined-basic" label="Minimum Tonnage " value={minTonnage} onChange={(e) => setMinTonnage(e.target.value)} disabled={showInput}  variant="outlined" />}
-      
+        {vehicleClass===8?
+        <TextField id="outlined-basic" label="Maximum tonnage"  value={maxTonnage} onChange={(e) => setMaxTonnage(e.target.value)} disabled={showInput} variant="outlined" />
+        :null}
+         {vehicleClass===8?
+        <TextField id="outlined-basic" label="Minimum Tonnage " value={minTonnage} onChange={(e) => setMinTonnage(e.target.value)} disabled={showInput}  variant="outlined" />
+        :null}
        
-
-        <TextField id="outlined-basic" label="Number of Passengers" value={passengers} onChange={(e) => setPassengers(e.target.value)} variant="outlined" disabled={vehicleClass == '17' || vehicleClass == '15' ? false : true }  />
-
+        {vehicleClass===17||vehicleClass===15?
+        <TextField id="outlined-basic" label="Number of Passengers" value={passengers} onChange={(e) => setPassengers(e.target.value)} variant="outlined"   />
+        :null}
         <Button variant="contained" onClick={handleOpen}>Optional Benefits</Button>
       <Modal
         open={open}

@@ -44,7 +44,7 @@ if(!match) {return res.status(400).json({msg: "Wrong Password"})}
 
     res.setHeader("Set-Cookie", serialised);
 
-    res.status(200).json({ message: "Success!" });
+    res.status(200).json({ message:user });
   } else {
     res.json({ message: "Invalid credentials!" });
   }

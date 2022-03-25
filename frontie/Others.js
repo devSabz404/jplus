@@ -7,6 +7,7 @@ import Amaco from '../public/companies/amaco.jpg';
 import Britam from '../public/companies/britam.jpg';
 import Cic from '../public/companies/cic.jpg';
 
+
  const Content = () => {
     return (
       <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
@@ -66,6 +67,7 @@ import Cic from '../public/companies/cic.jpg';
               </svg>
             </div>
             <h6 className="mb-2 font-semibold leading-5">Arr</h6>
+            
             <Image 
           className={"object-cover w-full h-56 rounded shadow-lg lg:rounded-none lg:shadow-none md:h-96 lg:h-full"}
             src={Arr}

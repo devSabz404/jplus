@@ -2,13 +2,13 @@ import excuteQuery from "../../lib/db";
 
 export default async function handler(req, res) {
 
-    let{myName,myEmail,phoneNumber,registration,referall,vclass,cover,coverPeriod,sumInsured} =req.body;
+    let{myName,myEmail,phoneNumber,registration,referall,vclass,cover,coverPeriod,sumInsured,passengers,tonnage} =req.body;
 
     const getQuote =  await excuteQuery({
     // query:"SELECT * FROM itbl_product   ",
 
-        query:"SELECT * FROM itbl_product WHERE `owner` = ? AND `coverage` = ? AND `vehicleclass` =? ",
-        values:[referall,cover,vclass]
+        query:"SELECT * FROM itbl_product WHERE `owner` = ? AND `coverage` = ? AND `vehicleclass` =? OR `passengers`=? OR maxtonnage=? ",
+        values:[referall,cover,vclass,passengers,tonnage]
     })
 
 

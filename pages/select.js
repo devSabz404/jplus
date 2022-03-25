@@ -1,18 +1,19 @@
 import React from "react";
 import Layout from "../frontie/Layout";
 import { useSelector} from 'react-redux';
+import excuteQuery from "../lib/db";
 import{selectCoverage, selectPeriod, selectProduct,selectRegistration,setChoice} from '../features/counterSlice'
 import Link from "next/link"
 
-const Select = () =>{
+export default function Select (props){
 
 
     let product = useSelector(selectProduct)
     let registration = useSelector(selectRegistration)
     let coverage = useSelector(selectCoverage)
     let coverperiod =useSelector(selectPeriod)
-    console.log(coverage)
-
+    console.log(product)
+    console.log('showw',props)
    
 
     return(
@@ -114,4 +115,39 @@ const Select = () =>{
     )
 }
 
-export default Select;
+
+
+// export async function getServerSideProps(context){
+
+//   const results = await excuteQuery({
+//     query:"SELECT * FROM itbl_products"
+//    });
+ 
+//    let underw = JSON.parse(JSON.stringify(results));
+ 
+//    return{props:{underw}}
+
+
+// }
+export async function getServerSideProps(context) {
+  
+      
+  
+
+   
+   const cover = await excuteQuery({
+    query:"SELECT * FROM `itbl_coverage`"
+   });
+
+   let covera = JSON.parse(JSON.stringify(cover));
+
+   
+  
+
+ 
+  return {
+    props: {covera} // will be passed to our  page component as props
+  };
+
+
+}

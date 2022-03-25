@@ -44,11 +44,16 @@ export default function SignInSide() {
     const credentials = { email, password };
 
     const res = await axios.post("/api/auth/login", credentials);
-    if (!res.ok){
-    console.log('Wrong')
+    if (res.status===200){
+      if(res.data.message[0].agent||res.data.message[0].agent_admin){
+       Router.push('/dashboard')
+      }else{
+        Router.push('/dashboard/continue')
+      }
+    
     }
   
-    Router.push('/dashboard')
+    
    
   };
 

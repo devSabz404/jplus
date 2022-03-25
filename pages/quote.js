@@ -5,7 +5,8 @@ import excuteQuery from "../lib/db";
 import axios from "axios";
 import {useDispatch } from 'react-redux';
 import{
-  setName,setNumber,setReferall,setRegistration,setEmail,setVehicleclass,setCoverage,setPeriod,setProductDetail,setSum
+  setName,setNumber,setReferall,
+  setRegistration,setEmail,setSum,setVehicleclass,setCoverage,setPeriod,setProductDetail
 } from '../features/counterSlice'
 
 
@@ -81,6 +82,8 @@ const [vclass,setMyVclass]= useState()
 const [cover,setMyCover]= useState()
 const [coverPeriod,setCoverPeriod]= useState()
 const [sumInsured,setMySuminsured] = useState()
+const [passengers,setPassenger] = useState()
+const [tonnage,setTonnage] = useState()
 
 
 
@@ -91,7 +94,7 @@ async function handleSubmit(e){
   
 
 
-  const  data = {myName,myEmail,phoneNumber,registration,referall,vclass,cover,coverPeriod,sumInsured}
+  const  data = {myName,myEmail,phoneNumber,registration,referall,vclass,cover,coverPeriod,sumInsured,passengers,tonnage}
 
   dispatch(setName(myName));
     dispatch(setNumber(phoneNumber));
@@ -103,6 +106,7 @@ async function handleSubmit(e){
     dispatch(setPeriod(coverPeriod));
     dispatch(setSum(sumInsured));
   
+  
   const res = await axios.post('./api/quote',data,
 
   )
@@ -111,7 +115,7 @@ async function handleSubmit(e){
     
 
     dispatch(setProductDetail(res.data.otherdata));
-    router.push('/select')
+    router.push('/pick')
   }else{
     console.log("not ok")
   }
@@ -231,17 +235,41 @@ async function handleSubmit(e){
       </select>
       
     </div>
-    
-    <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 flex justify-center mt-7 ml-10">
 
-    <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+    <div className="flex flex-wrap -mx-3 mb-2">
+     {vclass==='15'||vclass==='17'? 
+    <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 ml-3 mt-4">
+      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-city">
+        passengers
+      </label>
+      <input  onChange={(e)=>setMyReferall(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-city" type="text" placeholder="Passengers"/>
+    </div>:null
+        }
+      {vclass==='8'?  
+    <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 ml-3">
+      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-city">
+        Tonnage
+      </label>
+      <input  onChange={(e)=>setMyReferall(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-city" type="text" placeholder="Tonnage"/>
+    </div>:null}
+    
+
+    
+    <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
+     
+      
+    </div>
+    
+  <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 flex justify-center mt-7 ml-10">
+
+<button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
   Submit
 </button>
      
       
     </div>
   </div>
-  
+  </div>
 </form>
 </div>
 </div>

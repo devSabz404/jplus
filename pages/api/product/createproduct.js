@@ -1,9 +1,8 @@
 import excuteQuery from '../../../lib/db'
 
 const handler = async (req, res) => {
- const  {productCode,
-  vehicleClass,underwriter,coverage,
-  description,clauses,waranty,
+ const  {
+  vehicleClass,underwriter,coverage,clauses,waranty,
   excludedVehicles,maxTonnage,
   minTonnage,weeklyRates,monthlyRates,
   fortniteRate,passengers,annualRates,

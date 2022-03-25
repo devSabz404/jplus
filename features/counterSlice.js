@@ -12,7 +12,8 @@ export const counterSlice = createSlice({
     vehicleclass:'',
     coverage:'',
     period:'',
-    sumInsured:'',
+    sum:'',
+    premium:null,
     productDetail:{},
     choice:[],
     unique:''
@@ -46,16 +47,20 @@ export const counterSlice = createSlice({
     setUnique:(state,action)=>{
         state.unique=action.payload ;
     },
-   
     setSum:(state,action)=>{
-        state.coverPeriod=action.payload ;
+        state.sum=action.payload ;
     },
+    setPremium:(state,action)=>{
+        state.sum=action.payload ;
+    },
+   
+   
     setProductDetail:(state,action)=>{state.productDetail = action.payload}
   },
   setChoice:(state,action)=>{state.choice.push(action.payload)}
 });
 
-export const {setChoice,setName,setNumber,setReferall,setRegistration,setEmail,setVehicleclass,setCoverage,setPeriod,setProductDetail,setSum,setUnique } = counterSlice.actions;
+export const {setChoice,setName,setPremium,setNumber,setSum,setReferall,setRegistration,setEmail,setVehicleclass,setCoverage,setPeriod,setProductDetail,setUnique } = counterSlice.actions;
 
 export const selectName = state => state.counter.fullName;
 export const selectProduct =state=>state.counter.productDetail;
@@ -67,9 +72,10 @@ export const selectVehicle = state => state.counter.vehicleclass;
 export const selectEmail = state => state.counter.email;
 export const selectCoverage = state => state.counter.coverage;
 export const selectPeriod = state => state.counter.period;
-export const selectSum = state => state.counter.sumInsured;
+export const selectSum = state => state.counter.sum;
 export const selectChoice = state => state.counter.choice;
 export const selectUnique = state => state.counter.unique;
+export const selectPremium = state => state.counter.unique;
 
 
 

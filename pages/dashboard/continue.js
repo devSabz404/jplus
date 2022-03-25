@@ -21,6 +21,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import jwtDecode from 'jwt-decode';
+import { useRouter } from 'next/router';
 
 
 
@@ -37,6 +38,7 @@ right:{
 }));
 
 export default function Continue({cookies}) {
+  const router = useRouter()
 
  
       const [companyName,setComp  ] =useState()
@@ -63,11 +65,12 @@ const submitHandler = async (e) => {
   const credentials = {companyName,address,phone,referall,Ira,Kra,idnumber,id}
 
   const res = await axios.post("/api/auth/continue", credentials);
-  if (res.status !== 200){
-  console.log(res)
+  if (res.status == 200){
+    router.push('/dashboard/')
+  
   }
 
-  alert('In for now')
+  
 };
 
 
@@ -76,18 +79,18 @@ const submitHandler = async (e) => {
 
   return(
     <>
-    <Navbar/>
+    <Navbar />
      
     
     <Grid container >
 
       <Grid item sm={2} xs={2}>
-        <SideBar/>
+       
       </Grid>
       <Grid item sm={7} xs={10}>
 
       <form onSubmit={submitHandler} style={{marginTop:100}}sx={{ display: 'flex', flexWrap: 'wrap'  }}>
-          <h1>Continue Registration</h1>
+          <h1>Complete Registration</h1>
       <div>
       
         <TextField
