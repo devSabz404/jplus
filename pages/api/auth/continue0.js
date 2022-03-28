@@ -1,25 +1,25 @@
 import excuteQuery from "../../../lib/db";
 
 const handler = async (req, res) => {
-  const { companyName, address, phone, Ira, Kra, idnumber,referall, identity } = req.body;
+  const {companyName,address,phone,withHyph,Kra,idnumber,referall,identity} = req.body;
   let role = null 
-  let agentCode = Ira.match(/[0-9]{5}/);
+
   try {
-    
+     
      const results = await excuteQuery({
       query:
-        "UPDATE  `tbl_user` SET physicaladdress=?,companyname=?,phonenumber=?,krapin=?,idnumber=?,iralicense=?,role=?,agent_admin=? WHERE user_id=?",
+        "UPDATE  `tbl_user` SET physicaladdress=?,companyname=?,phonenumber=?,contactperson=?,krapin=?,idnumber=?,role=?,agent=? WHERE user_id=?",
       values: [
         address,
         companyName,
         phone,
-        
+        referall,
         Kra,
         idnumber,
-        Ira,
-        role='superadmin',
        
-        agentCode,
+        role='agent',
+       
+        withHyph,
         identity,
        
       ],

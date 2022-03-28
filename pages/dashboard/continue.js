@@ -38,7 +38,7 @@ right:{
 }));
 
 export default function Continue({cookies}) {
-  const router = useRouter()
+  const Router = useRouter()
 
  
       const [companyName,setComp  ] =useState()
@@ -54,24 +54,43 @@ export default function Continue({cookies}) {
 
   
   const userData = jwtDecode(cookies.OursiteJWT)
-  const id = userData.id
-  console.log(id)
+  const identity = userData.id
+ 
   const classes =useStyles()
 
-
+const withHyph = referall+'-'+idnumber
 const submitHandler = async (e) => {
   e.preventDefault();
 
-  const credentials = {companyName,address,phone,referall,Ira,Kra,idnumber,id}
-
-  const res = await axios.post("/api/auth/continue", credentials);
-  if (res.status == 200){
-    router.push('/dashboard/')
+  const credentials = {companyName,address,phone,Ira,Kra,idnumber,identity}
+  const credentials0 = {companyName,address,phone,withHyph,Ira,Kra,idnumber,referall,identity}
+  if(!referall){
+    const res = await axios.post("/api/auth/continue", credentials);
+    if (res.status == 200){
+      handleLogOut()
+    
+    
+    }
   
-  }
-
+  }else{
+    const res = await axios.post("/api/auth/continue0", credentials0);
+    if (res.status == 200){
+      handleLogOut()
+    
+    }
   
-};
+  }}
+  
+ 
+  
+  const handleLogOut = async () => {
+    
+    const user = await axios.get("/api/auth/logout");
+
+    if(user.status===200) Router.push('/login')
+
+ 
+  };
 
 
 
@@ -178,7 +197,7 @@ const submitHandler = async (e) => {
    
           
         />
-
+        {referall?null:
         <TextField
           label="IRA license"
           
@@ -192,13 +211,13 @@ const submitHandler = async (e) => {
           title='Invlid License'
         
           
-        />
+        />}
        
         
        
   
       </div>
-      <Button type='submit' variant="contained">Contained</Button>
+      <Button type='submit' variant="contained">Submit</Button>
       <form/>
      
     </form>
