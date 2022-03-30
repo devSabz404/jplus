@@ -161,7 +161,7 @@ export default function App({products,cookies}) {
   
     const userData = jwtDecode(cookies.OursiteJWT)
     const id = userData.owner
-    const contact =userData.contactPerson
+    
 
   
   
