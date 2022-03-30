@@ -5,7 +5,14 @@ const handler = async (req, res) => {
   let role = null 
 
   try {
+    const user = await excuteQuery({
+      query:'SELECT * FROM tbl_user WHERE `agent_admin` =?',
+      values :[referall]
+  });
+  //const match =  user[0].agent_admin;
+  if(!user) {return res.status(400).json({msg: "Referall Does not exist"})}
      
+  else if (user) {
      const results = await excuteQuery({
       query:
         "UPDATE  `tbl_user` SET physicaladdress=?,companyname=?,phonenumber=?,contactperson=?,krapin=?,idnumber=?,role=?,agent=? WHERE user_id=?",
@@ -26,7 +33,7 @@ const handler = async (req, res) => {
     });
     console.log(results);
     return res.json(results);
-   
+  }
 
     
   } catch (e) {

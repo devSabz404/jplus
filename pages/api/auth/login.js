@@ -29,6 +29,7 @@ if(!match) {return res.status(400).json({msg: "Wrong Password"})}
         company:user[0].company,
         email:user[0].emailaddress,
         owner:user[0].agent_admin,
+        contactPerson:user[0].contactperson,
      
       },
       secret
@@ -38,7 +39,7 @@ if(!match) {return res.status(400).json({msg: "Wrong Password"})}
       httpOnly: true,
       secure: process.env.NODE_ENV !== "development",
       sameSite: "strict",
-      maxAge: 60 * 60 * 24 * 30,
+      maxAge: 20 * 20 * 3 * 1,
       path: "/",
     });
 

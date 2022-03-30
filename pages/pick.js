@@ -51,9 +51,9 @@ for(let i=0;product.length>i;i++){
       basicPremium = product[i].weeklyrates;
     } else if (coverperiod === "2 weeks") {
       basicPremium = product[i].fortnightrates;
-    } else if (coverperiod === "1 month") {
+    } else if (coverperiod === "1 Month") {
       basicPremium = product[i].monthlyrates;
-    } else if (coverperiod === "1 year") {
+    } else if (coverperiod === "1 Year") {
       basicPremium = product[i].annualrates;
     } else {
       basicPremium = product[i].annualrates;
@@ -240,6 +240,7 @@ return(
         className="object-cover w-full h-48"
         height={200}
         width ={200}
+        alt=""
         
       />
       <span

@@ -209,17 +209,12 @@ const submitHandler = async (e) => {
   const res = await axios.post("/api/product/createproduct", credentials);
   if (res.status === 200){
    
-  if(res.data.results.error){
-    //console.log('Duplicate')
-    handleClick()
-  }else{
-    
     handleClickz()
     setTimeout(()=>{
       router.push('/dashboard/products')
     },1000)
   }
-  }
+  
 
   
 };

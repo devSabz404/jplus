@@ -76,7 +76,7 @@ const Quote = ({motovehicle,motocycle,tricycle,covera}) =>{
 const [myName,setMyname]= useState()
 const [phoneNumber,setPhoneNumber]= useState()
 const [registration,setMyRegistration]= useState()
-const [referall,setMyReferall]= useState()
+const [referall,setMyReferall]= useState(312312)
 const [myEmail,setMyEmail]= useState()
 const [vclass,setMyVclass]= useState()
 const [cover,setMyCover]= useState()
@@ -242,15 +242,15 @@ async function handleSubmit(e){
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-city">
         passengers
       </label>
-      <input  onChange={(e)=>setMyReferall(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-city" type="text" placeholder="Passengers"/>
+      <input  onChange={(e)=>setPassenger(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-city" type="text" placeholder="Passengers"/>
     </div>:null
         }
-      {vclass==='8'?  
+      {vclass==='8'||vclass==='7' ?  
     <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0 ml-3">
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-city">
         Tonnage
       </label>
-      <input  onChange={(e)=>setMyReferall(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-city" type="text" placeholder="Tonnage"/>
+      <input  onChange={(e)=>setTonnage(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-city" type="text" placeholder="Tonnage"/>
     </div>:null}
     
 

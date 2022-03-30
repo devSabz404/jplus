@@ -13,12 +13,13 @@ const handler = async (req, res) => {
   months3,months4,
   months5,months6,months7,
   months8,months9,months10,months11} =req.body
+  const uniqueidentifier =underwriter+'|'+vehicleClass+'|'+coverage+'|'+owner;
   try {
    
 
     const results = await excuteQuery({   
 
-    query:'INSERT INTO itbl_product (vehicleclass,underwriter,coverage,clauses,conditionsandwaranties,optionalname,optionalpremium,optionalrate,mintonnage,maxtonnage,weeklyrates,fortnightrates,monthlyrates,months2,months3,months4,months5,months6,months7,months8,months9,months10,months11,annualrates,excludedvehicles,minimumpremium,passengers,maxage,minage,maxsum,minsum,owner) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)' ,
+    query:'INSERT INTO itbl_product (vehicleclass,underwriter,coverage,clauses,conditionsandwaranties,optionalname,optionalpremium,optionalrate,mintonnage,maxtonnage,weeklyrates,fortnightrates,monthlyrates,months2,months3,months4,months5,months6,months7,months8,months9,months10,months11,annualrates,excludedvehicles,minimumpremium,passengers,maxage,minage,maxsum,minsum,owner,uniqueidentifier) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)' ,
       
       
 
@@ -28,7 +29,7 @@ const handler = async (req, res) => {
               weeklyRates,fortniteRate,monthlyRates,months2,months3,
               months4,months5,months6,months7,months8,months9,months10,
               months11,annualRates,excludedVehicles,minPremium,
-              passengers,maxAge,minAge,maxInsured,minInsured,owner]
+              passengers,maxAge,minAge,maxInsured,minInsured,owner,uniqueidentifier]
      
     })
   

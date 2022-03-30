@@ -15,6 +15,24 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import axios from "axios";
 import Router from "next/router";
 
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import Stack from '@mui/material/Stack';
+import login_page from '../public/backg/login_page.jpg'
+
+export function DescriptionAlerts() {
+  return (
+    <Stack sx={{ width: '100%' }} spacing={2}>
+      <Alert severity="error">
+        <AlertTitle>Error</AlertTitle>
+        Wrong Email or Password — <strong>Cross Check!</strong>
+      </Alert>
+    
+    </Stack>
+  );
+}
+
+
 
 function Copyright(props) {
   
@@ -43,16 +61,41 @@ export default function SignInSide() {
 
     const credentials = { email, password };
 
-    const res = await axios.post("/api/auth/login", credentials);
-    if (res.status===200){
-      if(res.data.message[0].agent||res.data.message[0].agent_admin){
-       Router.push('/dashboard')
-      }else{
-        Router.push('/dashboard/continue')
+    const res = await axios.post("/api/auth/login", credentials)
+    .then(function(res){
+      if (res.status===200){
+        if(res.data.message[0].agent||res.data.message[0].agent_admin){
+         Router.push('/dashboard')
+        }else{
+          Router.push('/dashboard/continue')
+        }
+      
       }
+
+    })
     
-    }
   
+    .catch(function (error) {
+      if (error.response) {
+        // Request made and server responded
+       
+        console.log(error.response.status);
+        if(error.response.status===500){
+      
+          alert('Incorrect email or password');
+         //Router.push('/login')
+        }
+      
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.log(error.request);
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.log('Error', error.message);
+      }
+  
+    });
+   
     
    
   };
@@ -67,7 +110,7 @@ export default function SignInSide() {
           sm={4}
           md={7}
           sx={{
-            backgroundImage: 'url(https://source.unsplash.com/random)',
+            backgroundImage:'url(https://source.unsplash.com/random)',
             backgroundRepeat: 'no-repeat',
             backgroundColor: (t) =>
               t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
@@ -131,6 +174,7 @@ export default function SignInSide() {
                   <Link href="#" variant="body2">
                     Forgot password?
                   </Link>
+                  
                 </Grid>
                 <Grid item>
                   <Link href="./account/register" variant="body2">
