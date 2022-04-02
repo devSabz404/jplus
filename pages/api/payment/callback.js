@@ -2,8 +2,8 @@
 
 export default function handler(req, res) {
 
-    console.log(res.body)
-    const logs = res.body
+    console.log(req.body)
+    const logs = req.body
 
 res.status(200).json({ name:logs}) 
 }
