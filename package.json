@@ -4,7 +4,7 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "postbuild": "next-on-netlify"
+  
   },
   "dependencies": {
     "@emotion/react": "^11.7.1",
