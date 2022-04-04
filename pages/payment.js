@@ -20,7 +20,7 @@ export const Header = () => {
 async function handleSubmit(e){
     const tel = Number(phone)
     e.preventDefault()
-    const data = {tel}
+    const data = {tel,email}
     const res = await axios.post('./api/payment/lipa',data,)
         if(res.status===200){
             console.log('cool')
