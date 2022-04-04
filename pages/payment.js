@@ -124,7 +124,7 @@ async function handleSubmit(e){
                       />
                     </div>
                     <div className="mt-4 mb-2 sm:mb-4">
-                    <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-9 rounded"
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-9 rounded"
                     type="submit"
                     >
                         Pay

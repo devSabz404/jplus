@@ -187,7 +187,7 @@ export default function App({products}) {
     </Grid>
 
     <div>
-    <Link href="add-product">
+    <Link href="add-product"  passHref>
       <Tooltip title="AddProduct">
       <Fab color="primary" className={classes.fab}>
         <IconButton>

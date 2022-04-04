@@ -125,7 +125,7 @@ export default function App({products,cookies}) {
       
       <div style={{ height: 700, width: '100%', marginTop:80,}}>
       <Stack spacing={2} direction="row" style={{padding:5}} >
-      <Link href="add-product"><Button variant="contained">Add product</Button></Link>
+      <Link href="add-product"><Button variant="contained"  passHref>Add product</Button></Link>
 
    
    </Stack>
