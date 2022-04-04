@@ -542,7 +542,7 @@ const submitHandler = async (e) => {
     <Stack spacing={2} direction="row">
     <br/>
       < Button variant="contained" type="submit" color="success" style={{marginTop:40}}>Submit</Button>
-  <Link href="/products"><Button variant="outlined" color ="secondary" style={{marginTop:40}}>Back</Button></Link>
+  <Link href="/products"><Button variant="outlined" color ="secondary" style={{marginTop:40}}  passHref>Back</Button></Link>
     </Stack>
       </form>
       </Grid>
