@@ -3,9 +3,13 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import Layout from "../frontie/Layout";
 import {selectUnique} from "../features/counterSlice"
+import { useRouter } from "next/router";
+import { RouteRounded } from "@mui/icons-material";
 
 
 export default function Logbook(){
+
+  const Router = useRouter();
 
   const clientIdentity = useSelector(selectUnique)
 
@@ -108,6 +112,7 @@ export default function Logbook(){
 
     if(response.status===200){
       console.log(response.data)
+      Router.push('/payment')
     }else{
       console.log("Nothing")
     }

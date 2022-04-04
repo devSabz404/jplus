@@ -1,7 +1,8 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import unirest from 'unirest'
 export default function handler(req, res) {
-
+   const {tel} = req.body
+    
     const consumer_key="uyONyJjzHsajSA6GmcfUfZ9PN0CBLwX2"
     const consumer_secret="9jEl4JAzkoIsolOr"
     let buffer = new Buffer.from(consumer_key+":"+consumer_secret);
@@ -48,6 +49,7 @@ const ymdHms = y + m + d + H + i + s;
 
 
 
+
 function lipa(tokens){
     let timestamp = ymdHms
     const bs_short_code = 7290377
@@ -66,10 +68,10 @@ function lipa(tokens){
         "Timestamp":ymdHms,
         "TransactionType": "CustomerPayBillOnline",
         "Amount": 1,
-        "PartyA":254700154709,
+        "PartyA":tel,
         "PartyB":7290377,
-        "PhoneNumber":254700154709,
-        "CallBackURL": "https://5e64-197-232-51-15.ngrok.io/api/payment/callback",
+        "PhoneNumber":tel,
+        "CallBackURL": "https://5e64-197-232-51-15.ngrok.io/api/payment/lipa",
         "AccountReference": "CompanyXLTD",
         "TransactionDesc": `Payment of ${'biz'}` 
       }))
