@@ -4,7 +4,7 @@ import React from "react";
 import Layout from "../frontie/Layout";
 import { useSelector} from 'react-redux';
 import Image from 'next/image'
-import Inage from '../public/companies/britam.jpg'
+import Pics from '../features/images';
 import {
   selectSum,
   selectReferall,
@@ -26,12 +26,14 @@ import Link from "next/link"
 
 export default function Test({covera,underwriters}){
   const sumInsured = useSelector(selectSum)
+  
 
  
   let product = useSelector(selectProduct)
   let registration = useSelector(selectRegistration)
   let coverage = useSelector(selectCoverage)
   let coverperiod =useSelector(selectPeriod)
+  const vehiclecls = useSelector(selectVehicle)
 const prod = []
 const writer = []
 const obj=[]
@@ -51,13 +53,14 @@ for(let i=0;product.length>i;i++){
       basicPremium = product[i].weeklyrates;
     } else if (coverperiod === "2 weeks") {
       basicPremium = product[i].fortnightrates;
-    } else if (coverperiod === "1 Month") {
+    } else if (coverperiod === "1 month") {
       basicPremium = product[i].monthlyrates;
     } else if (coverperiod === "1 Year") {
       basicPremium = product[i].annualrates;
     } else {
       basicPremium = product[i].annualrates;
     }
+    
     basicPremium=parseInt(basicPremium)
     let stampDuty = 40;
     let policyHolderCompensationFund = (0.25 / 100) * basicPremium;
@@ -65,13 +68,37 @@ for(let i=0;product.length>i;i++){
     let trainingLevy = (0.2 / 100) * basicPremium;
     
     grossPremium =basicPremium + stampDuty + trainingLevy + policyHolderCompensationFund;
+    console.log(grossPremium)
     grossPremium = Math.round(parseInt(grossPremium))
     
-    console.log(grossPremium)
+    
     
   prod.push(product[i].underwriter)
   //const popy = product.map(obj=> ({ ...obj, premium: basicPremium}))
   prem.push({premium:grossPremium,name:product[i].underwriter})
+  }else if(product[i].coverage === "Third Party Only" && vehiclecls==="15" ){
+    if (coverperiod === "1 week") {
+      basicPremium = product[i].weeklyrates;
+    } else if (coverperiod === "2 weeks") {
+      basicPremium = product[i].fortnightrates;
+    } else if (coverperiod === "1 month") {
+      basicPremium = product[i].monthlyrates;
+    } else if (coverperiod === "1 Year") {
+      basicPremium = product[i].annualrates;
+    } else {
+      basicPremium = product[i].annualrates;
+    }
+
+    basicPremium=parseInt(basicPremium)
+    let stampDuty = 40;
+    let policyHolderCompensationFund = (0.25 / 100) * basicPremium;
+ 
+    let trainingLevy = (0.2 / 100) * basicPremium;
+    
+    grossPremium =basicPremium + stampDuty + trainingLevy + policyHolderCompensationFund;
+    console.log(grossPremium)
+    grossPremium = Math.round(parseInt(grossPremium))
+
   }
   else{
 
@@ -112,7 +139,7 @@ for(let i=0;product.length>i;i++){
 
 
 
-console.log(prod)
+
  
 
 
@@ -147,7 +174,6 @@ for(let i = 0; intersection.length>i;i++){
   }
 
 }
-//console.log(obj)
 
 
 
@@ -234,9 +260,10 @@ return(
   >
     <div className="flex flex-col h-full">
 
-      
+      {console.log(item.path)}
       <Image
-        src={`/..${item.path}`}
+      
+        src={`https://jendieplus.co.ke${item.path}`}
         className="object-cover w-full h-48"
         height={200}
         width ={200}

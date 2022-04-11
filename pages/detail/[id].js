@@ -47,7 +47,8 @@ export const Content = ({ product, benefits }) => {
   const clientphone = useSelector(selectNumber);
   let clientId = clientName + clientEmail + clientphone + dateTime;
  
-
+console.log(benefits)
+console.log(productId)
   // method to hash
   String.prototype.hashCode = function () {
     var hash = 0,
@@ -80,6 +81,7 @@ export const Content = ({ product, benefits }) => {
       ),
     [checked]
   );
+  console.log(totalSum)
 
   let basicPremium = null;
 
@@ -247,8 +249,8 @@ export async function getStaticProps({ params }) {
   const product = JSON.parse(JSON.stringify(products));
 
   let obenefits = await excuteQuery({
-    query: "SELECT * FROM `itbl_benefits` where product_id =?",
-    values: [id],
+    query: "SELECT * FROM `itbl_benefits` where benefit_id =?",
+    values: [product[0].optionalD],
   });
 
   const benefits = JSON.parse(JSON.stringify(obenefits));

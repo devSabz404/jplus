@@ -4,12 +4,14 @@ import { useSelector } from "react-redux";
 import Layout from "../frontie/Layout";
 import {selectUnique} from "../features/counterSlice"
 import { useRouter } from "next/router";
-import { RouteRounded } from "@mui/icons-material";
+import Router from "next/router";
+
+
 
 
 export default function Logbook(){
 
-  const Router = useRouter();
+  const router = useRouter();
 
   const clientIdentity = useSelector(selectUnique)
 
@@ -105,17 +107,19 @@ export default function Logbook(){
     body.append("registration",Registration);
     body.append("clientId",clientIdentity);
 
-    const response = await fetch("/api/upload",  {
-      method: "POST",
-      body
-    });
-
-    if(response.status===200){
-      console.log(response.data)
+    const res = await axios.post("/api/upload",body);
+    if (res.statusText === "OK"){
       Router.push('/payment')
-    }else{
-      console.log("Nothing")
     }
+
+    // const response = await fetch("/api/upload",  {
+    //   method: "POST",
+    //   body
+    // });
+    // if(response.status===200){
+     
+    // }
+    
   };
 
  

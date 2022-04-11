@@ -74,8 +74,7 @@ const handler = async (req, res) => {
                     query:'INSERT INTO `itbl_userfile` (clientId,logbook,id_passport,kra,krapin,registration,chasis,model,tyoe,body,fuel,manufacturedYear,ccrating,engineNumber,color,registrationDate,grossWeight,duty,nOfPreviousOwners,passengers,tareWeight,taxClass,axels,loadCapacity,previousRegCountry,previousReg,datePolicy,make) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
                     values:[clientId,newPathL,newPathP,newPathK,krapin,registration,chasis,model,type,body,fuel,manufactured,ccrating,enginenumber,color,registrationDate,grossweight,duty,previousowners,passengers,tareweight,taxclass,axels,loadcapacity,previouscountry,previousreg,datepolicy,make]
                 })
-                if(!results) {return res.status(400).json({msg: "Something is wrong"})}
-                console.log(results)
+               
                 res.status(200).json({ message: "Success!" });
             
             })().catch(err => {

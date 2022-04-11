@@ -73,21 +73,21 @@ function lipa(tokens,phonenum) {
     "Content-Type": "application/json",
     Authorization: `Bearer ${tokens}`,
   });
-  req.send(
-    JSON.stringify({
-      BusinessShortCode: 7290377,
-      Password: password,
-      Timestamp: ymdHms,
-      TransactionType: "CustomerPayBillOnline",
-      Amount: 1,
-      PartyA:phonenum,
-      PartyB: 7290377,
-      PhoneNumber:phonenum,
-      CallBackURL: "https://de96-197-232-51-15.ngrok.io/api/payment/cred",
-      AccountReference: "CompanyXLTD",
-      TransactionDesc: `Payment of ${"biz"}`,
-    })
-  );
+  req.send(JSON.stringify({
+    "InitiatorName": "testapi",
+    "SecurityCredential": "g95oagCSclb/TWWvYOvPFqP+crjM1/lVYoDyiiccVuE3d9vUsgA4nPY22lgzwMZPkAvku7Kc0tBwA/s5vs+Y4Ay+EXxZNm3nNwtsVjPOaxyl+h7fLSHFoBgWFmMwl6rqfHln+AD6rN447uFsFmXsgzVTsiC/x1qdJgwAUk4nGHAgJpal71xPN+yXfBFF9clK97UvdhjDt1TNhocINxs14ki7pO0zrdHuq02U260Ee2hIkDh8V/ZwFhAqVME+cRJH8jvGNgQ49xyzGpWKsMyCXpFjpUm193Oof25f+Ht117cehwbPoaHkuG/GxtPrMyR5jJk7DVLuLNe39aTFyGcVbg==",
+    "CommandID": "DisburseFundsToBusiness",
+    "SenderIdentifierType": "4",
+	"RecieverIdentifierType": "4",
+    "Amount": 1,
+    "PartyA": 600978,
+    "PartyB": 254708374149,
+    "AccountReference": "",
+    "Remarks": "Premium Payment",
+    "QueueTimeOutURL": "https://mydomain.com/b2c/queue",
+    "ResultURL": "https://mydomain.com/b2c/result"
+    
+  }))
   req.end((res) => {
     console.log(res.body);
   });

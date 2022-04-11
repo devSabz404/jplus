@@ -19,7 +19,7 @@ const handler = async (req, res) => {
 
     const results = await excuteQuery({   
 
-    query:'INSERT INTO itbl_product (vehicleclass,underwriter,coverage,clauses,conditionsandwaranties,optionalname,optionalpremium,optionalrate,mintonnage,maxtonnage,weeklyrates,fortnightrates,monthlyrates,months2,months3,months4,months5,months6,months7,months8,months9,months10,months11,annualrates,excludedvehicles,minimumpremium,passengers,maxage,minage,maxsum,minsum,owner,uniqueidentifier) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)' ,
+    query:'INSERT INTO itbl_product (vehicleclass,underwriter,coverage,clauses,conditionsandwaranties,optionalD,optionalpremium,optionalrate,mintonnage,maxtonnage,weeklyrates,fortnightrates,monthlyrates,months2,months3,months4,months5,months6,months7,months8,months9,months10,months11,annualrates,excludedvehicles,minimumpremium,passengers,maxage,minage,maxsum,minsum,owner,uniqueidentifier) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)' ,
       
       
 
@@ -33,15 +33,18 @@ const handler = async (req, res) => {
      
     })
   
-    res.status(200).json({results})
+    res.status(200).send('Success')
  
       
     
     
     
-  } catch (e) {
-    console.log(e)
-    res.status(500).json({ message: e })
+  } catch (err) {
+    if (err.code === 'ER_DUP_ENTRY') {
+      res.send('Duplicate')
+  }
+    console.log(err)
+    res.status(500).json({ message: err })
   }
 }
 

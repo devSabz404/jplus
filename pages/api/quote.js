@@ -2,7 +2,7 @@ import excuteQuery from "../../lib/db";
 
 export default async function handler(req, res) {
 
-    let{myName,myEmail,phoneNumber,registration,referall,vclass,cover,coverPeriod,sumInsured,passengers,tonnage} =req.body;
+    let{myName,myEmail,phoneNumber,yom,registration,referall,vclass,cover,coverPeriod,sumInsured,passengers,tonnage} =req.body;
 
     const getQuote =  await excuteQuery({
     // query:"SELECT * FROM itbl_product   ",

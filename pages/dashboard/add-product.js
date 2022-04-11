@@ -361,10 +361,10 @@ const submitHandler = async (e) => {
         noValidate
         autoComplete="off"
         >
-        {vehicleClass===8?
+        {vehicleClass===8 || vehicleClass===7?
         <TextField id="outlined-basic" label="Maximum tonnage"  value={maxTonnage} onChange={(e) => setMaxTonnage(e.target.value)} disabled={showInput} variant="outlined" />
         :null}
-         {vehicleClass===8?
+         {vehicleClass===8||vehicleClass===7?
         <TextField id="outlined-basic" label="Minimum Tonnage " value={minTonnage} onChange={(e) => setMinTonnage(e.target.value)} disabled={showInput}  variant="outlined" />
         :null}
        
@@ -407,7 +407,7 @@ const submitHandler = async (e) => {
         >
          
          {
-       props.benefit.map((item)=><MenuItem key={item.benefit_id} value={item.benefit_name}>{item.benefit_name}</MenuItem>)
+       props.benefit.map((item)=><MenuItem key={item.benefit_id} value={item.benefit_id}>{item.benefit_name}</MenuItem>)
         }
     
         </Select>
@@ -468,7 +468,7 @@ const submitHandler = async (e) => {
             <TextField id="outlined-basic" label="Weekly Rates" value={weeklyRates} onChange={(e) => setWeeklyRates(e.target.value)} disabled={showInput} variant="outlined" />
             <TextField id="outlined-basic" label="Fortnite Rates"  value={fortniteRate} onChange={(e) => setFortnite(e.target.value)} disabled={showInput} variant="outlined" /><br/>
             <TextField id="outlined-basic" label="Monthly Rates"  value={monthlyRates} onChange={(e) => setMonthlyRates(e.target.value)}disabled={showInput}  variant="outlined" />
-            <TextField id="outlined-basic" label="2 months" onChange={(e) => setMonths2(e.target.value)} variant="outlined" />
+            {/* <TextField id="outlined-basic" label="2 months" onChange={(e) => setMonths2(e.target.value)} variant="outlined" />
             <TextField id="outlined-basic" label="3 months" onChange={(e) => setMonths3(e.target.value)}   variant="outlined" /><br/>
             <TextField id="outlined-basic" label="4 months" onChange={(e) => setMonths4(e.target.value)} variant="outlined" />
             <TextField id="outlined-basic" label="5 months"  onChange={(e) => setMonths5(e.target.value)}  variant="outlined" />
@@ -478,7 +478,7 @@ const submitHandler = async (e) => {
             <TextField id="outlined-basic" label="8 months"  onChange={(e) => setMonths8(e.target.value)}  variant="outlined" />
             <TextField id="outlined-basic" label="9 months"  onChange={(e) => setMonths9(e.target.value)}  variant="outlined" /><br/>
             <TextField id="outlined-basic" label="10 months"  onChange={(e) => setMonths10(e.target.value)}  variant="outlined" />
-            <TextField id="outlined-basic" label="11 months"  onChange={(e) => setMonths11(e.target.value)}  variant="outlined" />
+            <TextField id="outlined-basic" label="11 months"  onChange={(e) => setMonths11(e.target.value)}  variant="outlined" /> */}
           
           </Menu>
         </>
