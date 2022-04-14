@@ -69,12 +69,17 @@ const handler = async (req, res) => {
             mv(oldPathK, newPathK, function(err) {
             });
 
+            console.log(newPathK);
+            console.log(newPathL);
+            
+
             (async () => {
                 const results = await excuteQuery({
                     query:'INSERT INTO `itbl_userfile` (clientId,logbook,id_passport,kra,krapin,registration,chasis,model,tyoe,body,fuel,manufacturedYear,ccrating,engineNumber,color,registrationDate,grossWeight,duty,nOfPreviousOwners,passengers,tareWeight,taxClass,axels,loadCapacity,previousRegCountry,previousReg,datePolicy,make) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
                     values:[clientId,newPathL,newPathP,newPathK,krapin,registration,chasis,model,type,body,fuel,manufactured,ccrating,enginenumber,color,registrationDate,grossweight,duty,previousowners,passengers,tareweight,taxclass,axels,loadcapacity,previouscountry,previousreg,datepolicy,make]
                 })
-               
+                if(!results) {return res.status(400).json({msg: "Something is wrong"})}
+                console.log('wee',results)
                 res.status(200).json({ message: "Success!" });
             
             })().catch(err => {
@@ -92,13 +97,7 @@ const handler = async (req, res) => {
       
     })
 
-    const results = await excuteQuery({
-        query:'INSERT INTO `tbl_userfile` (clientId,logbook,id_passport,kra) VALUES (?,?,?,?)',
-        values:[krapin,newPathL,]
-    })
-    if(!results) {return res.status(400).json({msg: "Something is wrong"})}
-    console.log(results)
-    res.status(200).json({ message: "Success!" });
+   
  
     
 }

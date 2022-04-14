@@ -173,15 +173,15 @@ console.log(productId)
                     Benefits
                   </p>
                   <p className="text-2xl font-bold text-deep-purple-accent-400 sm:text-xl">
-                    52
+                  
                   </p>
                 </div>
                 <div>
                   <p className="text-lg font-semibold text-gray-800 sm:text-base">
-                    Downloads
+                   
                   </p>
                   <p className="text-2xl font-bold text-deep-purple-accent-400 sm:text-xl">
-                    186M
+                  
                   </p>
                 </div>
               </div>
@@ -250,7 +250,7 @@ export async function getStaticProps({ params }) {
 
   let obenefits = await excuteQuery({
     query: "SELECT * FROM `itbl_benefits` where benefit_id =?",
-    values: [product[0].optionalD],
+    values: [product[0].benefit_id],
   });
 
   const benefits = JSON.parse(JSON.stringify(obenefits));

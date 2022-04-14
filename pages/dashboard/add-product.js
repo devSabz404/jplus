@@ -24,6 +24,7 @@ import Snackbar from '@mui/material/Snackbar';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import { useRouter } from 'next/router'
+import jwtDecode from "jwt-decode";
 
 
 const style = {
@@ -178,15 +179,8 @@ const[months9,setMonths9] = useState()
 const[months10,setMonths10] = useState()
 const[months11,setMonths11] = useState()
 
-const parseJwt = (token) => {
-  try {
-    return JSON.parse(atob(token.split('.')[1]));
-  } catch (e) {
-    return null;
-  }
-};
-const tkn =parseJwt(props.newcookie[0])
-const owner = tkn.owner
+
+const owner = props.owner
 console.log(owner)
 
 const submitHandler = async (e) => {
@@ -575,9 +569,14 @@ function parseCookies(req){
 }
 
 
-export async function getServerSideProps({req}) {
-  const cookies = parseCookies(req);
-  const newcookie = Object.values(cookies)
+export async function getServerSideProps(ctx) {
+  
+  const { req, res } = ctx;
+  const { cookies } = req;
+  const userData = jwtDecode(cookies.OursiteJWT);
+  let owner = userData.owner;
+  
+  
     try {
       const motoresults = await excuteQuery({
        query:"SELECT * FROM `itbl_vehicleclass` where type = 'MOTORCYCLE'"
@@ -622,7 +621,7 @@ export async function getServerSideProps({req}) {
 
      
       return {
-        props: {motovehicle,motocycle,tricycle,underwrit,covera,exclud,benefit,newcookie}, // will be passed to our  page component as props
+        props: {motovehicle,motocycle,tricycle,underwrit,covera,exclud,benefit,cookies,owner}, // will be passed to our  page component as props
       };
     } catch (e) {
       
