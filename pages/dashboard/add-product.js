@@ -164,9 +164,7 @@ const [minAge,setMinAge] = useState('')
 const [maxInsured,setMaxInsured] = useState('')
 const [minInsured,setMinInsured] = useState('')
 const [minPremium,setMinPremium] = useState('')
-const [optionalName,setOptionalName] = useState('')
-const [optionalPremium,setOptionalPremium] = useState('')
-const [optionalRate,setOptionalRate] = useState('')
+
 const [showInput, setShowInput] = useState(false);
 const[months2,setMonths2] = useState()
 const[months3,setMonths3] = useState()
@@ -193,12 +191,7 @@ const submitHandler = async (e) => {
     minTonnage,weeklyRates,monthlyRates,
     fortniteRate,passengers,annualRates,
     maxAge,minAge,maxInsured,
-    minInsured,minPremium,optionalPremium,
-    optionalRate,optionalName,
-    owner,months2,
-    months3,months4,
-    months5,months6,months7,
-    months8,months9,months10,months11}
+    minInsured,minPremium,owner,months2,}
 
   const res = await axios.post("/api/product/createproduct", credentials);
   if (res.status === 200){
@@ -365,70 +358,8 @@ const submitHandler = async (e) => {
         {vehicleClass===17||vehicleClass===15?
         <TextField id="outlined-basic" label="Number of Passengers" value={passengers} onChange={(e) => setPassengers(e.target.value)} variant="outlined"   />
         :null}
-        <Button variant="contained" onClick={handleOpen}>Optional Benefits</Button>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Optional Benefits
-          </Typography>
-          <Box
-      sx={{
-        width: 500,
-        maxWidth: '100%',
-      }}
-    >
-     
-   
-          <FormControl>
-        <InputLabel id="demo-simple-select-helper-label">Optional benefits</InputLabel>
-        <Select
-          labelId="demo-simple-select-helper-label"
-          id="demo-simple-select-helper"
-          sx={{
-            width: 300,
-            maxWidth: '100%',}}
-          
-        
-          label="Vehicle class"
-          value={optionalName} onChange={(e) => setOptionalName(e.target.value)}
-          
-         
-        >
-         
-         {
-       props.benefit.map((item)=><MenuItem key={item.benefit_id} value={item.benefit_id}>{item.benefit_name}</MenuItem>)
-        }
-    
-        </Select>
-        </FormControl><br/>
-        </Box>
-        <br/>
-
-          {optionalName == 'RADIO_CASSETE' || optionalName == 'WINDSCREEN' ? 
-          <TextField id="outlined-basic" label="Free Limit"  
-           sx={{
-            width: 300,
-            maxWidth: '100%',}}
-            onChange={(e)=>setOptionalPremium(e.target.value)}
-          
-            variant="outlined" />:null
-           }
-            <br/>
-          <TextField id="outlined-basic" label="Enter rate or value" 
-           sx={{
-            width: 300,
-            maxWidth: '100%',}}
-            onChange={(e)=>setOptionalRate(e.target.value)}
-            placeholder="Free Value or Rate"
-             variant="outlined" />
-
-        </Box>
-      </Modal>
+       
+  
 
 
 

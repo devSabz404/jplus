@@ -55,7 +55,7 @@ let s = arr2[2]; //e.g. 20
 
 const ymdHms = y + m + d + H + i + s;
 
-function lipa(tokens,phonenum) {
+function lipa(tokens,paybill,amount) {
   let timestamp = ymdHms;
   const bs_short_code = 7290377;
   const passkey =
@@ -67,7 +67,7 @@ function lipa(tokens,phonenum) {
 
   let req = unirest(
     "POST",
-    "https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest"
+    "https://api.safaricom.co.ke/mpesa/b2b/v1/paymentrequest"
   );
   req.headers({
     "Content-Type": "application/json",
@@ -79,13 +79,13 @@ function lipa(tokens,phonenum) {
     "CommandID": "DisburseFundsToBusiness",
     "SenderIdentifierType": "4",
 	"RecieverIdentifierType": "4",
-    "Amount": 1,
-    "PartyA": 600978,
-    "PartyB": 254708374149,
-    "AccountReference": "",
-    "Remarks": "Premium Payment",
-    "QueueTimeOutURL": "https://mydomain.com/b2c/queue",
-    "ResultURL": "https://mydomain.com/b2c/result"
+    "Amount": amount,
+    "PartyA": 7290377,
+    "PartyB": paybill,
+    "AccountReference": "Bill Payment",
+    "Remarks": "vehicleRegistration",
+    "QueueTimeOutURL": "https://jendieplus.co.ke/api/payment/b2bCallback.js",
+    "ResultURL": "https://jendieplus.co.ke/api/payment/b2bCallback.js"
     
   }))
   req.end((res) => {
