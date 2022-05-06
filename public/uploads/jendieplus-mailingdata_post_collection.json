@@ -1,0 +1,115 @@
+{
+    "admin": "1",
+    "client_name": "Kevin Njoroge",
+    "email": "nknkevin@gmail.com",
+    "phone_number": "0714352738",
+    "vehicleclass": "1",
+    "vehicle_reg": "KAA001A",
+    "coverage": "1",
+    "covertext": "Third Party Only",
+    "referal_code": "00000",
+    "coverperiod": "1 year",
+    "client_details": {
+      "name_contact": "Kevin Njoroge",
+      "email": "nknkevin@gmail.com",
+      "phone_number": "0714352738",
+      "vehicleclass": "1",
+      "vehicle_reg": "KAA001A",
+      "cover": "1-Third Party Only",
+      "refferal_code": "00000",
+      "coverperiod": "1 year"
+    },
+    "registration": "KAA001A",
+    "chasis": "123",
+    "make": "qwe",
+    "type": "qwe",
+    "body": "solid",
+    "fuel": "Petrol",
+    "man_year": "2007",
+    "rating": "12345",
+    "engine_number": "1234",
+    "color": "blue",
+    "reg_date": "2022-03-01",
+    "gross_weight": "23546",
+    "duty": "paid",
+    "previous_owners": "4",
+    "passengers": "123",
+    "tare_weight": "123",
+    "tax_class": "Private",
+    "axels": "2",
+    "load_capacity": "1000",
+    "reg_country": "th",
+    "previous_reg": "qwer",
+    "date": "2022-04-12",
+    "id_number": "24508455",
+    "kra_number": "A001234567Y",
+    "quote_client": "443b0ed3c2ea7c46bb419a70ba29ec1a",
+    "email_newsletter_2": "",
+    "qdata": {
+      "client": "443b0ed3c2ea7c46bb419a70ba29ec1a"
+    },
+    "product_id": "69",
+    "underwriter": "11",
+    "init_grosspremium": 120,
+    "clientid": "443b0ed3c2ea7c46bb419a70ba29ec1a",
+    "logbook": {
+      "registration": "KAA001A",
+      "chasis": "123",
+      "make": "qwe",
+      "type": "qwe",
+      "body": "solid",
+      "fuel": "Petrol",
+      "man_year": "2007",
+      "rating": "12345",
+      "engine_number": "1234",
+      "color": "blue",
+      "reg_date": "2022-03-01",
+      "gross_weight": "23546",
+      "duty": "paid",
+      "previous_owners": "4",
+      "passengers": "123",
+      "tare_weight": "123",
+      "tax_class": "Private",
+      "axels": "2",
+      "load_capacity": "1000",
+      "reg_country": "th",
+      "previous_reg": "qwer",
+      "date": "2022-04-12",
+      "id_number": "24508455",
+      "kra_number": "A001234567Y",
+      "quote_client": "443b0ed3c2ea7c46bb419a70ba29ec1a",
+      "email_newsletter_2": ""
+    },
+    "files": {
+      "name": [
+        "example.png",
+        "example.png",
+        "example.png"
+      ],
+      "type": [
+        "image/png",
+        "image/png",
+        "image/png"
+      ],
+      "tmp_name": [
+        "C:\\xampp\\tmp\\phpBB50.tmp",
+        "C:\\xampp\\tmp\\phpBB51.tmp",
+        "C:\\xampp\\tmp\\phpBB52.tmp"
+      ],
+      "error": [
+        0,
+        0,
+        0
+      ],
+      "size": [
+        2537,
+        2537,
+        2537
+      ]
+    },
+    "client_files": {
+      "id": "dashboard/client_files/logbooks/24508455/idnumber-6ac2f059-0example.png",
+      "kra": "dashboard/client_files/logbooks/24508455/kra-d0adeabf-1example.png",
+      "logbook": "dashboard/client_files/logbooks/24508455/logbook-b2762068-2example.png"
+    }
+  }

@@ -1,0 +1,55 @@
+INF [20220407-13:15:03.020] thr=1   paramiko.hostkeys: Unable to handle key of type RSA
+INF [20220407-13:15:03.020] thr=1   paramiko.hostkeys: Not enough fields found in known_hosts in line 2 ('MIIEpAIBAAKCAQEA6CxD02nAq4wapg/Bfd0r5l8rALn0ys9v4InQlz1+Ih6BaCwY')
+INF [20220407-13:15:03.021] thr=1   paramiko.hostkeys: Not enough fields found in known_hosts in line 3 ('F5Qn6sgaAsU8OXi9IfXkXaW7wHz3C5YyAoLnHRwvINr71NH3oFifDxM9omtAVe01')
+INF [20220407-13:15:03.021] thr=1   paramiko.hostkeys: Not enough fields found in known_hosts in line 4 ('ySSHKohP8djjAbaqU8DZWNjxtiqPz5P9yuiNbMFUPzj7sNmXLVVg7qUlps0nzBud')
+INF [20220407-13:15:03.021] thr=1   paramiko.hostkeys: Not enough fields found in known_hosts in line 5 ('VQXUA+2Ca9UemXn9FAk1fymIxVDMJ1RaIWQEXj5qe0KD0Kup2jkMsoZEjhBDVaun')
+INF [20220407-13:15:03.021] thr=1   paramiko.hostkeys: Not enough fields found in known_hosts in line 6 ('JEh5B0suUoNJqMv4ISyMAGDC7YGiTrHxuZYOjvlqtByiTLxRdoXJNthLxu2qLVHE')
+INF [20220407-13:15:03.021] thr=1   paramiko.hostkeys: Not enough fields found in known_hosts in line 7 ('Uq0jt/cJMvH5i0QgPWW8nVCS1UwsELsn2KbBDQIDAQABAoIBACsgveCxzlaPigu6')
+INF [20220407-13:15:03.021] thr=1   paramiko.hostkeys: Not enough fields found in known_hosts in line 8 ('9Yh540PB/ez+nhhmfDPLpfHSPHH+FK/TMQ6AOQIF9b76AHv0j72VPbyfosbY79M5')
+INF [20220407-13:15:03.021] thr=1   paramiko.hostkeys: Not enough fields found in known_hosts in line 9 ('LUUGKARiTebehtU7w7IHhFR6kIJxRdwwWkNpA6rE84TLcy/ITM+ODVHRyuS590jq')
+INF [20220407-13:15:03.021] thr=1   paramiko.hostkeys: Not enough fields found in known_hosts in line 10 ('BsUAefTv3MR5w1dQtCJ5r63lA59+NfbSq/wCutqte03Iut/fwmCn2+7nW4dgYZrZ')
+INF [20220407-13:15:03.021] thr=1   paramiko.hostkeys: Not enough fields found in known_hosts in line 11 ('V814SAwUc9WbPyBVMdRMV/SZvE6Rat52O+RLE/wjwMNv2EgQ98pzRP/C+023AQzc')
+INF [20220407-13:15:03.021] thr=1   paramiko.hostkeys: Not enough fields found in known_hosts in line 12 ('Lz3uYz0Zqq3NDx01xnFeiaILUm84GgBYCTukAI+CXlEsDb/wx+WtxIyTyzL3myh0')
+INF [20220407-13:15:03.021] thr=1   paramiko.hostkeys: Not enough fields found in known_hosts in line 13 ('NUdScQECgYEA/asX+iSTnAX1BK64ZcwvXD917/FeLHLt1DhHACvJRfrGi4QvqKDQ')
+INF [20220407-13:15:03.021] thr=1   paramiko.hostkeys: Not enough fields found in known_hosts in line 14 ('CM/EB/FrPlWI5CVzg3rDwyY9fRIFwlZfyZtEy/sZjZ0EmjM8D/5PsmilQ1GpmlZP')
+INF [20220407-13:15:03.021] thr=1   paramiko.hostkeys: Not enough fields found in known_hosts in line 15 ('gP8kHbrhNgJrbkJShA8kzCI53DPqLlS3c0f3gT5ZDPprG5B/HluANKECgYEA6k6X')
+INF [20220407-13:15:03.021] thr=1   paramiko.hostkeys: Not enough fields found in known_hosts in line 16 ('J+gCXxNJUyaMSOsDKxrDX1GVegpjHbePKsvso3buGDQIiW/yIEYBhnARityZLHho')
+INF [20220407-13:15:03.021] thr=1   paramiko.hostkeys: Not enough fields found in known_hosts in line 17 ('Xv5I25QYUFPzKuIFOsYakPq46FXzBu66Y+UhEq/rb9wVTyi/luiT8uJwB8sZsneC')
+INF [20220407-13:15:03.021] thr=1   paramiko.hostkeys: Not enough fields found in known_hosts in line 18 ('GUit+pDBuLf9F4vfJwpBeoh4Q3kqB8s8Nf6xCO0CgYEA4BjLeN/hS3/zwmw8WSo2')
+INF [20220407-13:15:03.021] thr=1   paramiko.hostkeys: Not enough fields found in known_hosts in line 19 ('WM9zeEMKiEgMFWSWTO9hw6HUzyI7HETdJDuwGbhMnuffpHX1g5zr3rYksh4+2j2G')
+INF [20220407-13:15:03.021] thr=1   paramiko.hostkeys: Not enough fields found in known_hosts in line 20 ('J8w0zeOJ4pJpo3RJxnNLovhRr5QwOjmvyO0d0enr1dPzZpfO3/2k63X9Gaz/YGjV')
+INF [20220407-13:15:03.021] thr=1   paramiko.hostkeys: Not enough fields found in known_hosts in line 21 ('HFHitNoIv69m+hYARyhcraECgYAAjsdVVPwMdeNKy2CyG70aMSod4/fTHos12uYA')
+INF [20220407-13:15:03.021] thr=1   paramiko.hostkeys: Not enough fields found in known_hosts in line 22 ('WBPsH7BZZmZOzXFqGkCOrV2dUwEaVf8JmtlZjHSyXEDL7VXN2gLeLXqbMvktHwxa')
+INF [20220407-13:15:03.021] thr=1   paramiko.hostkeys: Not enough fields found in known_hosts in line 23 ('iIUXokuRLJjwY0xxc4RGo7tYiWc6QYaRwNaJLicH5Yg4siCJ20BkpkaDAprTAezW')
+INF [20220407-13:15:03.021] thr=1   paramiko.hostkeys: Not enough fields found in known_hosts in line 24 ('xBBv0QKBgQCLhFmsGTbw01Wi1zUhUUWGvzxLxXcbdLm0dG6FWfrsYQAKNQfO8rzk')
+INF [20220407-13:15:03.021] thr=1   paramiko.hostkeys: Not enough fields found in known_hosts in line 25 ('LIpLtqFGn/lcxZjPAIL2TYGsG2K+cH8W0LyTMdzNUPOi+/EB38/YLUY+dIc+fez2')
+INF [20220407-13:15:03.021] thr=1   paramiko.hostkeys: Not enough fields found in known_hosts in line 26 ('3dnRP43thPygzmFa6LSa3VcoD4xwabYfHEd7z5HWQC55D9yfaYeIig==')
+INF [20220407-13:15:03.021] thr=1   paramiko.hostkeys: Unable to handle key of type RSA
+DEB [20220407-13:15:03.435] thr=2   paramiko.transport: starting thread (client mode): 0xa2647d00
+DEB [20220407-13:15:03.435] thr=2   paramiko.transport: Local version/idstring: SSH-2.0-paramiko_2.10.3
+DEB [20220407-13:15:03.742] thr=2   paramiko.transport: Remote version/idstring: SSH-2.0-OpenSSH_8.2p1 Ubuntu-4ubuntu0.2
+INF [20220407-13:15:03.742] thr=2   paramiko.transport: Connected (version 2.0, client OpenSSH_8.2p1)
+DEB [20220407-13:15:04.048] thr=2   paramiko.transport: === Key exchange possibilities ===
+DEB [20220407-13:15:04.049] thr=2   paramiko.transport: kex algos: curve25519-sha256, curve25519-sha256@libssh.org, ecdh-sha2-nistp256, ecdh-sha2-nistp384, ecdh-sha2-nistp521, diffie-hellman-group-exchange-sha256, diffie-hellman-group16-sha512, diffie-hellman-group18-sha512, diffie-hellman-group14-sha256
+DEB [20220407-13:15:04.049] thr=2   paramiko.transport: server key: rsa-sha2-512, rsa-sha2-256, ssh-rsa, ecdsa-sha2-nistp256, ssh-ed25519
+DEB [20220407-13:15:04.050] thr=2   paramiko.transport: client encrypt: chacha20-poly1305@openssh.com, aes128-ctr, aes192-ctr, aes256-ctr, aes128-gcm@openssh.com, aes256-gcm@openssh.com
+DEB [20220407-13:15:04.050] thr=2   paramiko.transport: server encrypt: chacha20-poly1305@openssh.com, aes128-ctr, aes192-ctr, aes256-ctr, aes128-gcm@openssh.com, aes256-gcm@openssh.com
+DEB [20220407-13:15:04.050] thr=2   paramiko.transport: client mac: umac-64-etm@openssh.com, umac-128-etm@openssh.com, hmac-sha2-256-etm@openssh.com, hmac-sha2-512-etm@openssh.com, hmac-sha1-etm@openssh.com, umac-64@openssh.com, umac-128@openssh.com, hmac-sha2-256, hmac-sha2-512, hmac-sha1
+DEB [20220407-13:15:04.050] thr=2   paramiko.transport: server mac: umac-64-etm@openssh.com, umac-128-etm@openssh.com, hmac-sha2-256-etm@openssh.com, hmac-sha2-512-etm@openssh.com, hmac-sha1-etm@openssh.com, umac-64@openssh.com, umac-128@openssh.com, hmac-sha2-256, hmac-sha2-512, hmac-sha1
+DEB [20220407-13:15:04.050] thr=2   paramiko.transport: client compress: none, zlib@openssh.com
+DEB [20220407-13:15:04.052] thr=2   paramiko.transport: server compress: none, zlib@openssh.com
+DEB [20220407-13:15:04.052] thr=2   paramiko.transport: client lang: <none>
+DEB [20220407-13:15:04.052] thr=2   paramiko.transport: server lang: <none>
+DEB [20220407-13:15:04.053] thr=2   paramiko.transport: kex follows: False
+DEB [20220407-13:15:04.053] thr=2   paramiko.transport: === Key exchange agreements ===
+DEB [20220407-13:15:04.054] thr=2   paramiko.transport: Kex: curve25519-sha256@libssh.org
+DEB [20220407-13:15:04.054] thr=2   paramiko.transport: HostKey: ssh-ed25519
+DEB [20220407-13:15:04.054] thr=2   paramiko.transport: Cipher: aes128-ctr
+DEB [20220407-13:15:04.055] thr=2   paramiko.transport: MAC: hmac-sha2-256
+DEB [20220407-13:15:04.055] thr=2   paramiko.transport: Compression: none
+DEB [20220407-13:15:04.055] thr=2   paramiko.transport: === End of kex handshake ===
+DEB [20220407-13:15:04.311] thr=2   paramiko.transport: kex engine KexCurve25519 specified hash_algo <built-in function openssl_sha256>
+DEB [20220407-13:15:04.312] thr=2   paramiko.transport: Switch to new keys ...
+DEB [20220407-13:15:04.314] thr=2   paramiko.transport: Got EXT_INFO: {'server-sig-algs': b'ssh-ed25519,sk-ssh-ed25519@openssh.com,ssh-rsa,rsa-sha2-256,rsa-sha2-512,ssh-dss,ecdsa-sha2-nistp256,ecdsa-sha2-nistp384,ecdsa-sha2-nistp521,sk-ecdsa-sha2-nistp256@openssh.com'}
+DEB [20220407-13:15:04.317] thr=1   paramiko.transport: Rejecting ssh-ed25519 host key for 3.143.8.212: b'01ad351762a0f8fa7ad78750fa807010'
+DEB [20220407-13:15:04.331] thr=2   paramiko.transport: EOF in transport thread

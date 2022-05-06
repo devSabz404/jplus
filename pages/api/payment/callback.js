@@ -3,9 +3,10 @@
 export default function handler(req, res) {
 
     console.log(req.body)
-    const logs = req.body
+    res.redirect(307,'/')
+   
 
-res.status(200).json({ name:logs}) 
+
 }
     
      

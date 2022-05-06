@@ -1,19 +1,21 @@
 import axios from "axios";
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import Layout from "../frontie/Layout";
-import {selectUnique} from "../features/counterSlice"
+import {selectUnique,setlogbook} from "../features/counterSlice"
 import { useRouter } from "next/router";
 
 
 export default function Logbook(){
   const router = useRouter();
+  const dispatch = useDispatch();
 
   const clientIdentity = useSelector(selectUnique)
 
   const [Registration,setRegistration] = useState()
   const [Chasis,setChasis] = useState()
   const [Make,setMake] = useState()
+  const [IdNumber,setIdNumber] = useState()
   const [Model,setModel] = useState()
   const [Type,setType] = useState()
   const [Body,setBody] = useState()
@@ -69,13 +71,22 @@ export default function Logbook(){
       setCreateObjectURL(URL.createObjectURL(i));
     }
   };
+  const logbookInfo = {
+    Registration,Chasis,Make,Model,Type,Body,Fuel,Manufactured,CCRating,EngineNumber,Color,RegistrationDate,GrossWeight,
+    Duty,PreviousOwners,Passengers,TareWeight,TaxClass,Axels,LoadCapacity,PreviousCountry,PreviousRegistration,DatePolicy,KraPin,IdNumber,Passport,
+    Logbook,UploadKRA
+  }
 
-  const uploadToServer = async (event) => {     
+
+
+  const uploadToServer = async (event) => { 
+       
     event.preventDefault()   
+    dispatch(setlogbook(logbookInfo));
     const body = new FormData();
     // console.log("file", image)
     body.append("pass", Passport);
-    body.append("logbook", Logbook);
+    body.append("logbook",Logbook);
     body.append("kra", UploadKRA);
     body.append("krapin",KraPin) ; 
     body.append("datepolicy",DatePolicy) ;
@@ -102,18 +113,28 @@ export default function Logbook(){
     body.append("chasis",Chasis);
     body.append("registration",Registration);
     body.append("clientId",clientIdentity);
+    body.append("IdNumber",IdNumber);
+  
+   
 
     const response = await fetch("/api/upload",  {
       method: "POST",
       body
     });
-
     if(response.status===200){
-      router.push('/payment')
-    }else{
-      console.log("Nothing")
+
+      router.push({
+        pathname: '/confirm',
+       
+    });
+
     }
-  };
+
+  
+}
+
+
+   
 
  
 
@@ -174,7 +195,7 @@ export default function Logbook(){
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
         Fuel
       </label>
-      <input className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe"/>
+      <input onChange={(e)=>setFuel(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe"/>
     </div>
     <div className="w-full md:w-1/2 px-3">
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
@@ -287,6 +308,22 @@ export default function Logbook(){
       <input onChange={(e)=>setPreviousRegistration(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe"/>
     </div>
   </div>
+  
+  <div className="flex flex-wrap -mx-3 mb-6">
+  <div className="w-full md:w-1/2 px-3">
+      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
+    ID/Passport
+      </label>
+      <input onChange={(e)=>setIdNumber(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe"/>
+    </div>
+    <div className="w-full md:w-1/2 px-3">
+      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
+        KRA PIN
+      </label>
+      <input  onChange={(e)=>setKra(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe"/>
+    </div>
+  </div>
+  
   <div className="flex flex-wrap -mx-3 mb-6">
   <div className="w-full md:w-1/2 px-3">
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
@@ -304,9 +341,9 @@ export default function Logbook(){
   <div className="flex flex-wrap -mx-3 mb-6">
   <div className="w-full md:w-1/2 px-3">
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
-    KRA Pin Number
+        Upload Logbook Copy
       </label>
-      <input onChange={(e)=>setKra(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe"/>
+      <input onChange={uploadLogBook} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="file" placeholder="Doe"/>
     </div>
     <div className="w-full md:w-1/2 px-3">
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
@@ -314,12 +351,7 @@ export default function Logbook(){
       </label>
       <input onChange={uploadKRA} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="file" placeholder="Doe"/>
     </div>
-    <div className="w-full md:w-1/2 px-3">
-      <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
-        Upload Logbook Copy
-      </label>
-      <input onChange={uploadLogBook} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="file" placeholder="Doe"/>
-    </div>
+   
   </div>
   <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
   Button

@@ -1,8 +1,10 @@
 import { useState } from "react";
 import Layout from "../frontie/Layout";
 import axios from "axios";
+import { data } from "jquery";
+import { useRouter } from "next/router";
 export default function Payment(){
-    
+ 
     return(
         <>
     <Layout>    
@@ -13,23 +15,36 @@ export default function Payment(){
 }
 
 export const Header = () => {
+  const router = useRouter()
 
     const [phone,setPhone]=useState()
     const [email,setEmail] =useState()
 
-async function handleSubmit(e){
-    const tel = Number(phone)
-    e.preventDefault()
-    const data = {tel,email}
-    const res = await axios.post('./api/payment/lipa',data,)
-        if(res.status===200){
-            console.log('cool')
+    
+   
+    async function handleSubmit(e){
+   
+      const info = {phone}
+      e.preventDefault()
+      await axios({
+          method: 'post',
+          url:'./api/hello',
+          //url:'http://localhost:80/mail-php/lipastk.php',
+          data:info,
+         
+      })
+      .then(function (response) {
+          console.log(response.data);
+          if(data.name!=='Chmwa'){
+            console.log('Incorrect')
+          }
+          router.push('/')
 
-        }else{
-            console.log(res.error)
-        }
-
-        }
+      })
+      .catch(function (response) {
+          console.log(response);
+      });
+     }
     
 
     return (

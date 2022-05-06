@@ -53,46 +53,47 @@ export default function Continue({ cookies, owners }) {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    console.log('Okss')
 
-    const credentials = {
-      companyName,
-      address,
-      phone,
-      Ira,
-      Kra,
-      idnumber,
-      identity,
-    };
-    const credentials0 = {
-      companyName,
-      address,
-      phone,
-      withHyph,
-      Ira,
-      Kra,
-      idnumber,
-      referall,
-      identity,
-    };
-    if (!referall) {
-      const res = await axios.post("/api/auth/continue", credentials);
-      if (res.status == 200) {
-        handleLogOut();
-      }
-    } else {
-      for (let i = 0; owners.length > i; i++) {
-        if (parseInt(referall) !== parseInt(owners[i].agent_admin)) {
-          handleClickz();
-        } else if (parseInt(referall) === parseInt(owners[i].agent_admin)) {
-          const res = await axios.post("/api/auth/continue0", credentials0);
-          if (res.status == 200) {
-            handleLogOut();
-          } else if (res.status === 400) {
-            alert("Does not exist");
-          }
-        }
-      }
-    }
+    // const credentials = {
+    //   companyName,
+    //   address,
+    //   phone,
+    //   Ira,
+    //   Kra,
+    //   idnumber,
+    //   identity,
+    // };
+    // const credentials0 = {
+    //   companyName,
+    //   address,
+    //   phone,
+    //   withHyph,
+    //   Ira,
+    //   Kra,
+    //   idnumber,
+    //   referall,
+    //   identity,
+    // };
+    // if (!referall) {
+    //   const res = await axios.post("/api/auth/continue", credentials);
+    //   if (res.status == 200) {
+    //     handleLogOut();
+    //   }
+    // } else {
+    //   for (let i = 0; owners.length > i; i++) {
+    //     if (parseInt(referall) !== parseInt(owners[i].agent_admin)) {
+    //       handleClickz();
+    //     } else if (parseInt(referall) === parseInt(owners[i].agent_admin)) {
+    //       const res = await axios.post("/api/auth/continue0", credentials0);
+    //       if (res.status == 200) {
+    //         handleLogOut();
+    //       } else if (res.status === 400) {
+    //         alert("Does not exist");
+    //       }
+    //     }
+    //   }
+    // }
   };
 
   const handleLogOut = async () => {
@@ -186,6 +187,8 @@ export default function Continue({ cookies, owners }) {
                 type="number"
                 onChange={(e) => setphone(e.target.value)}
                 value={phone}
+                pattern="[a-z]{0,9}"
+                title="Password should be digits (0 to 9) or alphabets (a to z)."
               />
 
               <TextField
@@ -221,7 +224,7 @@ export default function Continue({ cookies, owners }) {
                 type="text"
                 onChange={(e) => setKra(e.target.value)}
                 value={Kra}
-                pattern="[a-z]{0,9}"
+                pattern="[0-9]"
                 title="Password should be digits (0 to 9) or alphabets (a to z)."
               />
               <TextField

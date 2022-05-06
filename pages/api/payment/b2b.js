@@ -25,70 +25,75 @@ export default function handler(req, res) {
   req.end((res) => {
     if (res.error) throw new Error(res.error);
     console.log(res.body);
-    const tokens = res.body.access_token;
-    lipa(tokens,nom);
+    const token = res.body.access_token;
+    lipa(token);
   });
 
   res.status(200).json({ name: "work" });
 }
-let date = new Date(2019, 4, 10, 15, 30, 20); //10 May 2019, 3:30:20 PM
-let dateStr = date.toLocaleDateString("en-GB", {
-  day: "2-digit",
-  month: "2-digit",
-}); // 10/05/19
 
-let arr = dateStr.split("/"); // [ '10', '05', '19' ]
-let d = arr[0]; //e.g. 10
-let m = arr[1]; //e.g. 5
-let y = date.getFullYear(); //e.g. 19
 
-let timeStr = date.toLocaleTimeString("en-GB", {
-  hour12: false,
-  hour: "2-digit",
-  minute: "2-digit",
-  second: "2-digit",
-}); //
-let arr2 = timeStr.split(":"); // 15:30:20
-let H = arr2[0]; //e.g. 15
-let i = arr2[1]; //e.g. 30
-let s = arr2[2]; //e.g. 20
-
-const ymdHms = y + m + d + H + i + s;
-
-function lipa(tokens,paybill,amount) {
-  let timestamp = ymdHms;
-  const bs_short_code = 7290377;
-  const passkey =
-    "9b6b37ab48221b4ac73fe723635ad430093fb4456ce2ddb62d729632caae1169";
-  //const amount =""
-  const password = new Buffer.from(
-    `${bs_short_code}${passkey}${timestamp}`
-  ).toString("base64");
+function lipa(tokens,amount,paybill) {
+ 
 
   let req = unirest(
     "POST",
     "https://api.safaricom.co.ke/mpesa/b2b/v1/paymentrequest"
   );
-  req.headers({
+req.headers({
     "Content-Type": "application/json",
     Authorization: `Bearer ${tokens}`,
   });
   req.send(JSON.stringify({
-    "InitiatorName": "testapi",
-    "SecurityCredential": "g95oagCSclb/TWWvYOvPFqP+crjM1/lVYoDyiiccVuE3d9vUsgA4nPY22lgzwMZPkAvku7Kc0tBwA/s5vs+Y4Ay+EXxZNm3nNwtsVjPOaxyl+h7fLSHFoBgWFmMwl6rqfHln+AD6rN447uFsFmXsgzVTsiC/x1qdJgwAUk4nGHAgJpal71xPN+yXfBFF9clK97UvdhjDt1TNhocINxs14ki7pO0zrdHuq02U260Ee2hIkDh8V/ZwFhAqVME+cRJH8jvGNgQ49xyzGpWKsMyCXpFjpUm193Oof25f+Ht117cehwbPoaHkuG/GxtPrMyR5jJk7DVLuLNe39aTFyGcVbg==",
-    "CommandID": "DisburseFundsToBusiness",
-    "SenderIdentifierType": "4",
-	"RecieverIdentifierType": "4",
-    "Amount": amount,
-    "PartyA": 7290377,
-    "PartyB": paybill,
-    "AccountReference": "Bill Payment",
-    "Remarks": "vehicleRegistration",
-    "QueueTimeOutURL": "https://jendieplus.co.ke/api/payment/b2bCallback.js",
-    "ResultURL": "https://jendieplus.co.ke/api/payment/b2bCallback.js"
+    
+    Initiator:"FREDRICK API",
+    SecurityCredential:'dDTkMaUlUkZhX1JPdtmmKuQrDZsYZTnAfFjf7fzFC+ZnnCN9lesI0zLO9GtrN1XcZZwhgIVN1SbWEcVw5OSlDtF4bU9e0XLmxtykc3zguPEL/xP4YJGjLP2iZhYlSvGZTfPkOACnQ5/8lbQFlwNDZGF75uZc/+vSlMVdb3csP6f9XVJunhafAD1SzqMinRWuzm0EcKXQfTH9TDOI/nFhjV3lt+JMseGtZjmDLNyy9ynsBvRGXVrFaziNH6iYMV1OAgV/eN+G/5GZ1E3QCaT77F/G/YJqqdnao1t5g1asv4i0AJxYBhK3E1cglVVT46Gj7D3jayMkqYBwrXwWY6H+Ow==',
+    CommandID:'DisburseFundsToBusiness',
+    SenderIdentifierType:"4",
+	  RecieverIdentifierType:"4",
+    Amount:1,
+    PartyA:7290377,
+    PartyB:545400,
+    AccountReference:"BILL PAYMENT",
+    Remarks:"vehicleRegistration",
+    QueueTimeOutURL:"https://jendieplus/api/payment/callback",
+    ResultURL:"https://jendieplus/api/payment/b2bCallback",
     
   }))
   req.end((res) => {
     console.log(res.body);
+   
   });
+}
+
+
+
+function pay(tokens,amount,paybill){
+
+  let unirest = require('unirest');
+let req = unirest('POST', 'https://api.safaricom.co.ke/mpesa/b2c/v1/paymentrequest')
+.headers({
+	'Content-Type': 'application/json',
+	'Authorization': `Bearer ${tokens}`
+})
+.send(JSON.stringify({
+    "InitiatorName": "FREDRICK API",
+    "SecurityCredential": 'dDTkMaUlUkZhX1JPdtmmKuQrDZsYZTnAfFjf7fzFC+ZnnCN9lesI0zLO9GtrN1XcZZwhgIVN1SbWEcVw5OSlDtF4bU9e0XLmxtykc3zguPEL/xP4YJGjLP2iZhYlSvGZTfPkOACnQ5/8lbQFlwNDZGF75uZc/+vSlMVdb3csP6f9XVJunhafAD1SzqMinRWuzm0EcKXQfTH9TDOI/nFhjV3lt+JMseGtZjmDLNyy9ynsBvRGXVrFaziNH6iYMV1OAgV/eN+G/5GZ1E3QCaT77F/G/YJqqdnao1t5g1asv4i0AJxYBhK3E1cglVVT46Gj7D3jayMkqYBwrXwWY6H+Ow==',
+    "CommandID": "BusinessPayment",
+    "SenderIdentifierType" : '4',
+    "RecieverIdentifierType": '4',
+    "Amount": amount,
+    "PartyA": 7290377,
+    "PartyB": paybill,
+    "AccountReference":'BILL PAYMENT',
+    "Remarks": "Test remarks",
+    "QueueTimeOutURL": "https://699b-62-8-76-213.ngrok.io/api/payment/callback",
+    "ResultURL": "https://699b-62-8-76-213.ngrok.io/api/payment/b2bCallback",
+  
+  }))
+  req.end((res) => {
+    console.log(res.body);
+    
+  });
+
 }

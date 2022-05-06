@@ -21,5 +21,9 @@ export default function middleware(req){
             return NextResponse.redirect("/login");
         }
     }
+    else if(url.includes("/api/payment/callback")){
+        return NextResponse.redirect("/");
+
+    }
     return  NextResponse.next()
 }

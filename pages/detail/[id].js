@@ -12,7 +12,10 @@ import {
   selectRegistration,
   selectVehicle,
   selectCoverage,
-  setUnique
+  setUnique,
+  setPremben,
+  setUnderwriter,
+  setGross
 } from "../../features/counterSlice";
 import React, { useMemo, useState } from "react";
 import axios from "axios";
@@ -45,7 +48,7 @@ export const Content = ({ product, benefits }) => {
   const clientEmail = useSelector(selectEmail);
   const clientName = useSelector(selectName);
   const clientphone = useSelector(selectNumber);
-  let clientId = clientName + clientEmail + clientphone + dateTime;
+  let client = clientName + clientEmail + clientphone + dateTime;
  
 console.log(benefits)
 console.log(productId)
@@ -62,7 +65,7 @@ console.log(productId)
     }
     return hash;
   };
-  const clientid = Math.abs(clientId.hashCode());
+  const clientid = Math.abs(client.hashCode())+clientName;
   console.log(clientid);
 
   const [checked, setChecked] = useState({});
@@ -107,8 +110,7 @@ console.log(productId)
   const stampDuty = 40;
   const policyHolderCompensationFund = (0.25 / 100) * basicPremium;
   const trainingLevy = (0.2 / 100) * basicPremium;
-  let grossPremium =
-    basicPremium + stampDuty + trainingLevy + policyHolderCompensationFund;
+  let grossPremium = Math.round(parseInt(basicPremium + stampDuty + trainingLevy + policyHolderCompensationFund));
   const grossPremiums = Math.round(parseInt(grossPremium)) + totalSum;
   const quoteStatus = 'quoted'
 
@@ -116,9 +118,12 @@ console.log(productId)
 
     const data ={
       clientid,clientName,clientEmail,clientphone,registration,
-      vClass,coverPeriod,productId,optionalBenefits,underwriter,grossPremiums,
+      vClass,coverPeriod,productId,optionalBenefits,underwriter,grossPremiums,grossPremium,totalSum,
       Insured,Referrall,quoteStatus,coverAge }
-      dispatch(setUnique(clientId));
+      dispatch(setPremben(data));
+      dispatch(setGross(grossPremiums))
+      dispatch(setUnique(clientid));
+      dispatch(setUnderwriter(underwriter));
     const res = await axios.post('/api/product/insert-quote',data);
     if (res.status === 200){ router.push('/logbook')
   }else{

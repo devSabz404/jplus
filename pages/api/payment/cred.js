@@ -4,8 +4,10 @@ export default async function handler(req, res) {
     const respo = async function () {
 
         const resy = JSON.parse(JSON.stringify(req.body));
+        if(!resy) console.log('No trans');
+    
         console.log(JSON.stringify(resy))
-        if (resy) {
+       
 
             const merchId = resy.Body.stkCallback.MerchantRequestID;
             const checkoutId = resy.Body.stkCallback.CheckoutRequestID;
@@ -33,7 +35,7 @@ export default async function handler(req, res) {
                 console.log(error)
             }
 
-        }
+        
 
         return req.body
     }
