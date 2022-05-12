@@ -91,9 +91,9 @@ function lipa(tokens,phonenum,nex) {
       PartyA:phonenum,
       PartyB: 7290377,
       PhoneNumber:phonenum,
-      CallBackURL: "https://late-beds-cheer-197-232-51-15.loca.lt/api/payment/cred",
-      AccountReference: "CompanyXLTD",
-      TransactionDesc: `Payment of ${"biz"}`,
+      CallBackURL: "https://jendieplus.co.ke/api/payment/cred",
+      AccountReference: "JENDIEPLUS",
+      TransactionDesc: `Payment For Insurance Premium`,
     })
   );
   req.end((res) => {

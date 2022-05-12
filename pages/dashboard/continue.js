@@ -89,7 +89,7 @@ export default function Continue({ cookies, owners }) {
     //       if (res.status == 200) {
     //         handleLogOut();
     //       } else if (res.status === 400) {
-    //         alert("Does not exist");
+    //         alert("s not exist");
     //       }
     //     }
     //   }

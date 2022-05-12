@@ -10,7 +10,7 @@ const handler = async (req, res) => {
       values :[referall]
   });
   //const match =  user[0].agent_admin;
-  if(!user) {return res.status(400).json({msg: "Referall Does not exist"})}
+  if(!user) {return res.status(400).json({msg: "Referall s not exist"})}
      
   else if (user) {
      const results = await excuteQuery({

@@ -38,7 +38,7 @@ export default function App({newcookie}) {
     }
     fetchData();
     
-  },[] ); // Or [] if effect doesn't need props or state
+  },[] ); // Or [] if effect sn't need props or state
 
 
 

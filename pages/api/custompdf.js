@@ -1,46 +1,25 @@
 import pdf from'html-pdf';
 import nodemailer  from "nodemailer";
-import  { getCookies, getCookie, setCookies, removeCookies } from 'cookies-next'
-import excuteQuery from '../../lib/db';
-import fs from "fs"
 
+export default function handler(req, res) {
 
-export default async function handler(req, res) {
+  const {company,physicaladdress,phonenumber,logbook,emailaddress,amount,writerName} = req.body
 
-
-  const {clientIdentity,fullname,productDetail,underwriterEmail,company,physicaladdress,phonenumber,emailaddress,logbook,amount,writerName}= req.body
-
-   const registration = logbook.Registration
-   const make = logbook.Make
-   const model = logbook.Model
-   const color = logbook.Color
-   const engine = logbook.EngineNumber
-   const chasis = logbook.Chasis
-   const seats = logbook.Passengers
-   const cc = logbook.CCRating
-   const year = logbook.Manufactured
+   const registration ='KCW543Q'
+   const make = 'Mazda'
+   const model = 'Demio'
+   const color = 'WHITE'
+   const engine = 'ZJ-A69494'
+   const chasis = 'DE3FS-529014'
+   const seats = '5'
+   const cc = '1340'
+   const year = '2012'
   //const  value
 
   const companyName = company
   const address = physicaladdress
   const phone = phonenumber
   const email = emailaddress
-
-  const cover = productDetail[0].coverage
-
-  const insranceClass = cover
-
-  const urls = await excuteQuery({
-    query:"SELECT * FROM `itbl_userfile` WHERE `clientId`=?",
-    values:[clientIdentity]
-  });
-  let userUrls = JSON.parse(JSON.stringify(urls));
-
-  
-
-
-
-  
 const html = `
 
 
@@ -120,10 +99,12 @@ const html = `
 
             <div class="address">
                 <p>
-                ${companyName}<br>
-                ${address}<br>
-                Phone: ${phone}<br>
-                Email: ${email}<br>
+                Iplus Insurance Agency Limited<br>
+                PO BOX 29144 00100 GPO Equity Bank Building Third floor<br>
+                Suit 202, Ring Road Roundabout<br>
+                Phone: +254 722 301 062<br>
+                Phone : +254 733 566 464 <br>
+                Email:info@iplus.co.ke<br>
                 </p>
             </div>
             
@@ -145,41 +126,41 @@ const html = `
                       </tr>
                       <tr>
                         <td>Class of Insurance</td>
-                        <td>${insranceClass}</td>
+                        <td>${'Motor vehicle private third party only'}</td>
                         
                       </tr>
                       <tr>
                         <td>Underwriting Company</td>
-                        <td>${writerName}</td>
+                        <td>${'DIRECTLINE'}</td>
                       
                       </tr>
                       <tr>
                         <td>Name of insured</td>
-                        <td>${fullname}</td>
+                        <td>${'JAMES KARURI MARANGA'}</td>
                       
                       </tr>
 
                       <tr>
                         <td>Scheme</td>
-                        <td>${companyName}</td>
+                        <td>${'Bima Plus'}</td>
                       
                       </tr>
 
                       <tr>
                         <td>PIN No</td>
-                        <td>${logbook.KraPin}</td>
+                        <td>${'A007209040O'}</td>
                       
                       </tr>
                       
                       <tr>
                         <td>ID No</td>
-                        <td>${logbook.IdNumber}</td>
+                        <td>${'28741955'}</td>
                       
                       </tr>
                       
                       <tr>
                         <td>Period of Insurance</td>
-                        <td>${logbook.DatePolicy}</td>
+                        <td>${'2022-05-11 - 2023-05-12' }</td>
                       
                       </tr>
                       
@@ -251,7 +232,7 @@ const html = `
 
                     <tr>
                       <td><h4>Total</h4></td>
-                      <td>KES ${amount}</td>
+                      <td>KES ${'4580'}</td>
                     
                     </tr>
 
@@ -366,28 +347,6 @@ pdf.create(html, options).toFile('./risknote.pdf', (err, res) => {
     console.log(err);
   }
 });
-const logbookUrl = userUrls[0].logbook;
-const idUrl = userUrls[0].id_passport;
-const kraUrl = userUrls[0].kra;
-
-function getRid(){
- 
-setTimeout(()=>{
-  const pathToFile = "risknote.pdf"
-  fs.unlink(pathToFile, function(err) {
-    if (err) {
-      throw err
-    } else {
-      console.log("Successfully deleted the file.")
-    }
-  })
-  
-},2000)
-  
-}
-
-
-
 
 // async..await is not allowed in global scope, must use a wrapper
 async function main() {
@@ -407,25 +366,25 @@ async function main() {
     });
   
     // send mail with defined transport object
+  
     let info = await transporter.sendMail({
       from: '"Jendieplus" <underwriting@jendieplus.co.ke>', // sender address
-      to:'sabadevs20@gmail.com', // list of receivers
+      to: "sabadevs20@gmail.com", // list of receivers
       subject: "Risk Note ✔", // Subject line
-      text: "Hello world?", // plain text body
-      html: `<p>Download : <a href=${kraUrl}>KRAPIN</a></p><br>
-             <p>Download:  <a href=${idUrl}>ID</a></p><br>
-             <p>Download:  <a href=${logbookUrl}>Logbook</a></p><br>`, // html body
+      text: "Attached is the risk note", // plain text body
+      html: "<b>Risk note</b>", // html body
       attachments: [
        
-      
+     
       {   // file on disk as an attachment
-        filename:'risknote.pdf',
-        path: 'risknote.pdf'// stream this file
+        filename: 'risknote.pdf',
+        path:'../../risknote.pdf' // stream this file
+      
     },
       
       
       
-    ],
+    ]
     });
   
     console.log("Message sent: %s", info.messageId);
@@ -436,15 +395,7 @@ async function main() {
     // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
   }
   
-    
-  
-
-  main()
-  .then(()=>getRid())
-  .catch(console.error)
-
-
- 
+  main().catch(console.error);
 
 
 

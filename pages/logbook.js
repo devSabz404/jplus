@@ -2,15 +2,18 @@ import axios from "axios";
 import { useState } from "react";
 import { useSelector,useDispatch } from "react-redux";
 import Layout from "../frontie/Layout";
-import {selectUnique,setlogbook} from "../features/counterSlice"
+import {selectReferall, selectUnique,setlogbook} from "../features/counterSlice"
 import { useRouter } from "next/router";
+import { setCookies } from 'cookies-next';
 
 
 export default function Logbook(){
   const router = useRouter();
   const dispatch = useDispatch();
-
+  const referall = useSelector(selectReferall);
   const clientIdentity = useSelector(selectUnique)
+  setCookies('clientID', clientIdentity); 
+  setCookies('referall', referall); 
 
   const [Registration,setRegistration] = useState()
   const [Chasis,setChasis] = useState()
@@ -44,34 +47,84 @@ export default function Logbook(){
   
  
   
-  const [createObjectURL, setCreateObjectURL] = useState(null);
+  
 
-  const uploadLogBook= (event) => {
-    if (event.target.files && event.target.files[0]) {
-      const i = event.target.files[0];
+  
+  const uploadPhoto = async (e) => {
+    const file = e.target.files[0];
+    const filename = encodeURIComponent(file.name);
+    const res = await fetch(`/api/uploads3/first?file=${filename}`);
+    const { url, fields } = await res.json();
+    const formData = new FormData();
 
-      setLogBook(i);
-      setCreateObjectURL(URL.createObjectURL(i));
+    Object.entries({ ...fields, file }).forEach(([key, value]) => {
+      formData.append(key, value);
+    });
+    
+
+    const upload = await fetch(url, {
+      method: 'POST',
+      body: formData,
+    });
+
+    if (upload.ok) {
+      console.log('Uploaded successfully!');
+    } else {
+      console.error('Upload failed.');
     }
   };
+  const uploadPhoto1 = async (e) => {
+      const file = e.target.files[0];
+   
+      const filename = encodeURIComponent(file.name);
+    
+      const res = await fetch(`/api/uploads3/second?file=${filename}`);
+      const { url, fields } = await res.json();
+      const formData = new FormData();
+  
+      Object.entries({ ...fields, file }).forEach(([key, value]) => {
+        formData.append(key, value);
+      });
+    
+     
+  
+      const upload = await fetch(url, {
+        method: 'POST',
+        body: formData,
+      });
+  
+      if (upload.ok) {
+        console.log('Uploaded successfully!');
+      } else {
+        console.error('Upload failed.');
+      }
+    };
+    const uploadPhoto2 = async (e) => {
+      const file = e.target.files[0];
+      const filename = encodeURIComponent(file.name);
+      const res = await fetch(`/api/uploads3/third?file=${filename}`);
+      const { url, fields } = await res.json();
+      const formData = new FormData();
+  
+      Object.entries({ ...fields, file }).forEach(([key, value]) => {
+        formData.append(key, value);
+      });
+  
+      const upload = await fetch(url, {
+        method: 'POST',
+        body: formData,
+      });
+  
+      if (upload.ok) {
+        console.log('Uploaded successfully!');
+      } else {
+        console.error('Upload failed.');
+      }
+    };
 
-  const uploadID = (event) => {
-    if (event.target.files && event.target.files[0]) {
-      const i = event.target.files[0];
 
-      setPassport(i);
-      setCreateObjectURL(URL.createObjectURL(i));
-    }
-  };
-  const uploadKRA = (event) => {
-    if (event.target.files && event.target.files[0]) {
-      const i = event.target.files[0];
-
-      setUploadkra(i);
-      setCreateObjectURL(URL.createObjectURL(i));
-    }
-  };
   const logbookInfo = {
+    clientIdentity,
     Registration,Chasis,Make,Model,Type,Body,Fuel,Manufactured,CCRating,EngineNumber,Color,RegistrationDate,GrossWeight,
     Duty,PreviousOwners,Passengers,TareWeight,TaxClass,Axels,LoadCapacity,PreviousCountry,PreviousRegistration,DatePolicy,KraPin,IdNumber,Passport,
     Logbook,UploadKRA
@@ -83,52 +136,24 @@ export default function Logbook(){
        
     event.preventDefault()   
     dispatch(setlogbook(logbookInfo));
-    const body = new FormData();
-    // console.log("file", image)
-    body.append("pass", Passport);
-    body.append("logbook",Logbook);
-    body.append("kra", UploadKRA);
-    body.append("krapin",KraPin) ; 
-    body.append("datepolicy",DatePolicy) ;
-    body.append("previousreg",PreviousRegistration);
-    body.append("previouscountry",PreviousCountry);
-    body.append("loadcapacity",LoadCapacity);
-    body.append("axels",Axels);
-    body.append("taxclass",TaxClass);
-    body.append("tareweight",TareWeight);
-    body.append("passengers",Passengers);
-    body.append("previousowners",PreviousOwners);
-    body.append("duty",Duty);
-    body.append("grossweight",GrossWeight);
-    body.append("registrationDate",RegistrationDate);
-    body.append("color",Color);
-    body.append("enginenumber",EngineNumber);
-    body.append("ccrating",CCRating);
-    body.append("manufactured",Manufactured);
-    body.append("fuel",Fuel) ;
-    body.append("body",Body) ;
-    body.append("type",Type) ;
-    body.append("model",Model);
-    body.append("make",Make);
-    body.append("chasis",Chasis);
-    body.append("registration",Registration);
-    body.append("clientId",clientIdentity);
-    body.append("IdNumber",IdNumber);
+   
+    const res = await axios.post('./api/logbookinfo',logbookInfo,
+
+    )
+    if (res.status === 200){
+      console.log('Ok',res.data)
+      
+  
+     
+      router.push('/confirm')
+    }else{
+      console.log("not ok")
+    }
+    
+
   
    
 
-    const response = await fetch("/api/upload",  {
-      method: "POST",
-      body
-    });
-    if(response.status===200){
-
-      router.push({
-        pathname: '/confirm',
-       
-    });
-
-    }
 
   
 }
@@ -150,13 +175,13 @@ export default function Logbook(){
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
         Registration
       </label>
-      <input onChange={(e)=>setRegistration(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe"/>
+      <input onChange={(e)=>setRegistration(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder=""/>
     </div>
     <div className="w-full md:w-1/2 px-3">
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
         Chasis/Frame Number
       </label>
-      <input onChange={(e)=>setChasis(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe"/>
+      <input onChange={(e)=>setChasis(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder=""/>
     </div>
   </div>
 
@@ -165,13 +190,13 @@ export default function Logbook(){
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
         Make
       </label>
-      <input onChange={(e)=>setMake(e.target.value)}className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe"/>
+      <input onChange={(e)=>setMake(e.target.value)}className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder=""/>
     </div>
     <div className="w-full md:w-1/2 px-3">
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
         Model
       </label>
-      <input onChange={(e)=>setModel(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe"/>
+      <input onChange={(e)=>setModel(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder=""/>
     </div>
   </div>
 
@@ -180,13 +205,13 @@ export default function Logbook(){
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
         Type
       </label>
-      <input onChange={(e)=>setType(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe"/>
+      <input onChange={(e)=>setType(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder=""/>
     </div>
     <div className="w-full md:w-1/2 px-3">
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
         Body
       </label>
-      <input onChange={(e)=>setBody(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe"/>
+      <input onChange={(e)=>setBody(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder=""/>
     </div>
   </div>
 
@@ -195,13 +220,13 @@ export default function Logbook(){
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
         Fuel
       </label>
-      <input onChange={(e)=>setFuel(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe"/>
+      <input onChange={(e)=>setFuel(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder=""/>
     </div>
     <div className="w-full md:w-1/2 px-3">
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
         Manufactured Year
       </label>
-      <input onChange={(e)=>setManufactured(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe"/>
+      <input onChange={(e)=>setManufactured(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder=""/>
     </div>
   </div>
 
@@ -210,13 +235,13 @@ export default function Logbook(){
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
         CC Rating
       </label>
-      <input onChange={(e)=>setCCRating(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe"/>
+      <input onChange={(e)=>setCCRating(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder=""/>
     </div>
     <div className="w-full md:w-1/2 px-3">
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
         Engine Number
       </label>
-      <input onChange={(e)=>setEngineNumber(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe"/>
+      <input onChange={(e)=>setEngineNumber(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder=""/>
     </div>
   </div>
 
@@ -225,13 +250,13 @@ export default function Logbook(){
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
         Color
       </label>
-      <input onChange={(e)=>setColor(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe"/>
+      <input onChange={(e)=>setColor(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder=""/>
     </div>
     <div className="w-full md:w-1/2 px-3">
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
         Registration Date
       </label>
-      <input onChange={(e)=>setRegistrationDate(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="date" placeholder="Doe"/>
+      <input onChange={(e)=>setRegistrationDate(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="date" placeholder=""/>
     </div>
   </div>
 
@@ -240,13 +265,13 @@ export default function Logbook(){
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
         Gross Weight
       </label>
-      <input onChange={(e)=>setGrossWeight(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe"/>
+      <input onChange={(e)=>setGrossWeight(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder=""/>
     </div>
     <div className="w-full md:w-1/2 px-3">
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
         Duty
       </label>
-      <input onChange={(e)=>setDuty(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe"/>
+      <input onChange={(e)=>setDuty(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder=""/>
     </div>
   </div>
 
@@ -255,13 +280,13 @@ export default function Logbook(){
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
         Number of Previous Owners
       </label>
-      <input onChange={(e)=>setPreviousOwners(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe"/>
+      <input onChange={(e)=>setPreviousOwners(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder=""/>
     </div>
     <div className="w-full md:w-1/2 px-3">
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
         Passengers
       </label>
-      <input onChange={(e)=>setPassengers(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe"/>
+      <input onChange={(e)=>setPassengers(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder=""/>
     </div>
   </div>
 
@@ -270,13 +295,13 @@ export default function Logbook(){
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
         Tare Weight
       </label>
-      <input onChange={(e)=>setTareWeight(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="number" placeholder="Doe"/>
+      <input onChange={(e)=>setTareWeight(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="number" placeholder=""/>
     </div>
     <div className="w-full md:w-1/2 px-3">
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
         Tax Class
       </label>
-      <input onChange={(e)=>setTaxClass(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe"/>
+      <input onChange={(e)=>setTaxClass(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder=""/>
     </div>
   </div>
 
@@ -285,13 +310,13 @@ export default function Logbook(){
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
     Axels
       </label>
-      <input onChange={(e)=>setAxels(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="number" placeholder="Doe"/>
+      <input onChange={(e)=>setAxels(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="number" placeholder=""/>
     </div>
     <div className="w-full md:w-1/2 px-3">
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
         Load Capacity(KG)
       </label>
-      <input onChange={(e)=>setLoadCapacity(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="number" placeholder="Doe"/>
+      <input onChange={(e)=>setLoadCapacity(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="number" placeholder=""/>
     </div>
   </div>
   <div className="flex flex-wrap -mx-3 mb-6">
@@ -299,13 +324,13 @@ export default function Logbook(){
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
     Previous Registration Country
       </label>
-      <input onChange={(e)=>setPreviousCountry(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe"/>
+      <input onChange={(e)=>setPreviousCountry(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder=""/>
     </div>
     <div className="w-full md:w-1/2 px-3">
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
         Previous Registration
       </label>
-      <input onChange={(e)=>setPreviousRegistration(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe"/>
+      <input onChange={(e)=>setPreviousRegistration(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder=""/>
     </div>
   </div>
   
@@ -314,13 +339,13 @@ export default function Logbook(){
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
     ID/Passport
       </label>
-      <input onChange={(e)=>setIdNumber(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe"/>
+      <input onChange={(e)=>setIdNumber(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder=""/>
     </div>
     <div className="w-full md:w-1/2 px-3">
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
         KRA PIN
       </label>
-      <input  onChange={(e)=>setKra(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Doe"/>
+      <input  onChange={(e)=>setKra(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder=""/>
     </div>
   </div>
   
@@ -329,13 +354,13 @@ export default function Logbook(){
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
     Date Policy
       </label>
-      <input onChange={(e)=>setDatePolicy(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="date" placeholder="Doe"/>
+      <input onChange={(e)=>setDatePolicy(e.target.value)} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="date" placeholder=""/>
     </div>
     <div className="w-full md:w-1/2 px-3">
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
         Upload ID/Passport
       </label>
-      <input onChange={uploadID} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="file" placeholder="Doe"/>
+      <input onChange={uploadPhoto1} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="file" placeholder="" accept=".pdf"/>
     </div>
   </div>
   <div className="flex flex-wrap -mx-3 mb-6">
@@ -343,18 +368,18 @@ export default function Logbook(){
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
         Upload Logbook Copy
       </label>
-      <input onChange={uploadLogBook} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="file" placeholder="Doe"/>
+      <input onChange={uploadPhoto2} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="file" placeholder="" accept=".pdf"/>
     </div>
     <div className="w-full md:w-1/2 px-3">
       <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
         Upload KRA PIN
       </label>
-      <input onChange={uploadKRA} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="file" placeholder="Doe"/>
+      <input onChange={uploadPhoto} className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="file" placeholder="" accept=".pdf"/>
     </div>
    
   </div>
   <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-  Button
+  Submit
 </button>
  
  
