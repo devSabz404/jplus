@@ -10,6 +10,10 @@ import TextField from '@mui/material/TextField';
 import excuteQuery from '../../../lib/db';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
+import FormControl from '@mui/material/FormControl';
+import InputLabel from '@mui/material/InputLabel';
+import Select, { SelectChangeEvent } from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 
 
 
@@ -24,14 +28,20 @@ right:{
 
 }));
 
-export default function App({product}) {
+export default function App({product,optionalB}) {
   const id = product[0].product_id
+
+  const items = optionalB.map((item)=>console.log(item.benefit_name))
+  console.log(items)
   
   const classes =useStyles()
  
   const [clauses,setClauses] = useState()
   const [conditions,setConditions] = useState()
   const [benefits,setBenefits] = useState()
+  const [benefitName,setBenefitName] = useState()
+  const [optprem,setOptionalPremium] =useState()
+  const [optionalrate,setOptionalRate] =useState()
   const [maxtonn,setMaxTon] = useState()
   const [mintonn,setMinTon] = useState()
   const [pass,setPass] = useState()
@@ -42,14 +52,16 @@ export default function App({product}) {
   const [minage,setMinAge] = useState()
   const [maxinsured,setMaxInsured] = useState()
   const [minInsured,setMinInsured] = useState()
+  const [freelimit,setFreelimit] = useState()
 
   const handleSubmit =async (e) =>{
     e.preventDefault()
 
-    const credentials = {id,clauses,conditions,benefits,maxtonn,mintonn,pass,rates,excluded,minPremium,maxage,minage,maxinsured,minInsured}
+    const credentials = {freelimit,benefitName,optprem,optionalrate,id,clauses,conditions,benefits,maxtonn,mintonn,pass,rates,excluded,minPremium,maxage,minage,maxinsured,minInsured,}
     const res = await axios.post("/api/product/updateproduct", credentials);
     if(res.status===200) alert('Done')
     alert('Failed')
+  
   }
 
 
@@ -131,15 +143,24 @@ export default function App({product}) {
           variant="standard"
           onChange={(e)=>setPass(e.target.value)}
         />
+      
+      <div>
         <TextField
+          id="standard-select-currency"
+          select
           label="Optional Benefits"
-          id="standard-size-normal"
-          defaultValue={product[0].optionalname}
-          
+          value={benefitName}
+          onChange={(e)=>setBenefitName(e.target.value)}
+        
           variant="standard"
-          setBenefits
-        />
-       
+        >
+          {optionalB.map((option) => (
+            <MenuItem key={option.benefit_id} value={option.benefit_id}>
+              {option.benefit_name}
+            </MenuItem>
+          ))}
+        </TextField>
+
         <TextField
           label="Duration rates"
           id="standard-size-normal"
@@ -148,7 +169,57 @@ export default function App({product}) {
           variant="standard"
           onChange={(e)=>setRates(e.target.value)}
         />
+
+      
+       
+    
+        
+       </div>
+         
+      {
+      benefitName===56|| benefitName===60|| benefitName===62|| benefitName===64|| benefitName===63|| benefitName===61?
+        <TextField
+          label="Optional Premium"
+          id="standard-size-normal"
+          defaultValue={product[0].optionalpremium}
+          
+          variant="standard"
+          onChange={(e)=>setOptionalPremium(e.target.value)}
+        />:null}
+        {
+         benefitName===57|| benefitName===58|| benefitName===59|| benefitName===66?
+  
+          <TextField
+          label="Optional Rates"
+          id="standard-size-normal"
+          defaultValue={product[0].optionalrate}
+          
+          variant="standard"
+          onChange = {e=>setOptionalRate(e.target.value)}
+          
+          
+          
+        />:null}
+        
+      
+       
+       
       </div>
+      {benefitName===58|| benefitName===66?
+      <div>
+        <TextField
+          label="Freelimit"
+          id="standard-size-normal"
+          defaultValue={product[0].freelimit}
+         
+          variant="standard"
+         
+          onChange = {e=>setFreelimit(e.target.value)}
+        />
+      
+      </div>
+      :null
+      }
 
       <div>
         <TextField
@@ -176,6 +247,8 @@ export default function App({product}) {
           onChange={(e)=>setMaxAge(e.target.value)}
         />
       </div>
+
+      
 
       <div> 
         <TextField
@@ -230,11 +303,17 @@ export async function getStaticProps(context) {
     let products = await excuteQuery({
         query:"SELECT * FROM itbl_product WHERE product_id = ?",
         values:[id]
-    })
+    });
 
-     const product = JSON.parse(JSON.stringify(products))
+     const product = JSON.parse(JSON.stringify(products));
 
-    return { props: { product }}
+     let benefits = await excuteQuery({
+      query:"SELECT * FROM `itbl_benefits`",
+     
+  })
+  const optionalB = JSON.parse(JSON.stringify(benefits))
+
+    return { props: { product,optionalB }}
 }
 
 export async function getStaticPaths() {
@@ -247,6 +326,8 @@ export async function getStaticPaths() {
         params: { id: product.product_id.toString() },
       }))
       return { paths, fallback: false }
+
+    
 
     
    }

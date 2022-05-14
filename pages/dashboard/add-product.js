@@ -167,15 +167,7 @@ const [minPremium,setMinPremium] = useState('')
 
 const [showInput, setShowInput] = useState(false);
 const[months2,setMonths2] = useState()
-const[months3,setMonths3] = useState()
-const[months4,setMonths4] = useState()
-const[months5,setMonths5] = useState()
-const[months6,setMonths6] = useState()
-const[months7,setMonths7] = useState()
-const[months8,setMonths8] = useState()
-const[months9,setMonths9] = useState()
-const[months10,setMonths10] = useState()
-const[months11,setMonths11] = useState()
+
 
 
 const owner = props.owner
@@ -194,12 +186,15 @@ const submitHandler = async (e) => {
     minInsured,minPremium,owner,months2,}
 
   const res = await axios.post("/api/product/createproduct", credentials);
-  if (res.status === 200){
+  if (res.status === 200 && res.data.message==='Alright'){
    
     handleClickz()
     setTimeout(()=>{
       router.push('/dashboard/products')
     },1000)
+  }else{
+    alert('Duplicate product')
+    router.push('/dashboard/products')
   }
   
 
@@ -392,18 +387,9 @@ const submitHandler = async (e) => {
             <TextField id="outlined-basic" label="Annual Rates"   value={annualRates} onChange={(e) => setAnnualRates(e.target.value)} variant="outlined" />
             <TextField id="outlined-basic" label="Weekly Rates" value={weeklyRates} onChange={(e) => setWeeklyRates(e.target.value)} disabled={showInput} variant="outlined" />
             <TextField id="outlined-basic" label="Fortnite Rates"  value={fortniteRate} onChange={(e) => setFortnite(e.target.value)} disabled={showInput} variant="outlined" /><br/>
-            <TextField id="outlined-basic" label="Monthly Rates"  value={monthlyRates} onChange={(e) => setMonthlyRates(e.target.value)}disabled={showInput}  variant="outlined" />
-            {/* <TextField id="outlined-basic" label="2 months" onChange={(e) => setMonths2(e.target.value)} variant="outlined" />
-            <TextField id="outlined-basic" label="3 months" onChange={(e) => setMonths3(e.target.value)}   variant="outlined" /><br/>
-            <TextField id="outlined-basic" label="4 months" onChange={(e) => setMonths4(e.target.value)} variant="outlined" />
-            <TextField id="outlined-basic" label="5 months"  onChange={(e) => setMonths5(e.target.value)}  variant="outlined" />
-                    
-            <TextField id="outlined-basic" label="6 months"  onChange={(e) => setMonths6(e.target.value)}  variant="outlined" /><br/>
-            <TextField id="outlined-basic" label="7 months" onChange={(e) => setMonths7(e.target.value)}   variant="outlined" />
-            <TextField id="outlined-basic" label="8 months"  onChange={(e) => setMonths8(e.target.value)}  variant="outlined" />
-            <TextField id="outlined-basic" label="9 months"  onChange={(e) => setMonths9(e.target.value)}  variant="outlined" /><br/>
-            <TextField id="outlined-basic" label="10 months"  onChange={(e) => setMonths10(e.target.value)}  variant="outlined" />
-            <TextField id="outlined-basic" label="11 months"  onChange={(e) => setMonths11(e.target.value)}  variant="outlined" /> */}
+            <TextField id="outlined-basic" label="Monthly Rates"  value={monthlyRates} onChange={(e) => setMonthlyRates(e.target.value)}disabled={showInput}  variant="outlined" /><br/>
+            < Button variant="contained"  color="success" style={{marginTop:40}}>Save</Button>
+
           
           </Menu>
         </>

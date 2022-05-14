@@ -10,7 +10,7 @@ export default async (req, res) => {
             minInsured,minPremium,
             
             owner,months2} =req.body
-            const uniqueidentifier =underwriter+vehicleClass+coverage+owner;
+            const uniqueidentifier =underwriter+vehicleClass+coverage+owner+passengers+maxInsured+minInsured+minTonnage+maxTonnage;
       const result = await excuteQuery({
           query:'INSERT INTO itbl_product (vehicleclass,underwriter,coverage,clauses,conditionsandwaranties,mintonnage,maxtonnage,weeklyrates,fortnightrates,monthlyrates,months2,annualrates,excludedvehicles,minimumpremium,passengers,maxage,minage,maxsum,minsum,owner,uniqueidentifier) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)' ,
           values:[vehicleClass,underwriter
@@ -19,8 +19,13 @@ export default async (req, res) => {
              weeklyRates,fortniteRate,monthlyRates,months2,annualRates,excludedVehicles,minPremium,
              passengers,maxAge,minAge,maxInsured,minInsured,owner,uniqueidentifier]
       });
-      console.log( "ttt",result );
-      res.status(200).json({ name:'work'}) 
+      if(!result.error ){
+        res.status(200).json({ message:"Alright"})
+      }else{
+          res.status(200).json({message:"Duplicate"})
+      }
+      
+       
   } catch ( error ) {
       console.log( error );
   }

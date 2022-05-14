@@ -9,7 +9,7 @@ export default async function handler(req, res) {
 
 
   const {clientIdentity,fullname,productDetail,underwriterEmail,company,physicaladdress,phonenumber,emailaddress,logbook,amount,writerName}= req.body
-
+console.log(underwriterEmail)
    const registration = logbook.Registration
    const make = logbook.Make
    const model = logbook.Model
@@ -27,6 +27,8 @@ export default async function handler(req, res) {
   const email = emailaddress
 
   const cover = productDetail[0].coverage
+  const under = productDetail[0].underwriter
+  
 
   const insranceClass = cover
 
@@ -35,6 +37,13 @@ export default async function handler(req, res) {
     values:[clientIdentity]
   });
   let userUrls = JSON.parse(JSON.stringify(urls));
+
+  
+  const writerEmail = await excuteQuery({
+    query:"SELECT * FROM `itbl_underwriters` WHERE `Name`=?",
+    values:[under]
+  });
+  let underEmail = JSON.parse(JSON.stringify(writerEmail));
 
   
 
@@ -369,6 +378,9 @@ pdf.create(html, options).toFile('./risknote.pdf', (err, res) => {
 const logbookUrl = userUrls[0].logbook;
 const idUrl = userUrls[0].id_passport;
 const kraUrl = userUrls[0].kra;
+const theEmail = underEmail[0].EMAIL_ADDRESS
+
+console.log(theEmail)
 
 function getRid(){
  
@@ -409,7 +421,7 @@ async function main() {
     // send mail with defined transport object
     let info = await transporter.sendMail({
       from: '"Jendieplus" <underwriting@jendieplus.co.ke>', // sender address
-      to:'sabadevs20@gmail.com', // list of receivers
+      to:theEmail, // list of receivers
       subject: "Risk Note ✔", // Subject line
       text: "Hello world?", // plain text body
       html: `<p>Download : <a href=${kraUrl}>KRAPIN</a></p><br>

@@ -49,7 +49,7 @@ export const Content = ({ product, benefits }) => {
   const clientName = useSelector(selectName);
   const clientphone = useSelector(selectNumber);
   let client = clientName + clientEmail + clientphone + dateTime;
- 
+console.log(product) 
 console.log(benefits)
 console.log(productId)
   // method to hash
@@ -73,18 +73,18 @@ console.log(productId)
   const totalSum = useMemo(
     () =>
       Object.entries(checked).reduce(
-        (accumulator, [benefit_name, value]) =>
+        (accumulator, [optionalname, value]) =>
           value
             ? accumulator +
-              benefits.find(
-                (subscriber) => subscriber.benefit_name + "" === benefit_name
-              ).benefit_freevalue
+              product.find(
+                (subscriber) => subscriber.optionalname + "" === optionalname
+              ).optionalpremium
             : accumulator,
         0
       ),
     [checked]
   );
-  console.log(totalSum)
+  console.log('sum',totalSum)
 
   let basicPremium = null;
 
@@ -142,21 +142,21 @@ console.log(productId)
               <div></div>
               <div>
                 <p className="mb-2 text-lg font-bold">Optional Benefits</p>
-                {benefits.map(({ benefit_name, benefit_id }) => {
+                {product.map(({ optionalname, product_id }) => {
                   return (
-                    <div key={benefit_id}>
+                    <div key={product_id}>
                       <label>
                         <input
                           type="checkbox"
-                          defaultChecked={!!checked[benefit_name]}
+                          defaultChecked={!!checked[optionalname]}
                           onChange={() => {
                             setChecked({
                               ...checked,
-                              [benefit_name]: !checked[benefit_name],
+                              [optionalname]: !checked[optionalname],
                             });
                           }}
                         />
-                        {benefit_name}
+                        {optionalname}
                       </label>
                     </div>
                   );
