@@ -65,7 +65,7 @@ export default function Confirmation(){
   
 
     console.log(logInfo);
-    console.log(policydata);
+    const amount = policydata.grossPremiums;
 
    
 
