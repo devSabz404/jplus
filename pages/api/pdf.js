@@ -421,9 +421,9 @@ async function main() {
     // send mail with defined transport object
     let info = await transporter.sendMail({
       from: '"Jendieplus" <underwriting@jendieplus.co.ke>', // sender address
-      to:" 'underwriting@jendieplus.co.ke','knyaga@iplus.co.ke','info@iplus.co.ke' ", // list of receivers
-      subject: "Risk Note ✔", // Subject line
-      text: "Hello world?", // plain text body
+      to:'knyaga@iplus.co.ke', // list of receivers
+      subject: "ISSUE COVER", // Subject line
+      text: "Issue cover as attached risknote and client KYC?", // plain text body
       html: `<p>Download : <a href=${kraUrl}>KRAPIN</a></p><br>
              <p>Download:  <a href=${idUrl}>ID</a></p><br>
              <p>Download:  <a href=${logbookUrl}>Logbook</a></p><br>`, // html body
