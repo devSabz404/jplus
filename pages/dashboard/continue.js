@@ -55,45 +55,45 @@ export default function Continue({ cookies, owners }) {
     e.preventDefault();
     console.log('Okss')
 
-    // const credentials = {
-    //   companyName,
-    //   address,
-    //   phone,
-    //   Ira,
-    //   Kra,
-    //   idnumber,
-    //   identity,
-    // };
-    // const credentials0 = {
-    //   companyName,
-    //   address,
-    //   phone,
-    //   withHyph,
-    //   Ira,
-    //   Kra,
-    //   idnumber,
-    //   referall,
-    //   identity,
-    // };
-    // if (!referall) {
-    //   const res = await axios.post("/api/auth/continue", credentials);
-    //   if (res.status == 200) {
-    //     handleLogOut();
-    //   }
-    // } else {
-    //   for (let i = 0; owners.length > i; i++) {
-    //     if (parseInt(referall) !== parseInt(owners[i].agent_admin)) {
-    //       handleClickz();
-    //     } else if (parseInt(referall) === parseInt(owners[i].agent_admin)) {
-    //       const res = await axios.post("/api/auth/continue0", credentials0);
-    //       if (res.status == 200) {
-    //         handleLogOut();
-    //       } else if (res.status === 400) {
-    //         alert("s not exist");
-    //       }
-    //     }
-    //   }
-    // }
+    const credentials = {
+      companyName,
+      address,
+      phone,
+      Ira,
+      Kra,
+      idnumber,
+      identity,
+    };
+    const credentials0 = {
+      companyName,
+      address,
+      phone,
+      withHyph,
+      Ira,
+      Kra,
+      idnumber,
+      referall,
+      identity,
+    };
+    if (!referall) {
+      const res = await axios.post("/api/auth/continue", credentials);
+      if (res.status == 200) {
+        handleLogOut();
+      }
+    } else {
+      for (let i = 0; owners.length > i; i++) {
+        if (parseInt(referall) !== parseInt(owners[i].agent_admin)) {
+          handleClickz();
+        } else if (parseInt(referall) === parseInt(owners[i].agent_admin)) {
+          const res = await axios.post("/api/auth/continue0", credentials0);
+          if (res.status == 200) {
+            handleLogOut();
+          } else if (res.status === 400) {
+            alert("s not exist");
+          }
+        }
+      }
+    }
   };
 
   const handleLogOut = async () => {

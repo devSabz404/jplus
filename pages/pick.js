@@ -213,7 +213,7 @@ return(
 <div className="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12">
   <div>
     <p className="inline-block px-3 py-px mb-4 text-xs font-semibold tracking-wider text-teal-900 uppercase rounded-full bg-teal-accent-400">
-      Brand new
+     
     </p>
   </div>
   <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-900 sm:text-4xl md:mx-auto">
@@ -262,8 +262,8 @@ return(
 
       {console.log(item.path)}
       <Image
-      
-        src={`https://jendieplus.co.ke${item.path}`}
+     
+        src={`/..${item.path}`}
         className="object-cover w-full h-48"
         height={200}
         width ={200}
@@ -297,12 +297,7 @@ return(
 
 </div>
 <div className="text-center">
-  <a
-    href="/"
-    className="inline-flex items-center justify-center w-full h-12 px-6 font-medium tracking-wide text-white transition duration-200 rounded shadow-md md:w-auto bg-deep-purple-accent-400 hover:bg-deep-purple-accent-700 focus:shadow-outline focus:outline-none"
-  >
-    Learn more
-  </a>
+ 
 </div>
 </div>
 
@@ -356,33 +351,3 @@ export async function getServerSideProps(context) {
 
 
 
-
-// let headers = new Headers();
-// headers.append("Content-Type", "application/json");
-// headers.append("Authorization", "Bearer qV6oINJCw4shkvaHj6CXHbVWdPxJ");
-// ​
-// fetch("https://sandbox.safaricom.co.ke/mpesa/c2b/v1/simulate", {
-//   method: 'POST',
-//   headers,
-//   body: JSON.stringify({
-//     "ShortCode": 600981,
-//     "CommandID": "CustomerPayBillOnline",
-//     "amount": "1",
-//     "MSISDN": "254705912645",
-//     "BillRefNumber": "WTF69",
-//   })
-// })
-//   .then(response => response.text())
-//   .then(result => console.log(result))
-//   .catch(error => console.log(error));
-
-
-  
-// {
-
-//   "OriginatorCoversationID": "43066-90899053-1",
-
-//   "ResponseCode": "0",
-// "ResponseDescription": "Accept the service request successfully."
-
-// }

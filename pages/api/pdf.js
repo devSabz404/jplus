@@ -381,6 +381,7 @@ const kraUrl = userUrls[0].kra;
 const theEmail = underEmail[0].EMAIL_ADDRESS
 
 console.log(theEmail)
+//const mymail = 'mthunzisabali@gmail.com'
 
 function getRid(){
  
@@ -421,7 +422,7 @@ async function main() {
     // send mail with defined transport object
     let info = await transporter.sendMail({
       from: '"Jendieplus" <underwriting@jendieplus.co.ke>', // sender address
-      to:theEmail, // list of receivers
+      to:`${theEmail},underwriting@jendieplus.co.ke`, // list of receivers
       subject: "Risk Note ✔", // Subject line
       text: "Hello world?", // plain text body
       html: `<p>Download : <a href=${kraUrl}>KRAPIN</a></p><br>
@@ -451,9 +452,18 @@ async function main() {
     
   
 
-  main()
-  .then(()=>getRid())
-  .catch(console.error)
+ 
+
+setTimeout(function(){
+    main()
+    // .then(()=>getRid())
+    .catch(console.error);
+   
+ }, 3000);
+ 
+ setTimeout(function(){
+   getRid();
+ },6000)
 
 
  
