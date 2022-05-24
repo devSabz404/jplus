@@ -95,8 +95,11 @@ const useStyles = makeStyles((theme)=>({
         </div>
 
         <div className={classes.item}>
+        
           <PowerSettingsNewIcon className={classes.icon}/>
-          <Typography className={classes.text}>Clients</Typography>
+          <Link href="/dashboard/settings" passHref>
+          <Typography className={classes.text}>Settings</Typography>
+        </Link>  
 
         </div>
     </Container>

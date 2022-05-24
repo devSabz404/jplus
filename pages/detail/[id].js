@@ -1,6 +1,6 @@
 import Layout from "../../frontie/Layout";
 import excuteQuery from "../../lib/db";
-import { useDispatch,useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import {
   selectSum,
@@ -19,7 +19,7 @@ import {
 } from "../../features/counterSlice";
 import React, { useMemo, useState } from "react";
 import axios from "axios";
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
 
 export const Content = ({ product, benefits }) => {
   const router = useRouter()
@@ -33,7 +33,7 @@ export const Content = ({ product, benefits }) => {
   let dateTime = date + " " + time;
 
 
- 
+
   const productId = product[0].product_id;
   const optionalBenefits = product[0].optionalname;
   const underwriter = product[0].underwriter;
@@ -49,9 +49,9 @@ export const Content = ({ product, benefits }) => {
   const clientName = useSelector(selectName);
   const clientphone = useSelector(selectNumber);
   let client = clientName + clientEmail + clientphone + dateTime;
-console.log(product) 
-console.log(benefits)
-console.log(productId)
+  console.log(product)
+  console.log(benefits)
+  console.log(productId)
   // method to hash
   String.prototype.hashCode = function () {
     var hash = 0,
@@ -65,7 +65,7 @@ console.log(productId)
     }
     return hash;
   };
-  const clientid = Math.abs(client.hashCode())+clientName;
+  const clientid = Math.abs(client.hashCode()) + clientName;
   console.log(clientid);
 
   const [checked, setChecked] = useState({});
@@ -76,26 +76,26 @@ console.log(productId)
         (accumulator, [optionalname, value]) =>
           value
             ? accumulator +
-              product.find(
-                (subscriber) => subscriber.optionalname + "" === optionalname
-              ).optionalpremium
+            product.find(
+              (subscriber) => subscriber.optionalname + "" === optionalname
+            ).optionalpremium
             : accumulator,
         0
       ),
     [checked]
   );
-  console.log('sum',totalSum)
+  console.log('sum', totalSum)
 
   let basicPremium = null;
 
   if (product[0].coverage === "Third Party Only") {
-    if (coverPeriod === "1 week") {
+    if (coverPeriod === "1 Week") {
       basicPremium = product[0].weeklyrates;
-    } else if (coverPeriod === "2 weeks") {
+    } else if (coverPeriod === "2 Weeks") {
       basicPremium = product[0].fortnightrates;
-    } else if (coverPeriod === "1 month") {
+    } else if (coverPeriod === "1 Month") {
       basicPremium = product[0].monthlyrates;
-    } else if (coverPeriod === "1 year") {
+    } else if (coverPeriod === "1 Year") {
       basicPremium = product[0].annualrates;
     } else {
       basicPremium = product[0].annualrates;
@@ -106,7 +106,7 @@ console.log(productId)
       basicPremium = parseInt(product[0].minimumpremium);
     }
   }
-  basicPremium =parseInt(basicPremium)
+  basicPremium = parseInt(basicPremium)
   const stampDuty = 40;
   const policyHolderCompensationFund = (0.25 / 100) * basicPremium;
   const trainingLevy = (0.2 / 100) * basicPremium;
@@ -114,22 +114,24 @@ console.log(productId)
   const grossPremiums = Math.round(parseInt(grossPremium)) + totalSum;
   const quoteStatus = 'quoted'
 
-  async function handlebuy(){
+  async function handlebuy() {
 
-    const data ={
-      clientid,clientName,clientEmail,clientphone,registration,
-      vClass,coverPeriod,productId,optionalBenefits,underwriter,grossPremiums,grossPremium,totalSum,
-      Insured,Referrall,quoteStatus,coverAge }
-      dispatch(setPremben(data));
-      dispatch(setGross(grossPremiums))
-      dispatch(setUnique(clientid));
-      dispatch(setUnderwriter(underwriter));
-    const res = await axios.post('/api/product/insert-quote',data);
-    if (res.status === 200){ router.push('/logbook')
-  }else{
-    alert('Not inserted')
-  }
-    
+    const data = {
+      clientid, clientName, clientEmail, clientphone, registration,
+      vClass, coverPeriod, productId, optionalBenefits, underwriter, grossPremiums, grossPremium, totalSum,
+      Insured, Referrall, quoteStatus, coverAge
+    }
+    dispatch(setPremben(data));
+    dispatch(setGross(grossPremiums))
+    dispatch(setUnique(clientid));
+    dispatch(setUnderwriter(underwriter));
+    const res = await axios.post('/api/product/insert-quote', data);
+    if (res.status === 200) {
+      router.push('/logbook')
+    } else {
+      alert('Not inserted')
+    }
+
 
   }
 
@@ -178,15 +180,15 @@ console.log(productId)
                     Benefits
                   </p>
                   <p className="text-2xl font-bold text-deep-purple-accent-400 sm:text-xl">
-                  
+
                   </p>
                 </div>
                 <div>
                   <p className="text-lg font-semibold text-gray-800 sm:text-base">
-                   
+
                   </p>
                   <p className="text-2xl font-bold text-deep-purple-accent-400 sm:text-xl">
-                  
+
                   </p>
                 </div>
               </div>
@@ -224,7 +226,7 @@ console.log(productId)
               </button>
             </div>
           </div>
-        </div>    
+        </div>
       </Layout>
     </>
   );

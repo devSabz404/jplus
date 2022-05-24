@@ -10,10 +10,9 @@ import TextField from '@mui/material/TextField';
 import excuteQuery from '../../../lib/db';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
+import Menu from '@mui/material/Menu';
+import PopupState, { bindTrigger, bindMenu } from 'material-ui-popup-state';
 
 
 
@@ -31,36 +30,57 @@ right:{
 export default function App({product,optionalB}) {
   const id = product[0].product_id
 
-  const items = optionalB.map((item)=>console.log(item.benefit_name))
-  console.log(items)
+ 
   
   const classes =useStyles()
- 
+  const [vclass,setVclass]=useState(product[0].vehicleclass);
+  const [prodID,setID]=useState(product[0].product_id);
+  const [underwriter,setUnderwriter]=useState(product[0].underwriter);
+  const [coverage,setCoverage]=useState(product[0].coverage);
+  const [comprate,setComprate]=useState(product[0].compr_rate);
+  const [benefitName,setBenefitName] = useState(product[0].optionalname);
+  const [optprem,setOptionalPremium] =useState();
+  const [optionalrate,setOptionalRate] =useState();
+  const [freelimit,setFreelimit] = useState();
+  const [maxtonn,setMaxTon] = useState(product[0].maxtonnage);
+  const [mintonn,setMinTon] = useState(product[0].mintonnage);
+  const [weeklyrates,setWRates] = useState(product[0].weeklyrates);
+  const [fortrates,setFRates] = useState(product[0].fortnightrates);
+  const [monthlyrates,setMRates] = useState(product[0].monthlyrates);
+  const [annualrates,setARates] = useState(product[0].annualrates);
+  const [excluded,setExcluded] = useState(product[0].excludedvehicles)
+  const [minPremium,setMinPremium] = useState(product[0].minimumpremium)
+  const [pass,setPass] = useState(product[0].passengers);
+  const [maxage,setMaxAge]=useState(product[0].maxage);
+  const [minage,setMinAge]=useState(product[0].minage);
+  const [minInsured,setMinInsured] = useState(product[0].minsum)
+  const [maxInsured,setMaxInsured] = useState(product[0].maxsum)
   const [clauses,setClauses] = useState()
   const [conditions,setConditions] = useState()
   const [benefits,setBenefits] = useState()
-  const [benefitName,setBenefitName] = useState()
-  const [optprem,setOptionalPremium] =useState()
-  const [optionalrate,setOptionalRate] =useState()
-  const [maxtonn,setMaxTon] = useState()
-  const [mintonn,setMinTon] = useState()
-  const [pass,setPass] = useState()
-  const [rates,setRates] = useState()
-  const [excluded,setExcluded] = useState()
-  const [minPremium,setMinPremium] = useState()
-  const [maxage,setMaxAge] = useState()
-  const [minage,setMinAge] = useState()
-  const [maxinsured,setMaxInsured] = useState()
-  const [minInsured,setMinInsured] = useState()
-  const [freelimit,setFreelimit] = useState()
+  
+
+
+
+ 
+ 
+
 
   const handleSubmit =async (e) =>{
+    
+const update = {prodID,vclass,underwriter,coverage,comprate,benefitName,optprem,optionalrate,freelimit,maxtonn,
+  mintonn,weeklyrates,fortrates,monthlyrates,annualrates,excluded,minPremium,pass,maxage,minage,
+  minInsured,maxInsured,clauses,conditions,benefits}
     e.preventDefault()
 
-    const credentials = {freelimit,benefitName,optprem,optionalrate,id,clauses,conditions,benefits,maxtonn,mintonn,pass,rates,excluded,minPremium,maxage,minage,maxinsured,minInsured,}
-    const res = await axios.post("/api/product/updateproduct", credentials);
+    
+    // for(let i=0;i<update.length;i++){
+    //   console.log(update[i])
+    // }
+    
+    const res = await axios.post("/api/product/updateproduct", update);
     if(res.status===200) alert('Done')
-    alert('Failed')
+  
   
   }
 
@@ -94,7 +114,7 @@ export default function App({product,optionalB}) {
         <TextField
           label="Clauses"
           id="standard-size-normal"
-          defaultValue={product[0].clauses}
+     
           
           variant="standard"
           onChange={(e)=>setClauses(e.target.value)}
@@ -102,7 +122,7 @@ export default function App({product,optionalB}) {
         <TextField
           label="Conditions and Warranties"
           id="standard-size-normal"
-          defaultValue={product[0].conditionsandwaranties}
+      
           
           variant="standard"
           onChange={(e)=>setConditions(e.target.value)}
@@ -117,7 +137,7 @@ export default function App({product,optionalB}) {
         <TextField
           label="Maximum Tonnage"
           id="standard-size-normal"
-          defaultValue={product[0].maxtonnage}
+        
           
           variant="standard"
           onChange={(e)=>setMaxTon(e.target.value)}
@@ -125,7 +145,7 @@ export default function App({product,optionalB}) {
         <TextField
           label="Minimum Tonnage"
           id="standard-size-normal"
-          defaultValue={product[0].mintonnage}
+        
           
           variant="standard"
           onChange={(e)=>setMinTon(e.target.value)}
@@ -138,7 +158,7 @@ export default function App({product,optionalB}) {
       <TextField
           label="Number of passengers"
           id="standard-size-normal"
-          defaultValue={product[0].passengers}
+        
          
           variant="standard"
           onChange={(e)=>setPass(e.target.value)}
@@ -149,7 +169,7 @@ export default function App({product,optionalB}) {
           id="standard-select-currency"
           select
           label="Optional Benefits"
-          value={benefitName}
+         
           onChange={(e)=>setBenefitName(e.target.value)}
         
           variant="standard"
@@ -161,14 +181,26 @@ export default function App({product,optionalB}) {
           ))}
         </TextField>
 
-        <TextField
-          label="Duration rates"
-          id="standard-size-normal"
-          defaultValue={product[0].optionalrate}
+         <PopupState variant="popover" popupId="demo-popup-menu">
+      {(popupState) => (
+        <>
+          <Button variant="contained" {...bindTrigger(popupState)}>
+            Duration Rates
+          </Button>
+          <Menu {...bindMenu(popupState)}>
+            <TextField id="outlined-basic" label="Annual Rates"   onChange={(e) => setARates(e.target.value)} variant="outlined" />
+            <TextField id="outlined-basic" label="Weekly Rates" onChange={(e) => setWRates(e.target.value)}  variant="outlined" />
+            <TextField id="outlined-basic" label="Fortnite Rates"   onChange={(e) => setFRates(e.target.value)}  variant="outlined" /><br/>
+            <TextField id="outlined-basic" label="Monthly Rates"   onChange={(e) => setMRates(e.target.value)}  variant="outlined" /><br/>
+            < Button variant="contained"  color="success" style={{marginTop:40}}>Save</Button>
+
           
-          variant="standard"
-          onChange={(e)=>setRates(e.target.value)}
-        />
+          </Menu>
+        </>
+      )}
+    </PopupState>
+
+  
 
       
        
@@ -181,7 +213,7 @@ export default function App({product,optionalB}) {
         <TextField
           label="Optional Premium"
           id="standard-size-normal"
-          defaultValue={product[0].optionalpremium}
+         
           
           variant="standard"
           onChange={(e)=>setOptionalPremium(e.target.value)}
@@ -192,7 +224,7 @@ export default function App({product,optionalB}) {
           <TextField
           label="Optional Rates"
           id="standard-size-normal"
-          defaultValue={product[0].optionalrate}
+       
           
           variant="standard"
           onChange = {e=>setOptionalRate(e.target.value)}
@@ -210,7 +242,7 @@ export default function App({product,optionalB}) {
         <TextField
           label="Freelimit"
           id="standard-size-normal"
-          defaultValue={product[0].freelimit}
+         
          
           variant="standard"
          
@@ -225,7 +257,7 @@ export default function App({product,optionalB}) {
         <TextField
           label="Excluded vehicles"
           id="standard-size-normal"
-          defaultValue={product[0].excludedvehicles}
+       
          
           variant="standard"
           onChange={(e)=>setExcluded(e.target.value)}
@@ -233,7 +265,8 @@ export default function App({product,optionalB}) {
         <TextField
           label="Minimum Premium"
           id="standard-size-normal"
-          defaultValue={product[0].minimumpremium}
+   
+
           
           variant="standard"
           onChange={(e)=>setMinPremium(e.target.value)}
@@ -241,7 +274,7 @@ export default function App({product,optionalB}) {
         <TextField
           label="Maximum Age"
           id="standard-size-normal"
-          defaultValue={product[0].maxage}
+         
           
           variant="standard"
           onChange={(e)=>setMaxAge(e.target.value)}
@@ -254,7 +287,7 @@ export default function App({product,optionalB}) {
         <TextField
           label="Minimum Age"
           id="standard-size-normal"
-          defaultValue={product[0].minage}
+        
           
           variant="standard"
           onChange={(e)=>setMinAge(e.target.value)}
@@ -269,7 +302,7 @@ export default function App({product,optionalB}) {
         <TextField
           label="Minimum Insured"
           id="standard-size-normal"
-          defaultValue={product[0].minisum}
+        
           
           variant="standard"
           onChange={(e)=>setMinInsured(e.target.value)}

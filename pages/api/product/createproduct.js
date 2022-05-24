@@ -7,14 +7,14 @@ export default async (req, res) => {
             minTonnage,weeklyRates,monthlyRates,
             fortniteRate,passengers,annualRates,
             maxAge,minAge,maxInsured,
-            minInsured,minPremium,
+            minInsured,minPremium,comprate,
             
             owner,months2} =req.body
-            const uniqueidentifier =underwriter+vehicleClass+coverage+owner+passengers+maxInsured+minInsured+minTonnage+maxTonnage;
+            const uniqueidentifier =underwriter+vehicleClass+coverage+owner+passengers+maxInsured+minInsured+minTonnage+maxTonnage+comprate;
       const result = await excuteQuery({
-          query:'INSERT INTO itbl_product (vehicleclass,underwriter,coverage,clauses,conditionsandwaranties,mintonnage,maxtonnage,weeklyrates,fortnightrates,monthlyrates,months2,annualrates,excludedvehicles,minimumpremium,passengers,maxage,minage,maxsum,minsum,owner,uniqueidentifier) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)' ,
+          query:'INSERT INTO itbl_product (vehicleclass,underwriter,coverage,compr_rate,clauses,conditionsandwaranties,mintonnage,maxtonnage,weeklyrates,fortnightrates,monthlyrates,months2,annualrates,excludedvehicles,minimumpremium,passengers,maxage,minage,maxsum,minsum,owner,uniqueidentifier) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)' ,
           values:[vehicleClass,underwriter
-            ,coverage,clauses,waranty
+            ,coverage,comprate,clauses,waranty
             ,minTonnage,maxTonnage,
              weeklyRates,fortniteRate,monthlyRates,months2,annualRates,excludedVehicles,minPremium,
              passengers,maxAge,minAge,maxInsured,minInsured,owner,uniqueidentifier]

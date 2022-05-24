@@ -164,6 +164,7 @@ const [minAge,setMinAge] = useState('')
 const [maxInsured,setMaxInsured] = useState('')
 const [minInsured,setMinInsured] = useState('')
 const [minPremium,setMinPremium] = useState('')
+const [comprate,setCompRate]=useState()
 
 const [showInput, setShowInput] = useState(false);
 const[months2,setMonths2] = useState()
@@ -183,7 +184,7 @@ const submitHandler = async (e) => {
     minTonnage,weeklyRates,monthlyRates,
     fortniteRate,passengers,annualRates,
     maxAge,minAge,maxInsured,
-    minInsured,minPremium,owner,months2,}
+    minInsured,minPremium,owner,months2,comprate}
 
   const res = await axios.post("/api/product/createproduct", credentials);
   if (res.status === 200 && res.data.message==='Alright'){
@@ -334,6 +335,10 @@ const submitHandler = async (e) => {
      
     </Box>
 
+    {coverage==='Comprehensive'?
+    <TextField id="outlined-basic" label="Annual Rates" onChange={(e) => setCompRate(e.target.value)}  variant="filled" margin="normal"  />:
+    
+
     <Box
         style={{marginTop:100}}
         component="form"
@@ -400,6 +405,7 @@ const submitHandler = async (e) => {
 
      
     </Box>
+}
 
     <Box
         style={{marginTop:100}}

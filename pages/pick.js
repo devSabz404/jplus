@@ -39,7 +39,7 @@ const writer = []
 const obj=[]
 const prem = []
 
-
+console.log('her is cover',coverperiod)
 
 
 
@@ -49,11 +49,11 @@ for(let i=0;product.length>i;i++){
   let grossPremiums = null;
 
   if (product[i].coverage === "Third Party Only") {
-    if (coverperiod === "1 week") {
+    if (coverperiod === "1 Week") {
       basicPremium = product[i].weeklyrates;
-    } else if (coverperiod === "2 weeks") {
+    } else if (coverperiod === "2 Weeks") {
       basicPremium = product[i].fortnightrates;
-    } else if (coverperiod === "1 month") {
+    } else if (coverperiod === "1 Month") {
       basicPremium = product[i].monthlyrates;
     } else if (coverperiod === "1 Year") {
       basicPremium = product[i].annualrates;
@@ -77,11 +77,11 @@ for(let i=0;product.length>i;i++){
   //const popy = product.map(obj=> ({ ...obj, premium: basicPremium}))
   prem.push({premium:grossPremium,name:product[i].underwriter})
   }else if(product[i].coverage === "Third Party Only" && vehiclecls==="15" ){
-    if (coverperiod === "1 week") {
+    if (coverperiod === "1 Week") {
       basicPremium = product[i].weeklyrates;
-    } else if (coverperiod === "2 weeks") {
+    } else if (coverperiod === "2 Weeks") {
       basicPremium = product[i].fortnightrates;
-    } else if (coverperiod === "1 month") {
+    } else if (coverperiod === "1 Month") {
       basicPremium = product[i].monthlyrates;
     } else if (coverperiod === "1 Year") {
       basicPremium = product[i].annualrates;
