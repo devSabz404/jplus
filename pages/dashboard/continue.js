@@ -99,7 +99,7 @@ export default function Continue({ cookies, owners }) {
   const handleLogOut = async () => {
     const user = await axios.get("/api/auth/logout");
 
-    if (user.status === 200) Router.push("/login");
+    if (user.status === 200) Router.push("./login");
   };
 
   const [openq, setOpenq] = useState(false);
