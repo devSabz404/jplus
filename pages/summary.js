@@ -124,7 +124,7 @@ let amount=1
  
     if(res.status===200 ){
       console.log('ok')
-      router.push('/')
+      router.push('./')
  
     }else{
       console.log('not okay')
